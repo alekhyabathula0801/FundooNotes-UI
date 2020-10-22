@@ -1,17 +1,11 @@
 import React from "react";
 import { Button, TextField, Typography } from "@material-ui/core";
+import Logo from "../components/Logo";
 import "../css/login.css";
 function Login() {
   return (
     <div className="fundoo--login">
-      <Typography className="logo" variant="h4" gutterBottom>
-        <span className="logo__f">F</span>
-        <span className="logo__u">u</span>
-        <span className="logo__n">n</span>
-        <span className="logo__d">d</span>
-        <span className="logo__o1">o</span>
-        <span className="logo__o2">o</span>
-      </Typography>
+      <Logo></Logo>
       <Typography variant="h5" gutterBottom>
         Sign in
       </Typography>

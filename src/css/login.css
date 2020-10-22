@@ -9,30 +9,6 @@
   font-family: roboto, "Noto Sans Myanmar UI", arial, sans-serif;
 }
 
-.logo__f {
-  color: rgb(75, 164, 199);
-}
-
-.logo__u {
-  color: orangered;
-}
-
-.logo__n {
-  color: rgb(247, 247, 18);
-}
-
-.logo__d {
-  color: rgb(7, 101, 138);
-}
-
-.logo__o1 {
-  color: rgb(15, 155, 15);
-}
-
-.logo__o2 {
-  color: rgb(247, 13, 13);
-}
-
 .fundoo--login > h5 {
   color: #202124;
   font-size: 2rem;
@@ -52,10 +28,6 @@
   flex-direction: column;
   row-gap: 1.2rem;
   padding: 1rem;
-}
-
-.fundoo--login > form > input::placeholder {
-  font-weight: 600;
 }
 
 .fundoo--login > form > div {
