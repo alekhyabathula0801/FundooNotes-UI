@@ -1,4 +1,4 @@
-import HttpServices from "../api/HttpServices";
+import HttpServices from "./HttpServices";
 let baseUrl = process.env.REACT_APP_API_URL;
 
 class UserService {

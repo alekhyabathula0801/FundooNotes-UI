@@ -13,8 +13,8 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import BrandName from "../components/BrandName";
 import "../css/login.css";
-import UserService from "../services/user/UserService";
-import Validation from "../services/validation/Validation";
+import UserService from "../services/UserService";
+import Validation from "../services/Validation";
 function Login() {
   const [values, setValues] = useState({
     emailId: "",
