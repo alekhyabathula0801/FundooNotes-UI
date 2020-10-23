@@ -11,7 +11,6 @@ import {
 } from "@material-ui/core";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import BrandName from "../components/BrandName";
 import "../css/login.css";
 import UserService from "../services/UserService";
 import Validation from "../services/Validation";
@@ -57,7 +56,14 @@ function Login() {
 
   return (
     <div className="fundoo--login">
-      <BrandName></BrandName>
+      <Typography className="logo" variant="h4" gutterBottom>
+        <span className="logo__f">F</span>
+        <span className="logo__u">u</span>
+        <span className="logo__n">n</span>
+        <span className="logo__d">d</span>
+        <span className="logo__o1">o</span>
+        <span className="logo__o2">o</span>
+      </Typography>
       <Typography variant="h5" gutterBottom>
         Sign in
       </Typography>
