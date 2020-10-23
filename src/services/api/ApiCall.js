@@ -1,17 +1,9 @@
 import axios from "axios";
 
-export const ApiCall = (data, url, method) => {
-  return new Promise((resolve, reject) => {
-    axios({
-      method,
-      url,
-      data,
-    })
-      .then((response) => {
-        resolve(response);
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
-};
+class ApiCall {
+  postApiRequest = (data, url) => {
+    return axios.post(url, data);
+  };
+}
+
+export default new ApiCall();
