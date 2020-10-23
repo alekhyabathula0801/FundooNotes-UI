@@ -14,6 +14,7 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import BrandName from "../components/BrandName";
 import "../css/login.css";
 import UserService from "../services/user/UserService";
+import Validation from "../services/validation/Validation";
 function Login() {
   const [values, setValues] = useState({
     emailId: "",
@@ -30,18 +31,28 @@ function Login() {
   };
 
   function userLogin() {
-    const data = {
-      email: values.emailId,
-      password: values.password,
-    };
-    console.log(data.email + " " + data.password);
-    UserService.userLogin(data)
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (
+      Validation.validateEmail(values.emailId) &&
+      Validation.validatePassword(values.password)
+    ) {
+      const data = {
+        email: values.emailId,
+        password: values.password,
+      };
+      UserService.userLogin(data)
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      console.log(
+        Validation.validateEmail(values.emailId) +
+          " " +
+          Validation.validatePassword(values.password)
+      );
+    }
   }
 
   return (
@@ -87,7 +98,9 @@ function Login() {
           />
         </FormControl>
         <div>
-          <a href="http://fundoonotes.incubation.bridgelabz.com">Create account</a>
+          <a href="http://fundoonotes.incubation.bridgelabz.com">
+            Create account
+          </a>
           <Button
             variant="contained"
             onClick={userLogin}
