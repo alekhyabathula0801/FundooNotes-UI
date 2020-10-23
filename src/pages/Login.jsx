@@ -14,12 +14,15 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import "../css/login.css";
 import UserService from "../services/UserService";
 import Validation from "../services/Validation";
+import { useHistory } from "react-router-dom";
 function Login() {
   const [values, setValues] = useState({
     emailId: "",
     password: "",
     showPassword: false,
   });
+
+  const history = useHistory();
 
   function handleOnChange(e) {
     setValues({ ...values, [e.currentTarget.name]: e.currentTarget.value });
@@ -41,6 +44,8 @@ function Login() {
       UserService.userLogin(data)
         .then((data) => {
           console.log(data);
+          localStorage.setItem("fundoo-notes", JSON.stringify(data));
+          history.push("/profile");
         })
         .catch((err) => {
           console.log(err);
@@ -70,13 +75,14 @@ function Login() {
       <Typography variant="h6" gutterBottom>
         Use your Fundoo Account
       </Typography>
-      <div autoComplete="off">
+      <div>
         <TextField
           label="Email"
           name="emailId"
           id="outlined-basic"
           onChange={handleOnChange}
           variant="outlined"
+          autoComplete="off"
           fullWidth={true}
         />
         <FormControl fullWidth variant="outlined">
@@ -87,6 +93,7 @@ function Login() {
             id="outlined-adornment-password"
             label="Password"
             name="password"
+            autoComplete="off"
             type={values.showPassword ? "text" : "password"}
             onChange={handleOnChange}
             endAdornment={
