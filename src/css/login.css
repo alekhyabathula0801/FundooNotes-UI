@@ -22,7 +22,7 @@
   font-weight: 400;
 }
 
-.fundoo--login > form {
+.fundoo--login > div {
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -30,7 +30,7 @@
   padding: 1rem;
 }
 
-.fundoo--login > form > div {
+.fundoo--login > div > div {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -42,6 +42,6 @@ a {
   text-decoration: none;
 }
 
-.fundoo--login > form > div > button {
+.fundoo--login > div > div > button {
   background-color: #1a73e8;
 }
