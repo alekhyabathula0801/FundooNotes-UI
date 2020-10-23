@@ -7,6 +7,7 @@
   border-radius: 0.8rem;
   width: 30%;
   font-family: roboto, "Noto Sans Myanmar UI", arial, sans-serif;
+  margin: 1rem;
 }
 
 .fundoo--login > h5 {
@@ -44,4 +45,29 @@ a {
 
 .fundoo--login > div > div > button {
   background-color: #1a73e8;
+}
+
+@media only screen and (max-width: 1400px) {
+  .fundoo--login {
+    width: 40%;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .fundoo--login {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .fundoo--login {
+    width: 70%;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .fundoo--login {
+    width: 80%;
+    padding: 1rem 0.5rem;
+  }
 }
