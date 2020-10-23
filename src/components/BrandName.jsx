@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography } from "@material-ui/core";
 import "../css/logo.css";
-function Logo() {
+function BrandName() {
   return (
     <Typography className="logo" variant="h4" gutterBottom>
       <span className="logo__f">F</span>
@@ -14,4 +14,4 @@ function Logo() {
   );
 }
 
-export default Logo;
+export default BrandName;

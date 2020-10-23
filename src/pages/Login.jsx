@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import Logo from "../components/Logo";
+import BrandName from "../components/BrandName";
 import "../css/login.css";
 import UserService from "../services/user/UserService";
 function Login() {
@@ -46,7 +46,7 @@ function Login() {
 
   return (
     <div className="fundoo--login">
-      <Logo></Logo>
+      <BrandName></BrandName>
       <Typography variant="h5" gutterBottom>
         Sign in
       </Typography>
