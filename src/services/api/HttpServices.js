@@ -1,9 +1,9 @@
 import axios from "axios";
 
-class ApiCall {
+class HttpServices {
   postApiRequest = (data, url) => {
     return axios.post(url, data);
   };
 }
 
-export default new ApiCall();
+export default new HttpServices();

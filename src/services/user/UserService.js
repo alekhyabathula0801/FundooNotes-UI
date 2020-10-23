@@ -1,9 +1,9 @@
-import ApiCall from "../api/ApiCall";
+import HttpServices from "../api/HttpServices";
 let baseUrl = process.env.REACT_APP_API_URL;
 
 class UserService {
   userLogin(data) {
-    return ApiCall.postApiRequest(data, `${baseUrl}api/user/login`);
+    return HttpServices.postApiRequest(data, `${baseUrl}api/user/login`);
   }
 }
 
