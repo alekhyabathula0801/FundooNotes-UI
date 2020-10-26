@@ -10,7 +10,7 @@ import ViewAgendaIcon from "@material-ui/icons/ViewAgenda";
 import Settings from "@material-ui/icons/Settings";
 import logo from "../assets/logo.svg";
 
-function Header() {
+function Header(props) {
   const useStyles = makeStyles(() => ({
     appBar: {
       display: "inline-flex",
@@ -58,7 +58,10 @@ function Header() {
   return (
     <header className={classes.appBar}>
       <div className={classes.appBarLeft}>
-        <IconButton className={classes.menuIcon}>
+        <IconButton
+          className={classes.menuIcon}
+          onClick={() => props.setShowDrawerLabels(!props.showDrawerLabels)}
+        >
           <MenuIcon />
         </IconButton>
         <IconButton>
