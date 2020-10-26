@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "../components/AppBar";
 import SideBar from "../components/Drawer";
 import MiniCreateNote from "../components/MiniCreateNote";
-import "../css/profile.css";
+import "../css/dashboard.css";
 import { makeStyles } from "@material-ui/core/styles";
 import CreateNote from "../components/CreateNote";
 
@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function Profile() {
+function Dashboard() {
   const classes = useStyles();
   const [showDrawerLabels, setShowDrawerLabels] = useState(true);
   const [showMiniCreateNote, setShowMiniCreateNote] = useState(true);
@@ -53,4 +53,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default Dashboard;

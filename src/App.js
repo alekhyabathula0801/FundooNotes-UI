@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import Login from "./pages/Login";
-import Profile from "./pages/Profile";
+import Dashboard from "./pages/Dashboard";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/" component={Login} />
-          <Route path="/profile" component={Profile} />
+          <Route path="/dashboard" component={Dashboard} />
         </Switch>
       </Router>
     </div>

@@ -45,7 +45,7 @@ function Login() {
         .then((data) => {
           console.log(data);
           localStorage.setItem("fundoo-notes", JSON.stringify(data));
-          history.push("/profile");
+          history.push("/dashboard");
         })
         .catch((err) => {
           console.log(err);
