@@ -16,11 +16,17 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function NotesBeforeClick() {
+function NotesBeforeClick(props) {
   const classes = useStyles();
   return (
     <Paper className={classes.notesBeforeClick}>
-      <InputBase placeholder=" Take a note..." fullWidth />
+      <InputBase
+        placeholder=" Take a note..."
+        fullWidth
+        onClick={() =>
+          props.setShowMiniCreateNewNote(!props.showMiniCreateNewNote)
+        }
+      />
       <IconButton>
         <CheckBoxOutlinedIcon />
       </IconButton>

@@ -4,6 +4,7 @@ import SideBar from "../components/Drawer";
 import NotesBeforeClick from "../components/NotesBeforeClick";
 import "../css/profile.css";
 import { makeStyles } from "@material-ui/core/styles";
+import CreateNote from "../components/CreateNote";
 
 const useStyles = makeStyles(() => ({
   profileMain: {
@@ -17,6 +18,7 @@ const useStyles = makeStyles(() => ({
 function Profile() {
   const classes = useStyles();
   const [showDrawerLabels, setShowDrawerLabels] = useState(true);
+  const [showMiniCreateNewNote, setShowMiniCreateNewNote] = useState(true);
   useEffect(() => console.log("show drawer labels is " + showDrawerLabels));
   return (
     <div className="profile">
@@ -33,7 +35,17 @@ function Profile() {
               : `${classes.profileMainMaximize}`
           }
         >
-          <NotesBeforeClick></NotesBeforeClick>
+          {showMiniCreateNewNote ? (
+            <NotesBeforeClick
+              setShowMiniCreateNewNote={setShowMiniCreateNewNote}
+              showMiniCreateNewNote={showMiniCreateNewNote}
+            ></NotesBeforeClick>
+          ) : (
+            <CreateNote
+              setShowMiniCreateNewNote={setShowMiniCreateNewNote}
+              showMiniCreateNewNote={showMiniCreateNewNote}
+            ></CreateNote>
+          )}
           <div>Lists of notes</div>
         </main>
       </main>
