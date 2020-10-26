@@ -83,9 +83,7 @@ function CreateNote(props) {
         </div>
         <Button
           className={classes.createNoteCloseButton}
-          onClick={() =>
-            props.setShowMiniCreateNewNote(!props.showMiniCreateNewNote)
-          }
+          onClick={() => props.setShowMiniCreateNote(!props.showMiniCreateNote)}
         >
           Close
         </Button>

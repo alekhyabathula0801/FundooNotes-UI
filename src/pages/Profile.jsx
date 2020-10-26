@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
 function Profile() {
   const classes = useStyles();
   const [showDrawerLabels, setShowDrawerLabels] = useState(true);
-  const [showMiniCreateNewNote, setShowMiniCreateNewNote] = useState(true);
+  const [showMiniCreateNote, setShowMiniCreateNote] = useState(true);
   useEffect(() => console.log("show drawer labels is " + showDrawerLabels));
   return (
     <div className="profile">
@@ -35,15 +35,15 @@ function Profile() {
               : `${classes.profileMainMaximize}`
           }
         >
-          {showMiniCreateNewNote ? (
+          {showMiniCreateNote ? (
             <NotesBeforeClick
-              setShowMiniCreateNewNote={setShowMiniCreateNewNote}
-              showMiniCreateNewNote={showMiniCreateNewNote}
+              setShowMiniCreateNote={setShowMiniCreateNote}
+              showMiniCreateNote={showMiniCreateNote}
             ></NotesBeforeClick>
           ) : (
             <CreateNote
-              setShowMiniCreateNewNote={setShowMiniCreateNewNote}
-              showMiniCreateNewNote={showMiniCreateNewNote}
+              setShowMiniCreateNote={setShowMiniCreateNote}
+              showMiniCreateNote={showMiniCreateNote}
             ></CreateNote>
           )}
           <div>Lists of notes</div>
