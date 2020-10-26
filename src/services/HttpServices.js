@@ -1,8 +1,9 @@
 import axios from "axios";
-
 class HttpServices {
-  postApiRequest = (data, url) => {
-    return axios.post(url, data);
+  postApiRequest = (data, url, token) => {
+    return axios.post(url, data, {
+      headers: { Authorization: token },
+    });
   };
 }
 

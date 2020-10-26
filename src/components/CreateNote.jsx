@@ -9,6 +9,7 @@ import ArchiveOutlinedIcon from "@material-ui/icons/ArchiveOutlined";
 import MoreVertOutlinedIcon from "@material-ui/icons/MoreVertOutlined";
 import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutlined";
 import BookmarkOutlinedIcon from "@material-ui/icons/BookmarkOutlined";
+import FundooNoteServices from "../services/FundooNoteServices";
 
 const useStyles = makeStyles(() => ({
   createNote: {
@@ -53,13 +54,23 @@ const useStyles = makeStyles(() => ({
 
 function CreateNote(props) {
   const classes = useStyles();
-  const [isPinned, setIsPinned] = useState(false);
+  const [isArchived, setIsArchived] = useState(false);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [color] = useState("#FFFFFF");
+  const [isPined, setIsPined] = useState(false);
   return (
     <Paper className={classes.createNote}>
       <div className={classes.createNoteTittle}>
-        <InputBase placeholder=" Title" fullWidth />
-        <IconButton onClick={() => setIsPinned(!isPinned)}>
-          {!isPinned ? (
+        <InputBase
+          placeholder=" Title"
+          fullWidth
+          onChange={(e) => {
+            setTitle(e.currentTarget.value);
+          }}
+        />
+        <IconButton onClick={() => setIsPined(!isPined)}>
+          {!isPined ? (
             <BookmarkBorderOutlinedIcon className={classes.createNotePin} />
           ) : (
             <BookmarkOutlinedIcon></BookmarkOutlinedIcon>
@@ -72,6 +83,9 @@ function CreateNote(props) {
         placeholder=" Take a note..."
         fullWidth
         className={classes.createNoteDescription}
+        onChange={(e) => {
+          setDescription(e.currentTarget.value);
+        }}
       />
       <div className={classes.createNoteList}>
         <div>
@@ -87,7 +101,11 @@ function CreateNote(props) {
           <IconButton>
             <CropOriginalOutlinedIcon className={classes.createNoteListIcons} />
           </IconButton>
-          <IconButton>
+          <IconButton
+            onClick={() => {
+              setIsArchived(!isArchived);
+            }}
+          >
             <ArchiveOutlinedIcon className={classes.createNoteListIcons} />
           </IconButton>
           <IconButton>
@@ -96,7 +114,22 @@ function CreateNote(props) {
         </div>
         <Button
           className={classes.createNoteCloseButton}
-          onClick={() => props.setShowMiniCreateNote()}
+          onClick={() => {
+            let data = {};
+            data = {
+              title,
+              description,
+              isPined,
+              color,
+              isArchived,
+            };
+            if (title !== "" && description !== "") {
+              FundooNoteServices.addNote(data).then((response) => {
+                console.log(response.data);
+              });
+            }
+            props.setShowMiniCreateNote();
+          }}
         >
           Close
         </Button>
