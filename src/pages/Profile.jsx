@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "../components/AppBar";
 import SideBar from "../components/Drawer";
-import NotesBeforeClick from "../components/NotesBeforeClick";
+import MiniCreateNote from "../components/MiniCreateNote";
 import "../css/profile.css";
 import { makeStyles } from "@material-ui/core/styles";
 import CreateNote from "../components/CreateNote";
@@ -36,10 +36,10 @@ function Profile() {
           }
         >
           {showMiniCreateNote ? (
-            <NotesBeforeClick
+            <MiniCreateNote
               setShowMiniCreateNote={setShowMiniCreateNote}
               showMiniCreateNote={showMiniCreateNote}
-            ></NotesBeforeClick>
+            ></MiniCreateNote>
           ) : (
             <CreateNote
               setShowMiniCreateNote={setShowMiniCreateNote}

@@ -16,7 +16,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function NotesBeforeClick(props) {
+function MiniCreateNote(props) {
   const classes = useStyles();
   return (
     <Paper className={classes.notesBeforeClick}>
@@ -38,4 +38,4 @@ function NotesBeforeClick(props) {
   );
 }
 
-export default NotesBeforeClick;
+export default MiniCreateNote;
