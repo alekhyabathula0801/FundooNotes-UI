@@ -5,9 +5,8 @@ import InputBase from "@material-ui/core/InputBase";
 import { makeStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import ViewAgendaIcon from "@material-ui/icons/ViewAgenda";
-import Settings from "@material-ui/icons/Settings";
+import AccountCircleOutlined from "@material-ui/icons/AccountCircleOutlined";
+import ViewAgendaOutlined from "@material-ui/icons/ViewAgendaOutlined";
 import logo from "../assets/logo.svg";
 
 function Header(props) {
@@ -77,13 +76,10 @@ function Header(props) {
       </div>
       <div className={classes.appBarRight}>
         <IconButton>
-          <ViewAgendaIcon className={classes.rightIcon} />
+          <ViewAgendaOutlined className={classes.rightIcon} />
         </IconButton>
         <IconButton>
-          <Settings className={classes.rightIcon} />
-        </IconButton>
-        <IconButton>
-          <AccountCircle className={classes.rightIcon} />
+          <AccountCircleOutlined className={classes.rightIcon} />
         </IconButton>
       </div>
     </header>
