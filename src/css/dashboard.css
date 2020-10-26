@@ -4,16 +4,24 @@
 }
 
 .profile > main {
-    display: flex;
-    width: 100%;
-    height: 90.5%;
+  display: flex;
+  width: 100%;
+  height: 90.5%;
 }
 
-.profile > main > main{
-    display: flex;
-    width: 82.5%;
-    height: 100%;
-    flex-direction: column;
-    align-items: center;
-    padding: 0 2rem;
+.profile > main > main {
+  display: flex;
+  width: 82.5%;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 2rem;
+}
+
+.profile--main {
+  width: "82.5%";
+}
+
+.profile--main--maximize {
+  width: "95%";
 }

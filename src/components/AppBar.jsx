@@ -54,12 +54,15 @@ function Header(props) {
   }));
 
   const classes = useStyles();
+
   return (
     <header className={classes.appBar}>
       <div className={classes.appBarLeft}>
         <IconButton
           className={classes.menuIcon}
-          onClick={() => props.setShowDrawerLabels(!props.showDrawerLabels)}
+          onClick={() => {
+            props.setShowDrawerLabels();
+          }}
         >
           <MenuIcon />
         </IconButton>

@@ -1,56 +1,58 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Header from "../components/AppBar";
 import SideBar from "../components/Drawer";
 import MiniCreateNote from "../components/MiniCreateNote";
 import "../css/dashboard.css";
-import { makeStyles } from "@material-ui/core/styles";
 import CreateNote from "../components/CreateNote";
 
-const useStyles = makeStyles(() => ({
-  profileMain: {
-    width: "82.5%",
-  },
-  profileMainMaximize: {
-    width: "95%",
-  },
-}));
+class Dashboard extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      showDrawerLabels: true,
+      showMiniCreateNote: true,
+    };
+    this.setShowDrawerLabels = this.setShowDrawerLabels.bind(this);
+    this.setShowMiniCreateNote = this.setShowMiniCreateNote.bind(this);
+  }
 
-function Dashboard() {
-  const classes = useStyles();
-  const [showDrawerLabels, setShowDrawerLabels] = useState(true);
-  const [showMiniCreateNote, setShowMiniCreateNote] = useState(true);
-  useEffect(() => console.log("show drawer labels is " + showDrawerLabels));
-  return (
-    <div className="profile">
-      <Header
-        setShowDrawerLabels={setShowDrawerLabels}
-        showDrawerLabels={showDrawerLabels}
-      ></Header>
-      <main>
-        <SideBar showDrawerLabels={showDrawerLabels}></SideBar>
-        <main
-          className={
-            showDrawerLabels
-              ? `${classes.profileMain}`
-              : `${classes.profileMainMaximize}`
-          }
-        >
-          {showMiniCreateNote ? (
-            <MiniCreateNote
-              setShowMiniCreateNote={setShowMiniCreateNote}
-              showMiniCreateNote={showMiniCreateNote}
-            ></MiniCreateNote>
-          ) : (
-            <CreateNote
-              setShowMiniCreateNote={setShowMiniCreateNote}
-              showMiniCreateNote={showMiniCreateNote}
-            ></CreateNote>
-          )}
-          <div>Lists of notes</div>
+  setShowDrawerLabels() {
+    this.setState({ showDrawerLabels: !this.state.showDrawerLabels });
+  }
+
+  setShowMiniCreateNote() {
+    this.setState({ showMiniCreateNote: !this.state.showMiniCreateNote });
+  }
+  render() {
+    return (
+      <div className="profile">
+        <Header setShowDrawerLabels={this.setShowDrawerLabels}></Header>
+        <main>
+          <SideBar showDrawerLabels={this.state.showDrawerLabels}></SideBar>
+          <main
+            className={
+              this.state.showDrawerLabels
+                ? `profile--main`
+                : `profile--main-maximize`
+            }
+          >
+            {this.state.showMiniCreateNote ? (
+              <MiniCreateNote
+                setShowMiniCreateNote={this.setShowMiniCreateNote}
+                showMiniCreateNote={this.state.showMiniCreateNote}
+              ></MiniCreateNote>
+            ) : (
+              <CreateNote
+                setShowMiniCreateNote={this.setShowMiniCreateNote}
+                showMiniCreateNote={this.state.showMiniCreateNote}
+              ></CreateNote>
+            )}
+            <div>Lists of notes</div>
+          </main>
         </main>
-      </main>
-    </div>
-  );
+      </div>
+    );
+  }
 }
 
 export default Dashboard;

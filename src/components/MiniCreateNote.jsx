@@ -23,7 +23,7 @@ function MiniCreateNote(props) {
       <InputBase
         placeholder=" Take a note..."
         fullWidth
-        onClick={() => props.setShowMiniCreateNote(!props.showMiniCreateNote)}
+        onClick={() => props.setShowMiniCreateNote()}
       />
       <IconButton>
         <CheckBoxOutlinedIcon />
