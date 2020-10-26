@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { IconButton, Paper, InputBase, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import CropOriginalOutlinedIcon from "@material-ui/icons/CropOriginalOutlined";
@@ -7,6 +7,8 @@ import PersonAddOutlinedIcon from "@material-ui/icons/PersonAddOutlined";
 import PaletteOutlinedIcon from "@material-ui/icons/PaletteOutlined";
 import ArchiveOutlinedIcon from "@material-ui/icons/ArchiveOutlined";
 import MoreVertOutlinedIcon from "@material-ui/icons/MoreVertOutlined";
+import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutlined";
+import BookmarkOutlinedIcon from "@material-ui/icons/BookmarkOutlined";
 
 const useStyles = makeStyles(() => ({
   createNote: {
@@ -19,7 +21,9 @@ const useStyles = makeStyles(() => ({
     flexDirection: "column",
   },
   createNoteTittle: {
-    padding: "0.5rem 0.3rem",
+    padding: "0.1rem 0.3rem",
+    display: "flex",
+    justifyContent: "space-between",
   },
   createNoteDescription: {
     padding: "0.5rem 0.3rem 0.8rem 0.3rem",
@@ -42,17 +46,26 @@ const useStyles = makeStyles(() => ({
     color: "#202124",
     opacity: "0.71",
   },
+  createNotePin: {
+    color: "rgba(0,0,0,0.73)",
+  },
 }));
 
 function CreateNote(props) {
   const classes = useStyles();
+  const [isPinned, setIsPinned] = useState(false);
   return (
     <Paper className={classes.createNote}>
-      <InputBase
-        placeholder=" Title"
-        fullWidth
-        className={classes.createNoteTittle}
-      />
+      <div className={classes.createNoteTittle}>
+        <InputBase placeholder=" Title" fullWidth />
+        <IconButton onClick={() => setIsPinned(!isPinned)}>
+          {!isPinned ? (
+            <BookmarkBorderOutlinedIcon className={classes.createNotePin} />
+          ) : (
+            <BookmarkOutlinedIcon></BookmarkOutlinedIcon>
+          )}
+        </IconButton>
+      </div>
       <InputBase
         multiline={true}
         rowsMax={20}
