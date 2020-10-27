@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import CheckBoxOutlinedIcon from "@material-ui/icons/CheckBoxOutlined";
 import BrushOutlinedIcon from "@material-ui/icons/BrushOutlined";
 import CropOriginalOutlinedIcon from "@material-ui/icons/CropOriginalOutlined";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles((theme) => ({
   miniCreateNote: {
@@ -40,15 +41,21 @@ function MiniCreateNote(props) {
         fullWidth
         onClick={() => props.setShowMiniCreateNote()}
       />
-      <IconButton className={classes.miniCreateNoteIconButton}>
-        <CheckBoxOutlinedIcon />
-      </IconButton>
-      <IconButton className={classes.miniCreateNoteIconButton}>
-        <BrushOutlinedIcon />
-      </IconButton>
-      <IconButton className={classes.miniCreateNoteIconButton}>
-        <CropOriginalOutlinedIcon />
-      </IconButton>
+      <Tooltip title="New list" placement="bottom">
+        <IconButton className={classes.miniCreateNoteIconButton}>
+          <CheckBoxOutlinedIcon />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="New note with drawing" placement="bottom">
+        <IconButton className={classes.miniCreateNoteIconButton}>
+          <BrushOutlinedIcon />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="New note with image" placement="bottom">
+        <IconButton className={classes.miniCreateNoteIconButton}>
+          <CropOriginalOutlinedIcon />
+        </IconButton>
+      </Tooltip>
     </Paper>
   );
 }
