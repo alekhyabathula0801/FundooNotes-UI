@@ -3,16 +3,14 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import List from "@material-ui/core/List";
-import { useTheme, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import ArchiveOutlined from "@material-ui/icons/ArchiveOutlined";
 import DeleteOutlined from "@material-ui/icons/DeleteOutlined";
-// import LabelOutlined from "@material-ui/icons/LabelOutlined";
 import CreateOutlined from "@material-ui/icons/CreateOutlined";
 import NotificationsOutlined from "@material-ui/icons/NotificationsOutlined";
 import EmojiObjectsOutlined from "@material-ui/icons/EmojiObjectsOutlined";
 
 function SideBar(props) {
-  const theme = useTheme();
   const useStyles = makeStyles((theme) => ({
     sideBar: {
       display: "flex",
@@ -24,11 +22,14 @@ function SideBar(props) {
         width: props.showDrawerLabels ? "30%" : "10%",
       },
       [theme.breakpoints.down(600)]: {
-        width: "10%",
+        width: "12%",
         display: props.showDrawerLabels ? "flex" : "none",
       },
       [theme.breakpoints.down(480)]: {
-        width: "15%",
+        width: "18%",
+      },
+      [theme.breakpoints.down(360)]: {
+        width: "20%",
       },
     },
     sideBarLabel: {
