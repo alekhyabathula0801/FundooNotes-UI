@@ -143,6 +143,7 @@ function Note(props) {
               description,
             };
             console.log(data);
+            props.closePopUp();
           }}
         >
           Close

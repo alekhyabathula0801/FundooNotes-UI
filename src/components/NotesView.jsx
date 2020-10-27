@@ -100,7 +100,7 @@ function NotesView() {
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
       >
-        <Notes data={notesData} isPopUp={true} showCloseButton={true}></Notes>
+        <Notes data={notesData} isPopUp={true} closePopUp={handleClose} showCloseButton={true}></Notes>
       </Dialog>
     </>
   );
