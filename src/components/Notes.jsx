@@ -17,7 +17,7 @@ function Note(props) {
   const [description, setDescription] = useState(props.data.description);
   const [color] = useState(props.data.color);
   const [isPined, setIsPined] = useState(props.data.isPined);
-  const useStyles = makeStyles(() => ({
+  const useStyles = makeStyles((theme) => ({
     note: {
       display: "inline-flex",
       width: !props.isPopUp ? "14rem" : "30rem",
@@ -26,6 +26,13 @@ function Note(props) {
       margin: "0.8rem",
       boxShadow: props.isPopUp ? "none" : "1px 1px 4px grey",
       flexDirection: "column",
+      [theme.breakpoints.down(600)]: {
+        padding: "0.3rem",
+        width: !props.isPopUp ? "14rem" : "400px",
+      },
+      [theme.breakpoints.down(500)]: {
+        width: !props.isPopUp ? "14rem" : "90%",
+      },
     },
     noteTitle: {
       padding: "0.1rem 0.3rem",
@@ -40,6 +47,9 @@ function Note(props) {
       justifyContent: "space-between",
       alignItems: "center",
       paddingRight: "0.5rem",
+      [theme.breakpoints.down(350)]: {
+        flexDirection: "column",
+      },
     },
     noteCloseButton: {
       padding: "0.2rem 0.8rem",
@@ -47,6 +57,9 @@ function Note(props) {
       color: "rgba(0,0,0,0.8)",
       textTransform: "capitalize",
       display: props.showCloseButton ? "block" : "none",
+      [theme.breakpoints.down(480)]: {
+        padding: "0.2rem",
+      },
     },
     noteListIcons: {
       width: "1.2rem",
