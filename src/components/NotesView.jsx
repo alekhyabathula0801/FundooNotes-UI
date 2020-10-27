@@ -68,8 +68,6 @@ function NotesView() {
     },
   ];
   const [open, setOpen] = React.useState(false);
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [notesData, setNotesData] = React.useState([]);
   const handleClickOpen = () => {
     setOpen(true);
@@ -98,7 +96,6 @@ function NotesView() {
       </div>
 
       <Dialog
-        fullScreen={fullScreen}
         open={open}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"

@@ -20,7 +20,7 @@ function Note(props) {
   const useStyles = makeStyles(() => ({
     note: {
       display: "inline-flex",
-      width: !props.isPopUp ? "240px" : "90%",
+      width: !props.isPopUp ? "240px" : "30rem",
       background: "white",
       padding: "0.3rem 0.5rem",
       margin: "0.8rem",
