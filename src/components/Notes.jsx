@@ -139,8 +139,9 @@ function Note(props) {
           onClick={() => {
             let data = {};
             data = {
-              title,
-              description,
+              title: title,
+              description: description,
+              noteId: props.data.id,
             };
             console.log(data);
             props.closePopUp();

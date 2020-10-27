@@ -5,6 +5,12 @@ class HttpServices {
       headers: { Authorization: token },
     });
   };
+
+  getApiRequest = (url, token) => {
+    return axios.get(url, {
+      headers: { Authorization: token },
+    });
+  };
 }
 
 export default new HttpServices();

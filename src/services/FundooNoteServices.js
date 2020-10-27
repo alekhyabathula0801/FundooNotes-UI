@@ -5,6 +5,10 @@ class FundooNoteService {
   addNote(data) {
     return HttpServices.postApiRequest(data, `${baseUrl}api/notes/addNotes`,token);
   }
+
+  getAllNotes() {
+    return HttpServices.getApiRequest(`${baseUrl}api/notes/getNotesList`,token);
+  }
 }
 
 export default new FundooNoteService();
