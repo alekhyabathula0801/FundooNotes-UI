@@ -26,10 +26,28 @@ function Header(props) {
       alignItems: "center",
       width: "5%",
       color: "#5f6368",
+      ['@media(max-width:1000px)'] : {
+        width:"25%",
+      },
+      ['@media(max-width:400px)'] : {
+        width:"18%",
+      }
     },
 
     menuIcon: {
       marginLeft: "0.5rem",
+    },
+
+    appBarLogo: {
+      ['@media(max-width:700px)'] : {
+        display: "none",
+      }
+    },
+
+    appBarHeading: {
+      ['@media(max-width:450px)'] : {
+        display: "none",
+      }
     },
 
     appBarMiddle: {
@@ -41,6 +59,12 @@ function Header(props) {
       borderRadius: "0.7rem",
       border: "1px solid #f1f3f4",
       padding: "0 0.2rem",
+      // ['@media(max-width:1000px)'] : {
+      //   width:"50%",
+      // },
+      // ['@media(max-width:450px)'] : {
+      //   width:"50%",
+      // },
     },
 
     appBarRight: {
@@ -50,7 +74,23 @@ function Header(props) {
       width: "10%",
       padding: "0 0.8rem",
       columnGap: "1rem",
+      ['@media(max-width:800px)'] : {
+        columnGap: "0.2rem",
+        padding: "0 0.5rem",
+        width: "15%",
+      },
+      ['@media(max-width:400px)'] : {
+        columnGap: "0.2rem",
+        padding: "0 0.5rem",
+        width: "20%",
+      }
     },
+
+    appBarRightIconButton: {
+      ['@media(max-width:800px)'] : {
+        padding: "0.3rem",
+      }
+    }
   }));
 
   const classes = useStyles();
@@ -66,10 +106,10 @@ function Header(props) {
         >
           <MenuIcon />
         </IconButton>
-        <IconButton>
+        <IconButton className={classes.appBarLogo}>
           <img src={logo} alt="logo" width="35rem" />
         </IconButton>
-        <Typography variant="h6">Fundoo</Typography>
+        <Typography variant="h6" className={classes.appBarHeading}>Fundoo</Typography>
       </div>
       <div className={classes.appBarMiddle}>
         <IconButton>
@@ -78,10 +118,10 @@ function Header(props) {
         <InputBase placeholder="Search" fullWidth />
       </div>
       <div className={classes.appBarRight}>
-        <IconButton>
+        <IconButton className={classes.appBarRightIconButton}>
           <ViewAgendaOutlined className={classes.rightIcon} />
         </IconButton>
-        <IconButton>
+        <IconButton className={classes.appBarRightIconButton}>
           <AccountCircleOutlined className={classes.rightIcon} />
         </IconButton>
       </div>
