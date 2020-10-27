@@ -55,8 +55,12 @@ function NotesView(props) {
     setNotesData(props.notesData);
   }, [props.notesData]);
 
-  const pinedNotes = notesData.filter((notes) => notes.isPined);
-  const unPinedNotes = notesData.filter((notes) => !notes.isPined);
+  const pinedNotes = notesData.filter(
+    (notes) => notes.isPined && !notes.isDeleted && !notes.isArchived
+  );
+  const unPinedNotes = notesData.filter(
+    (notes) => !notes.isPined && !notes.isDeleted && !notes.isArchived
+  );
 
   const pinedNotesContent = (
     <div>
