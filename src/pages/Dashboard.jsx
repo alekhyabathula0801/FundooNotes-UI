@@ -4,6 +4,8 @@ import SideBar from "../components/Drawer";
 import MiniCreateNote from "../components/MiniCreateNote";
 import "../css/dashboard.css";
 import CreateNote from "../components/CreateNote";
+import NotesView from "../components/NotesView";
+import FundooNoteServices from "../services/FundooNoteServices";
 
 class Dashboard extends React.Component {
   constructor() {
@@ -11,6 +13,7 @@ class Dashboard extends React.Component {
     this.state = {
       showDrawerLabels: true,
       showMiniCreateNote: true,
+      data:[],
     };
     this.setShowDrawerLabels = this.setShowDrawerLabels.bind(this);
     this.setShowMiniCreateNote = this.setShowMiniCreateNote.bind(this);
@@ -23,6 +26,7 @@ class Dashboard extends React.Component {
   setShowMiniCreateNote() {
     this.setState({ showMiniCreateNote: !this.state.showMiniCreateNote });
   }
+
   render() {
     return (
       <div className="profile">
@@ -47,7 +51,7 @@ class Dashboard extends React.Component {
                 showMiniCreateNote={this.state.showMiniCreateNote}
               ></CreateNote>
             )}
-            <div>Lists of notes</div>
+            <NotesView></NotesView>
           </main>
         </main>
       </div>
