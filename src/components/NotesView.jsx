@@ -12,6 +12,7 @@ function NotesView(props) {
       flexWrap: "wrap",
       alignItems: "flex-start",
       position: "relative",
+      // justifyContent: "center",
     },
   }));
   const classes = useStyles();

@@ -14,7 +14,7 @@ import FundooNoteServices from "../services/FundooNoteServices";
 const useStyles = makeStyles(() => ({
   createNote: {
     display: "inline-flex",
-    width: "50%",
+    width: "40rem",
     background: "white",
     padding: "0.3rem 0.5rem",
     margin: "1.6rem 0",

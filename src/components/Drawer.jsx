@@ -17,7 +17,7 @@ function SideBar(props) {
       display: "flex",
       flexDirection: "column",
       justifyContent: "space-between",
-      width: props.showDrawerLabels ? "17.5%" : "5%",
+      width: props.showDrawerLabels ? "22%" : "5%",
     },
     sideBarLabel: {
       borderRadius: "0 25px 25px 0",
