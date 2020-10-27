@@ -11,52 +11,37 @@ import CreateOutlined from "@material-ui/icons/CreateOutlined";
 import NotificationsOutlined from "@material-ui/icons/NotificationsOutlined";
 import EmojiObjectsOutlined from "@material-ui/icons/EmojiObjectsOutlined";
 
-const useStyles = makeStyles(() => ({
-  sideBarOpen: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    width: "17.5%",
-  },
-  miniSideBar: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    width: "5%",
-  },
-  label: {
-    borderRadius: "0 25px 25px 0",
-  },
-  sideBarIcon: {
-    margin: "0.3rem 0",
-  },
-  drawerLicence: {
-    padding: "1rem 0 1rem 0.8rem",
-    textAlign: "left",
-  },
-  showSideBarLabels: {
-    display: "block",
-  },
-  hideSideBarLabels: {
-    display: "none",
-  },
-}));
-
 function SideBar(props) {
+  const useStyles = makeStyles(() => ({
+    sideBar: {
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-between",
+      width: props.showDrawerLabels ? "17.5%" : "5%",
+    },
+    sideBarLabel: {
+      borderRadius: "0 25px 25px 0",
+    },
+    sideBarIcon: {
+      margin: "0.3rem 0",
+    },
+    drawerLicence: {
+      padding: "1rem 0 1rem 0.8rem",
+      textAlign: "left",
+      display: props.showDrawerLabels ? "block" : "none",
+    },
+    sideBarLabelText: {
+      display: props.showDrawerLabels ? "block" : "none",
+    },
+  }));
   const classes = useStyles();
   return (
-    <div
-      className={
-        props.showDrawerLabels
-          ? `${classes.sideBarOpen}`
-          : `${classes.miniSideBar}`
-      }
-    >
+    <div className={classes.sideBar}>
       <div>
         <List>
           {["Notes", "Reminders", "Edit labels", "Archive", "Bin"].map(
             (text, index) => (
-              <ListItem button key={index} className={classes.label}>
+              <ListItem button key={index} className={classes.sideBarLabel}>
                 <ListItemIcon className={classes.sideBarIcon}>
                   {index === 0 ? (
                     <EmojiObjectsOutlined />
@@ -72,26 +57,14 @@ function SideBar(props) {
                 </ListItemIcon>
                 <ListItemText
                   primary={text}
-                  className={
-                    !props.showDrawerLabels
-                      ? `${classes.hideSideBarLabels}`
-                      : `${classes.showSideBarLabels}`
-                  }
+                  className={classes.sideBarLabelText}
                 />
               </ListItem>
             )
           )}
         </List>
       </div>
-      <div
-        className={
-          props.showDrawerLabels
-            ? `${classes.drawerLicence}`
-            : `${classes.hideSideBarLabels}`
-        }
-      >
-        Open-source licences
-      </div>
+      <div className={classes.drawerLicence}>Open-source licences</div>
     </div>
   );
 }
