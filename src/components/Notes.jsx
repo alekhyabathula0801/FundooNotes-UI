@@ -143,7 +143,13 @@ function Note(props) {
               description: description,
               noteId: props.data.id,
             };
-            console.log(data);
+            if (title !== "" && description !== "") {
+              FundooNoteServices.updateNote(data)
+                .then((response) => {
+                  console.log(response.data);
+                })
+                .catch((error) => console.log(error));
+            }
             props.closePopUp();
           }}
         >
