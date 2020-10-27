@@ -9,9 +9,29 @@ function NotesView(props) {
       display: "inline-flex",
       width: "100%",
       background: "white",
+      flexDirection: "column",
+    },
+    notesViewList: {
+      width: "100%",
+      display: "flex",
       flexWrap: "wrap",
       alignItems: "flex-start",
-      position: "relative",
+    },
+    notesViewPinned: {
+      textAlign: "left",
+      fontWeight: "500",
+      color: "black",
+      opacity: "0.69",
+      padding: "0.5rem 0 0.5rem 0.8rem",
+      fontSize: "1.1rem",
+    },
+    notesViewUnPinned: {
+      textAlign: "left",
+      fontWeight: "500",
+      color: "grey",
+      opacity: "0.97",
+      padding: "0.5rem 0 0.5rem 0.8rem",
+      fontSize: "1.1rem",
     },
   }));
   const classes = useStyles();
@@ -35,10 +55,16 @@ function NotesView(props) {
     setNotesData(props.notesData);
   }, [props.notesData]);
 
-  return (
-    <>
-      <div className={classes.notesView}>
-        {Object.values(notesData).map((notesData, index) => (
+  const pinedNotes = notesData.filter((notes) => notes.isPined);
+  const unPinedNotes = notesData.filter((notes) => !notes.isPined);
+
+  const pinedNotesContent = (
+    <div>
+      {pinedNotes.length > 0 ? (
+        <div className={classes.notesViewPinned}>PINNED</div>
+      ) : null}
+      <div className={classes.notesViewList}>
+        {Object.values(pinedNotes).map((notesData, index) => (
           <Notes
             key={index}
             data={notesData}
@@ -49,7 +75,35 @@ function NotesView(props) {
           ></Notes>
         ))}
       </div>
+    </div>
+  );
 
+  const unPinedNotesContent = (
+    <div>
+      {pinedNotes.length > 0 ? (
+        <div className={classes.notesViewUnPinned}>OTHERS</div>
+      ) : null}
+      <div className={classes.notesViewList}>
+        {Object.values(unPinedNotes).map((notesData, index) => (
+          <Notes
+            key={index}
+            data={notesData}
+            showCloseButton={false}
+            getNotesData={getPopUpNotesData}
+            handleClickOpen={handleClickOpen}
+            isPopUp={false}
+          ></Notes>
+        ))}
+      </div>
+    </div>
+  );
+
+  return (
+    <>
+      <div className={classes.notesView}>
+        {pinedNotesContent}
+        {unPinedNotesContent}
+      </div>
       <Dialog
         open={open}
         onClose={handleClose}
