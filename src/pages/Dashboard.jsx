@@ -17,6 +17,7 @@ class Dashboard extends React.Component {
     };
     this.setShowDrawerLabels = this.setShowDrawerLabels.bind(this);
     this.setShowMiniCreateNote = this.setShowMiniCreateNote.bind(this);
+    this.getAllNotes = this.getAllNotes.bind(this);
   }
 
   setShowDrawerLabels() {
@@ -28,6 +29,10 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
+    this.getAllNotes();
+  }
+
+  getAllNotes() {
     FundooNoteServices.getAllNotes()
       .then((response) => {
         this.setState({ notesData: response.data.data.data });
@@ -57,6 +62,7 @@ class Dashboard extends React.Component {
               <CreateNote
                 setShowMiniCreateNote={this.setShowMiniCreateNote}
                 showMiniCreateNote={this.state.showMiniCreateNote}
+                getAllNotes={this.getAllNotes}
               ></CreateNote>
             )}
             <NotesView notesData={this.state.notesData}></NotesView>

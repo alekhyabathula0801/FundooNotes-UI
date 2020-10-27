@@ -147,6 +147,7 @@ function CreateNote(props) {
             if (title !== "" && description !== "") {
               FundooNoteServices.addNote(data).then((response) => {
                 console.log(response.data);
+                props.getAllNotes();
               });
             }
             props.setShowMiniCreateNote();
