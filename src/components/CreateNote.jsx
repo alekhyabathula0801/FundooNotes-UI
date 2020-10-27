@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     alignItems: "center",
     paddingRight: "0.5rem",
-    [theme.breakpoints.down(420)]: {
+    [theme.breakpoints.down(380)]: {
       flexDirection: "column",
     },
   },
@@ -69,9 +69,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down(540)]: {
       padding: "0.3rem",
     },
-    // [theme.breakpoints.down(360)]: {
-    //   width: "95%",
-    // },
   },
 }));
 

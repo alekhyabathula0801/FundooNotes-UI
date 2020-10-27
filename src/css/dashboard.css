@@ -18,3 +18,9 @@
   padding: 0 2rem;
   overflow: auto;
 }
+
+@media only screen and (max-width:480px) {
+  .profile > main > main {
+    padding: 0 1rem;
+  }
+}

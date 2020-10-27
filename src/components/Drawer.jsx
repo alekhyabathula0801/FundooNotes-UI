@@ -19,9 +19,9 @@ function SideBar(props) {
       overflow: "auto",
       width: props.showDrawerLabels ? "22%" : "5%",
       [theme.breakpoints.down(960)]: {
-        width: props.showDrawerLabels ? "30%" : "10%",
+        width: props.showDrawerLabels ? "35%" : "10%",
       },
-      [theme.breakpoints.down(600)]: {
+      [theme.breakpoints.down(650)]: {
         width: "12%",
         display: props.showDrawerLabels ? "flex" : "none",
       },
@@ -45,13 +45,13 @@ function SideBar(props) {
       padding: "1rem 0 1rem 0.8rem",
       textAlign: "left",
       display: props.showDrawerLabels ? "block" : "none",
-      [theme.breakpoints.down(600)]: {
+      [theme.breakpoints.down(650)]: {
         display: "none",
       },
     },
     sideBarLabelText: {
       display: props.showDrawerLabels ? "block" : "none",
-      [theme.breakpoints.down(600)]: {
+      [theme.breakpoints.down(650)]: {
         display: "none",
       },
     },

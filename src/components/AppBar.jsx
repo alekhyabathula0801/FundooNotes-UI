@@ -29,9 +29,9 @@ function Header(props) {
       ['@media(max-width:1000px)'] : {
         width:"25%",
       },
-      ['@media(max-width:400px)'] : {
-        width:"18%",
-      }
+      ['@media(max-width:450px)'] : {
+        width:"15%",
+      },
     },
 
     menuIcon: {
@@ -59,12 +59,6 @@ function Header(props) {
       borderRadius: "0.7rem",
       border: "1px solid #f1f3f4",
       padding: "0 0.2rem",
-      // ['@media(max-width:1000px)'] : {
-      //   width:"50%",
-      // },
-      // ['@media(max-width:450px)'] : {
-      //   width:"50%",
-      // },
     },
 
     appBarRight: {
