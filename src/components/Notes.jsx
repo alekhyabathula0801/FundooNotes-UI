@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IconButton, Paper, InputBase, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import CropOriginalOutlinedIcon from "@material-ui/icons/CropOriginalOutlined";
@@ -79,6 +79,19 @@ function Note(props) {
     },
   }));
 
+  // useEffect(() => {
+  //   let data = {};
+  //   data = {
+  //     isPined: isPined,
+  //     noteIdList: [props.data.id],
+  //   };
+  //   FundooNoteServices.tooglePinNote(data)
+  //     .then((response) => {
+  //       console.log(response.data);
+  //     })
+  //     .catch((error) => console.log(error));
+  // }, [isPined]);
+
   const classes = useStyles();
   return (
     <Paper
@@ -102,7 +115,21 @@ function Note(props) {
             setTitle(e.currentTarget.value);
           }}
         />
-        <IconButton onClick={() => setIsPined(!isPined)}>
+        <IconButton
+          onClick={() => {
+            let data = {};
+            data = {
+              isPined: !isPined,
+              noteIdList: [props.data.id],
+            };
+            FundooNoteServices.tooglePinNote(data)
+              .then((response) => {
+                console.log(response.data);
+              })
+              .catch((error) => console.log(error));
+            setIsPined(!isPined);
+          }}
+        >
           {!isPined ? (
             <BookmarkBorderOutlinedIcon className={classes.notePin} />
           ) : (
