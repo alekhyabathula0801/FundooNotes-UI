@@ -8,6 +8,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import AccountCircleOutlined from "@material-ui/icons/AccountCircleOutlined";
 import ViewAgendaOutlined from "@material-ui/icons/ViewAgendaOutlined";
 import logo from "../assets/logo.svg";
+import Tooltip from "@material-ui/core/Tooltip";
 
 function Header(props) {
   const useStyles = makeStyles(() => ({
@@ -26,11 +27,11 @@ function Header(props) {
       alignItems: "center",
       width: "5%",
       color: "#5f6368",
-      ['@media(max-width:1000px)'] : {
-        width:"25%",
+      ["@media(max-width:1000px)"]: {
+        width: "25%",
       },
-      ['@media(max-width:450px)'] : {
-        width:"15%",
+      ["@media(max-width:450px)"]: {
+        width: "15%",
       },
     },
 
@@ -39,15 +40,15 @@ function Header(props) {
     },
 
     appBarLogo: {
-      ['@media(max-width:700px)'] : {
+      ["@media(max-width:700px)"]: {
         display: "none",
-      }
+      },
     },
 
     appBarHeading: {
-      ['@media(max-width:450px)'] : {
+      ["@media(max-width:450px)"]: {
         display: "none",
-      }
+      },
     },
 
     appBarMiddle: {
@@ -68,23 +69,23 @@ function Header(props) {
       width: "10%",
       padding: "0 0.8rem",
       columnGap: "1rem",
-      ['@media(max-width:800px)'] : {
+      ["@media(max-width:800px)"]: {
         columnGap: "0.2rem",
         padding: "0 0.5rem",
         width: "15%",
       },
-      ['@media(max-width:400px)'] : {
+      ["@media(max-width:400px)"]: {
         columnGap: "0.2rem",
         padding: "0 0.5rem",
         width: "20%",
-      }
+      },
     },
 
     appBarRightIconButton: {
-      ['@media(max-width:800px)'] : {
+      ["@media(max-width:800px)"]: {
         padding: "0.3rem",
-      }
-    }
+      },
+    },
   }));
 
   const classes = useStyles();
@@ -92,29 +93,37 @@ function Header(props) {
   return (
     <header className={classes.appBar}>
       <div className={classes.appBarLeft}>
-        <IconButton
-          className={classes.menuIcon}
-          onClick={() => {
-            props.setShowDrawerLabels();
-          }}
-        >
-          <MenuIcon />
-        </IconButton>
+        <Tooltip title="Main Menu" placement="bottom">
+          <IconButton
+            className={classes.menuIcon}
+            onClick={() => {
+              props.setShowDrawerLabels();
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
+        </Tooltip>
         <IconButton className={classes.appBarLogo}>
           <img src={logo} alt="logo" width="35rem" />
         </IconButton>
-        <Typography variant="h6" className={classes.appBarHeading}>Fundoo</Typography>
+        <Typography variant="h6" className={classes.appBarHeading}>
+          Fundoo
+        </Typography>
       </div>
       <div className={classes.appBarMiddle}>
-        <IconButton>
-          <SearchIcon />
-        </IconButton>
+        <Tooltip title="Search" placement="bottom">
+          <IconButton>
+            <SearchIcon />
+          </IconButton>
+        </Tooltip>
         <InputBase placeholder="Search" fullWidth />
       </div>
       <div className={classes.appBarRight}>
-        <IconButton className={classes.appBarRightIconButton}>
-          <ViewAgendaOutlined className={classes.rightIcon} />
-        </IconButton>
+        <Tooltip title="List View" placement="bottom">
+          <IconButton className={classes.appBarRightIconButton}>
+            <ViewAgendaOutlined className={classes.rightIcon} />
+          </IconButton>
+        </Tooltip>
         <IconButton className={classes.appBarRightIconButton}>
           <AccountCircleOutlined className={classes.rightIcon} />
         </IconButton>
