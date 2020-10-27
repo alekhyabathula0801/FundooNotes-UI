@@ -31,7 +31,7 @@ function Note(props) {
         width: !props.isPopUp ? "14rem" : "400px",
       },
       [theme.breakpoints.down(500)]: {
-        width: !props.isPopUp ? "14rem" : "90%",
+        width: !props.isPopUp ? "20rem" : "90%",
       },
     },
     noteTitle: {

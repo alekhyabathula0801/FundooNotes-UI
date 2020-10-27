@@ -4,7 +4,7 @@ import Notes from "./Notes";
 import Dialog from "@material-ui/core/Dialog";
 
 function NotesView(props) {
-  const useStyles = makeStyles(() => ({
+  const useStyles = makeStyles((theme) => ({
     notesView: {
       display: "inline-flex",
       width: "100%",
