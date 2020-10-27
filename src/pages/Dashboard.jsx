@@ -47,7 +47,7 @@ class Dashboard extends React.Component {
         <Header setShowDrawerLabels={this.setShowDrawerLabels}></Header>
         <main>
           <SideBar showDrawerLabels={this.state.showDrawerLabels}></SideBar>
-          <main width={this.state.showDrawerLabels ? "82.5%" : "95%"}>
+          <main>
             {this.state.showMiniCreateNote ? (
               <MiniCreateNote
                 setShowMiniCreateNote={this.setShowMiniCreateNote}

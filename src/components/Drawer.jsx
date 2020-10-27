@@ -3,7 +3,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import List from "@material-ui/core/List";
-import { makeStyles } from "@material-ui/core/styles";
+import { useTheme, makeStyles } from "@material-ui/core/styles";
 import ArchiveOutlined from "@material-ui/icons/ArchiveOutlined";
 import DeleteOutlined from "@material-ui/icons/DeleteOutlined";
 // import LabelOutlined from "@material-ui/icons/LabelOutlined";
@@ -12,26 +12,47 @@ import NotificationsOutlined from "@material-ui/icons/NotificationsOutlined";
 import EmojiObjectsOutlined from "@material-ui/icons/EmojiObjectsOutlined";
 
 function SideBar(props) {
-  const useStyles = makeStyles(() => ({
+  const theme = useTheme();
+  const useStyles = makeStyles((theme) => ({
     sideBar: {
       display: "flex",
       flexDirection: "column",
       justifyContent: "space-between",
+      overflow: "auto",
       width: props.showDrawerLabels ? "22%" : "5%",
+      [theme.breakpoints.down(960)]: {
+        width: props.showDrawerLabels ? "30%" : "10%",
+      },
+      [theme.breakpoints.down(600)]: {
+        width: "10%",
+        display: props.showDrawerLabels ? "flex" : "none",
+      },
+      [theme.breakpoints.down(480)]: {
+        width: "15%",
+      },
     },
     sideBarLabel: {
       borderRadius: "0 25px 25px 0",
     },
     sideBarIcon: {
       margin: "0.3rem 0",
+      [theme.breakpoints.down(960)]: {
+        minWidth: "30px",
+      },
     },
     drawerLicence: {
       padding: "1rem 0 1rem 0.8rem",
       textAlign: "left",
       display: props.showDrawerLabels ? "block" : "none",
+      [theme.breakpoints.down(600)]: {
+        display: "none",
+      },
     },
     sideBarLabelText: {
       display: props.showDrawerLabels ? "block" : "none",
+      [theme.breakpoints.down(600)]: {
+        display: "none",
+      },
     },
   }));
   const classes = useStyles();
