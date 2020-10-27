@@ -11,7 +11,7 @@ import logo from "../assets/logo.svg";
 import Tooltip from "@material-ui/core/Tooltip";
 
 function Header(props) {
-  const useStyles = makeStyles(() => ({
+  const useStyles = makeStyles((theme) => ({
     appBar: {
       display: "inline-flex",
       justifyContent: "space-between",
@@ -27,10 +27,10 @@ function Header(props) {
       alignItems: "center",
       width: "5%",
       color: "#5f6368",
-      ["@media(max-width:1000px)"]: {
+      [theme.breakpoints.down(1000)]: {
         width: "25%",
       },
-      ["@media(max-width:450px)"]: {
+      [theme.breakpoints.down(450)]: {
         width: "15%",
       },
     },
@@ -40,13 +40,13 @@ function Header(props) {
     },
 
     appBarLogo: {
-      ["@media(max-width:700px)"]: {
+      [theme.breakpoints.down(700)]: {
         display: "none",
       },
     },
 
     appBarHeading: {
-      ["@media(max-width:450px)"]: {
+      [theme.breakpoints.down(450)]: {
         display: "none",
       },
     },
@@ -69,12 +69,12 @@ function Header(props) {
       width: "10%",
       padding: "0 0.8rem",
       columnGap: "1rem",
-      ["@media(max-width:800px)"]: {
+      [theme.breakpoints.down(800)]: {
         columnGap: "0.2rem",
         padding: "0 0.5rem",
         width: "15%",
       },
-      ["@media(max-width:400px)"]: {
+      [theme.breakpoints.down(800)]: {
         columnGap: "0.2rem",
         padding: "0 0.5rem",
         width: "20%",
@@ -82,7 +82,7 @@ function Header(props) {
     },
 
     appBarRightIconButton: {
-      ["@media(max-width:800px)"]: {
+      [theme.breakpoints.down(800)]: {
         padding: "0.3rem",
       },
     },
