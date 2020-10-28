@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { IconButton, Paper, InputBase, Button } from "@material-ui/core";
+import { Paper, InputBase, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import ArchiveOutlinedIcon from "@material-ui/icons/ArchiveOutlined";
 import FundooNoteServices from "../services/FundooNoteServices";
 import ColorPalletIcon from "./ColorPalletIcon";
 import AddPersonIcon from "./AddPersonIcon";
@@ -9,6 +8,7 @@ import RemindMe from "./RemindMe";
 import AddImageIcon from "./AddImageIcon";
 import MoreIcon from "./MoreIcon";
 import PinNote from "./PinNoteIcon";
+import ArchiveNote from "./ArchiveNoteIcon";
 
 const useStyles = makeStyles((theme) => ({
   createNote: {
@@ -81,6 +81,9 @@ function CreateNote(props) {
   let tooglePinNote = () => {
     setIsPined(!isPined);
   };
+  let toogleArchiveNote = () => {
+    setIsArchived(!isArchived);
+  };
   return (
     <Paper className={classes.createNote}>
       <div className={classes.createNoteTittle}>
@@ -125,14 +128,11 @@ function CreateNote(props) {
             buttonClassName={classes.createNoteListIconButton}
             iconClassName={classes.createNoteListIcons}
           />
-          <IconButton
-            className={classes.createNoteListIconButton}
-            onClick={() => {
-              setIsArchived(!isArchived);
-            }}
-          >
-            <ArchiveOutlinedIcon className={classes.createNoteListIcons} />
-          </IconButton>
+          <ArchiveNote
+            buttonClassName={classes.createNoteListIconButton}
+            iconClassName={classes.createNoteListIcons}
+            toogleArchiveNote={toogleArchiveNote}
+          />
           <MoreIcon
             buttonClassName={classes.createNoteListIconButton}
             iconClassName={classes.createNoteListIcons}

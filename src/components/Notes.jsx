@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { IconButton, Paper, InputBase, Button } from "@material-ui/core";
+import { Paper, InputBase, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import ArchiveOutlinedIcon from "@material-ui/icons/ArchiveOutlined";
 import FundooNoteServices from "../services/FundooNoteServices";
 import ColorPalletIcon from "./ColorPalletIcon";
 import AddPersonIcon from "./AddPersonIcon";
@@ -9,6 +8,7 @@ import RemindMe from "./RemindMe";
 import AddImageIcon from "./AddImageIcon";
 import MoreIcon from "./MoreIcon";
 import PinNote from "./PinNoteIcon";
+import ArchiveNote from "./ArchiveNoteIcon";
 
 function Note(props) {
   const [isArchived, setIsArchived] = useState(props.data.isArchived);
@@ -56,6 +56,20 @@ function Note(props) {
     FundooNoteServices.tooglePinNote(data)
       .then((response) => {
         console.log(response.data);
+        props.getAllNotes();
+      })
+      .catch((error) => console.log(error));
+  };
+
+  let toogleArchiveNote = () => {
+    let data = {};
+    data = {
+      isArchived: !isArchived,
+      noteIdList: [noteId],
+    };
+    FundooNoteServices.toogleArchiveNote(data)
+      .then((response) => {
+        console.log("Archive response data " + response.data);
         props.getAllNotes();
       })
       .catch((error) => console.log(error));
@@ -187,24 +201,11 @@ function Note(props) {
             buttonClassName={classes.notesListIconButtons}
             iconClassName={classes.noteListIcons}
           />
-          <IconButton
-            className={classes.notesListIconButtons}
-            onClick={() => {
-              let data = {};
-              data = {
-                isArchived: !isArchived,
-                noteIdList: [noteId],
-              };
-              FundooNoteServices.toogleArchiveNote(data)
-                .then((response) => {
-                  console.log("Archive response data " + response.data);
-                  props.getAllNotes();
-                })
-                .catch((error) => console.log(error));
-            }}
-          >
-            <ArchiveOutlinedIcon className={classes.noteListIcons} />
-          </IconButton>
+          <ArchiveNote
+            buttonClassName={classes.notesListIconButtons}
+            iconClassName={classes.noteListIcons}
+            toogleArchiveNote={toogleArchiveNote}
+          />
           <MoreIcon
             buttonClassName={classes.notesListIconButtons}
             iconClassName={classes.noteListIcons}
