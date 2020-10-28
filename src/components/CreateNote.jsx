@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import { IconButton, Paper, InputBase, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import ArchiveOutlinedIcon from "@material-ui/icons/ArchiveOutlined";
-import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutlined";
-import BookmarkOutlinedIcon from "@material-ui/icons/BookmarkOutlined";
 import FundooNoteServices from "../services/FundooNoteServices";
 import ColorPalletIcon from "./ColorPalletIcon";
 import AddPersonIcon from "./AddPersonIcon";
 import RemindMe from "./RemindMe";
 import AddImageIcon from "./AddImageIcon";
 import MoreIcon from "./MoreIcon";
+import PinNote from "./PinNoteIcon";
 
 const useStyles = makeStyles((theme) => ({
   createNote: {
@@ -79,6 +78,9 @@ function CreateNote(props) {
   const [description, setDescription] = useState("");
   const [color] = useState("#FFFFFF");
   const [isPined, setIsPined] = useState(false);
+  let tooglePinNote = () => {
+    setIsPined(!isPined);
+  };
   return (
     <Paper className={classes.createNote}>
       <div className={classes.createNoteTittle}>
@@ -89,13 +91,11 @@ function CreateNote(props) {
             setTitle(e.currentTarget.value);
           }}
         />
-        <IconButton onClick={() => setIsPined(!isPined)}>
-          {!isPined ? (
-            <BookmarkBorderOutlinedIcon className={classes.createNotePin} />
-          ) : (
-            <BookmarkOutlinedIcon></BookmarkOutlinedIcon>
-          )}
-        </IconButton>
+        <PinNote
+          isPined={isPined}
+          tooglePinNote={tooglePinNote}
+          pinClassName={classes.createNotePin}
+        />
       </div>
       <InputBase
         multiline={true}

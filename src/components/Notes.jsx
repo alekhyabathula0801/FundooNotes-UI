@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import { IconButton, Paper, InputBase, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import ArchiveOutlinedIcon from "@material-ui/icons/ArchiveOutlined";
-import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutlined";
-import BookmarkOutlinedIcon from "@material-ui/icons/BookmarkOutlined";
 import FundooNoteServices from "../services/FundooNoteServices";
 import ColorPalletIcon from "./ColorPalletIcon";
 import AddPersonIcon from "./AddPersonIcon";
 import RemindMe from "./RemindMe";
 import AddImageIcon from "./AddImageIcon";
 import MoreIcon from "./MoreIcon";
+import PinNote from "./PinNoteIcon";
 
 function Note(props) {
   const [isArchived, setIsArchived] = useState(props.data.isArchived);
@@ -42,11 +41,25 @@ function Note(props) {
 
   useEffect(() => {
     setNoteId(props.data.id);
-  }, [props.data.noteId]);
+  }, [props.data.id]);
 
   useEffect(() => {
     setNoteData(props.data);
   }, [props.data]);
+
+  let tooglePinNote = () => {
+    let data = {};
+    data = {
+      isPined: !isPined,
+      noteIdList: [noteId],
+    };
+    FundooNoteServices.tooglePinNote(data)
+      .then((response) => {
+        console.log(response.data);
+        props.getAllNotes();
+      })
+      .catch((error) => console.log(error));
+  };
 
   const useStyles = makeStyles((theme) => ({
     note: {
@@ -131,27 +144,11 @@ function Note(props) {
               : null
           }
         />
-        <IconButton
-          onClick={() => {
-            let data = {};
-            data = {
-              isPined: !isPined,
-              noteIdList: [noteId],
-            };
-            FundooNoteServices.tooglePinNote(data)
-              .then((response) => {
-                console.log(response.data);
-                props.getAllNotes();
-              })
-              .catch((error) => console.log(error));
-          }}
-        >
-          {!noteData.isPined ? (
-            <BookmarkBorderOutlinedIcon className={classes.notePin} />
-          ) : (
-            <BookmarkOutlinedIcon></BookmarkOutlinedIcon>
-          )}
-        </IconButton>
+        <PinNote
+          isPined={isPined}
+          tooglePinNote={tooglePinNote}
+          pinClassName={classes.notePin}
+        />
       </div>
       <InputBase
         multiline={true}
