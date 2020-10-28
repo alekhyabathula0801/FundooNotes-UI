@@ -58,6 +58,7 @@ function NotesView(props) {
   const pinedNotes = notesData.filter(
     (notes) => notes.isPined && !notes.isDeleted && !notes.isArchived
   );
+
   const unPinedNotes = notesData.filter(
     (notes) => !notes.isPined && !notes.isDeleted && !notes.isArchived
   );
@@ -70,12 +71,13 @@ function NotesView(props) {
       <div className={classes.notesViewList}>
         {Object.values(pinedNotes).map((notesData, index) => (
           <Notes
-            key={index}
+            key={notesData.id}
             data={notesData}
             showCloseButton={false}
             getNotesData={getPopUpNotesData}
             handleClickOpen={handleClickOpen}
             isPopUp={false}
+            getAllNotes={props.getAllNotes}
           ></Notes>
         ))}
       </div>
@@ -90,12 +92,13 @@ function NotesView(props) {
       <div className={classes.notesViewList}>
         {Object.values(unPinedNotes).map((notesData, index) => (
           <Notes
-            key={index}
+            key={notesData.id}
             data={notesData}
             showCloseButton={false}
             getNotesData={getPopUpNotesData}
             handleClickOpen={handleClickOpen}
             isPopUp={false}
+            getAllNotes={props.getAllNotes}
           ></Notes>
         ))}
       </div>
@@ -118,6 +121,7 @@ function NotesView(props) {
           isPopUp={true}
           closePopUp={handleClose}
           showCloseButton={true}
+          getAllNotes={props.getAllNotes}
         ></Notes>
       </Dialog>
     </>

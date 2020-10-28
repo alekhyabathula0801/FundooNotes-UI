@@ -15,8 +15,39 @@ function Note(props) {
   const [isArchived, setIsArchived] = useState(props.data.isArchived);
   const [title, setTitle] = useState(props.data.title);
   const [description, setDescription] = useState(props.data.description);
-  const [color] = useState(props.data.color);
+  const [color, setColor] = useState(props.data.color);
   const [isPined, setIsPined] = useState(props.data.isPined);
+  const [noteId, setNoteId] = useState(props.data.id);
+  const [noteData, setNoteData] = useState(props.data);
+
+  useEffect(() => {
+    setIsArchived(props.data.isArchived);
+  }, [props.data.isArchived]);
+
+  useEffect(() => {
+    setTitle(props.data.title);
+  }, [props.data.title]);
+
+  useEffect(() => {
+    setDescription(props.data.description);
+  }, [props.data.description]);
+
+  useEffect(() => {
+    setColor(props.data.color);
+  }, [props.data.color]);
+
+  useEffect(() => {
+    setIsPined(props.data.isPined);
+  }, [props.data.isPined]);
+
+  useEffect(() => {
+    setNoteId(props.data.id);
+  }, [props.data.noteId]);
+
+  useEffect(() => {
+    setNoteData(props.data);
+  }, [props.data]);
+
   const useStyles = makeStyles((theme) => ({
     note: {
       display: "inline-flex",
@@ -79,26 +110,13 @@ function Note(props) {
     },
   }));
 
-  // useEffect(() => {
-  //   let data = {};
-  //   data = {
-  //     isPined: isPined,
-  //     noteIdList: [props.data.id],
-  //   };
-  //   FundooNoteServices.tooglePinNote(data)
-  //     .then((response) => {
-  //       console.log(response.data);
-  //     })
-  //     .catch((error) => console.log(error));
-  // }, [isPined]);
-
   const classes = useStyles();
   return (
     <Paper className={classes.note}>
       <div className={classes.noteTitle}>
         <InputBase
           className={classes.notesTitleInput}
-          placeholder=" Title"
+          placeholder="Title"
           fullWidth
           value={title}
           onChange={(e) => {
@@ -118,17 +136,17 @@ function Note(props) {
             let data = {};
             data = {
               isPined: !isPined,
-              noteIdList: [props.data.id],
+              noteIdList: [noteId],
             };
             FundooNoteServices.tooglePinNote(data)
               .then((response) => {
                 console.log(response.data);
+                props.getAllNotes();
               })
               .catch((error) => console.log(error));
-            setIsPined(!isPined);
           }}
         >
-          {!isPined ? (
+          {!noteData.isPined ? (
             <BookmarkBorderOutlinedIcon className={classes.notePin} />
           ) : (
             <BookmarkOutlinedIcon></BookmarkOutlinedIcon>
@@ -174,14 +192,14 @@ function Note(props) {
               let data = {};
               data = {
                 isArchived: !isArchived,
-                noteIdList: [props.data.id],
+                noteIdList: [noteId],
               };
               FundooNoteServices.toogleArchiveNote(data)
                 .then((response) => {
-                  console.log(response.data);
+                  console.log("Archive response data " + response.data);
+                  props.getAllNotes();
                 })
                 .catch((error) => console.log(error));
-              setIsArchived(!isArchived);
             }}
           >
             <ArchiveOutlinedIcon className={classes.noteListIcons} />
@@ -197,12 +215,13 @@ function Note(props) {
             data = {
               title: title,
               description: description,
-              noteId: props.data.id,
+              noteId: noteId,
             };
             if (title !== "" && description !== "") {
               FundooNoteServices.updateNote(data)
                 .then((response) => {
                   console.log(response.data);
+                  props.getAllNotes();
                 })
                 .catch((error) => console.log(error));
             }

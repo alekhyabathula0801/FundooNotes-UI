@@ -35,15 +35,13 @@ class Dashboard extends React.Component {
   getAllNotes() {
     FundooNoteServices.getAllNotes()
       .then((response) => {
-        this.setState({ notesData: response.data.data.data });
+        this.setState({ notesData: response.data.data.data }, () => {
+          console.log("in get all notes 45 " + this.state.notesData);
+        });
       })
       .catch((err) => {
         console.log(err);
       });
-  }
-
-  componentDidUpdate() {
-    console.log(this.state.notesData);
   }
 
   render() {
@@ -65,7 +63,10 @@ class Dashboard extends React.Component {
                 getAllNotes={this.getAllNotes}
               ></CreateNote>
             )}
-            <NotesView notesData={this.state.notesData}></NotesView>
+            <NotesView
+              notesData={this.state.notesData}
+              getAllNotes={this.getAllNotes}
+            ></NotesView>
           </main>
         </main>
       </div>
