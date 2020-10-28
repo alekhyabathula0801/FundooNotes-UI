@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Notes from "./Notes";
 import Dialog from "@material-ui/core/Dialog";
@@ -34,11 +34,14 @@ function NotesView(props) {
       fontSize: "1.1rem",
     },
   }));
+
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);
-  const [notesData, setNotesData] = React.useState(props.notesData);
-  const [popUpNoteData, setPopUpNoteData] = React.useState([]);
+  const [pinedNotes, setPinedNotes] = useState(props.pinedNotes);
+  const [unPinedNotes, setUnPinedNotes] = useState(props.unPinedNotes);
+  const [popUpNoteData, setPopUpNoteData] = useState([]);
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -52,16 +55,12 @@ function NotesView(props) {
   };
 
   useEffect(() => {
-    setNotesData(props.notesData);
-  }, [props.notesData]);
+    setPinedNotes(props.pinedNotes);
+  }, [props.pinedNotes]);
 
-  const pinedNotes = notesData.filter(
-    (notes) => notes.isPined && !notes.isDeleted && !notes.isArchived
-  );
-
-  const unPinedNotes = notesData.filter(
-    (notes) => !notes.isPined && !notes.isDeleted && !notes.isArchived
-  );
+  useEffect(() => {
+    setUnPinedNotes(props.unPinedNotes);
+  }, [props.unPinedNotes]);
 
   const pinedNotesContent = (
     <div>
@@ -69,7 +68,7 @@ function NotesView(props) {
         <div className={classes.notesViewPinned}>PINNED</div>
       ) : null}
       <div className={classes.notesViewList}>
-        {Object.values(pinedNotes).map((notesData, index) => (
+        {Object.values(pinedNotes).map((notesData) => (
           <Notes
             key={notesData.id}
             data={notesData}
@@ -86,11 +85,11 @@ function NotesView(props) {
 
   const unPinedNotesContent = (
     <div>
-      {pinedNotes.length > 0 ? (
+      {pinedNotes.length > 0 && unPinedNotes.length > 0 ? (
         <div className={classes.notesViewUnPinned}>OTHERS</div>
       ) : null}
       <div className={classes.notesViewList}>
-        {Object.values(unPinedNotes).map((notesData, index) => (
+        {Object.values(unPinedNotes).map((notesData) => (
           <Notes
             key={notesData.id}
             data={notesData}
