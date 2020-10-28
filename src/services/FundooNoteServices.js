@@ -14,6 +14,10 @@ class FundooNoteService {
     return HttpServices.postApiRequest(data, `${baseUrl}api/notes/pinUnpinNotes`,token);
   }
 
+  toogleArchiveNote(data) {
+    return HttpServices.postApiRequest(data, `${baseUrl}api/notes/archiveNotes`,token);
+  }
+
   getAllNotes() {
     return HttpServices.getApiRequest(`${baseUrl}api/notes/getNotesList`,token);
   }

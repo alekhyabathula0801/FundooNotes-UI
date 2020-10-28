@@ -94,17 +94,7 @@ function Note(props) {
 
   const classes = useStyles();
   return (
-    <Paper
-      className={classes.note}
-      onClick={
-        !props.isPopUp
-          ? () => {
-              props.getNotesData(props.data);
-              props.handleClickOpen();
-            }
-          : null
-      }
-    >
+    <Paper className={classes.note}>
       <div className={classes.noteTitle}>
         <InputBase
           className={classes.notesTitleInput}
@@ -114,6 +104,14 @@ function Note(props) {
           onChange={(e) => {
             setTitle(e.currentTarget.value);
           }}
+          onClick={
+            !props.isPopUp
+              ? () => {
+                  props.getNotesData(props.data);
+                  props.handleClickOpen();
+                }
+              : null
+          }
         />
         <IconButton
           onClick={() => {
@@ -147,6 +145,14 @@ function Note(props) {
         onChange={(e) => {
           setDescription(e.currentTarget.value);
         }}
+        onClick={
+          !props.isPopUp
+            ? () => {
+                props.getNotesData(props.data);
+                props.handleClickOpen();
+              }
+            : null
+        }
       />
       <div className={classes.noteList}>
         <div>
@@ -165,6 +171,16 @@ function Note(props) {
           <IconButton
             className={classes.notesListIconButtons}
             onClick={() => {
+              let data = {};
+              data = {
+                isArchived: !isArchived,
+                noteIdList: [props.data.id],
+              };
+              FundooNoteServices.toogleArchiveNote(data)
+                .then((response) => {
+                  console.log(response.data);
+                })
+                .catch((error) => console.log(error));
               setIsArchived(!isArchived);
             }}
           >
