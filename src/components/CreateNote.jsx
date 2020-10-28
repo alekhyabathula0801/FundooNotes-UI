@@ -4,12 +4,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import CropOriginalOutlinedIcon from "@material-ui/icons/CropOriginalOutlined";
 import AddAlertOutlinedIcon from "@material-ui/icons/AddAlertOutlined";
 import PersonAddOutlinedIcon from "@material-ui/icons/PersonAddOutlined";
-import PaletteOutlinedIcon from "@material-ui/icons/PaletteOutlined";
 import ArchiveOutlinedIcon from "@material-ui/icons/ArchiveOutlined";
 import MoreVertOutlinedIcon from "@material-ui/icons/MoreVertOutlined";
 import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutlined";
 import BookmarkOutlinedIcon from "@material-ui/icons/BookmarkOutlined";
 import FundooNoteServices from "../services/FundooNoteServices";
+import ColorPalletIcon from "./ColorPalletIcon";
 
 const useStyles = makeStyles((theme) => ({
   createNote: {
@@ -56,12 +56,6 @@ const useStyles = makeStyles((theme) => ({
       padding: "0.2rem",
     },
   },
-  createNoteListIcons: {
-    width: "1.2rem",
-    height: "1.2rem",
-    color: "#202124",
-    opacity: "0.71",
-  },
   createNotePin: {
     color: "rgba(0,0,0,0.73)",
   },
@@ -69,6 +63,12 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down(540)]: {
       padding: "0.3rem",
     },
+  },
+  createNoteListIcons: {
+    width: "1.2rem",
+    height: "1.2rem",
+    color: "#202124",
+    opacity: "0.71",
   },
 }));
 
@@ -115,9 +115,10 @@ function CreateNote(props) {
           <IconButton className={classes.createNoteListIconButton}>
             <PersonAddOutlinedIcon className={classes.createNoteListIcons} />
           </IconButton>
-          <IconButton className={classes.createNoteListIconButton}>
-            <PaletteOutlinedIcon className={classes.createNoteListIcons} />
-          </IconButton>
+          <ColorPalletIcon
+            buttonClassName={classes.createNoteListIconButton}
+            iconClassName={classes.createNoteListIcons}
+          ></ColorPalletIcon>
           <IconButton className={classes.createNoteListIconButton}>
             <CropOriginalOutlinedIcon className={classes.createNoteListIcons} />
           </IconButton>
