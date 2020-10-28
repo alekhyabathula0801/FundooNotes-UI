@@ -3,6 +3,8 @@ import Header from "../components/AppBar";
 import SideBar from "../components/Drawer";
 import "../css/dashboard.css";
 import DisplayNotes from "../components/DisplayNotes";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Archive from "../components/Archive";
 
 class Dashboard extends React.Component {
   constructor() {
@@ -24,7 +26,12 @@ class Dashboard extends React.Component {
         <main>
           <SideBar showDrawerLabels={this.state.showDrawerLabels}></SideBar>
           <main>
-            <DisplayNotes></DisplayNotes>
+            <Router>
+              <Switch>
+                <Route exact path="/dashboard/" component={DisplayNotes} />
+                <Route path="/dashboard/Archive" component={Archive} />
+              </Switch>
+            </Router>
           </main>
         </main>
       </div>

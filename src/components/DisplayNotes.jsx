@@ -7,7 +7,6 @@ import MiniCreateNote from "../components/MiniCreateNote";
 function DisplayNotes() {
   const [showMiniCreateNote, setShowMiniCreateNote] = useState(true);
   const [notesData, setNotesData] = useState([]);
-
   let getAllNotes = () => {
     FundooNoteServices.getAllNotes()
       .then((response) => {

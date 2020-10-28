@@ -10,6 +10,7 @@ import CreateOutlined from "@material-ui/icons/CreateOutlined";
 import NotificationsOutlined from "@material-ui/icons/NotificationsOutlined";
 import EmojiObjectsOutlined from "@material-ui/icons/EmojiObjectsOutlined";
 import Tooltip from "@material-ui/core/Tooltip";
+import { Link } from "react-router-dom";
 
 function SideBar(props) {
   const useStyles = makeStyles((theme) => ({
@@ -32,6 +33,9 @@ function SideBar(props) {
       [theme.breakpoints.down(360)]: {
         width: "20%",
       },
+    },
+    sideBarLink: {
+      color: "rgba(0,0,0,0.95)",
     },
     sideBarLabel: {
       borderRadius: "0 25px 25px 0",
@@ -64,27 +68,39 @@ function SideBar(props) {
         <List>
           {["Notes", "Reminders", "Edit labels", "Archive", "Bin"].map(
             (text, index) => (
-              <ListItem button key={index} className={classes.sideBarLabel}>
-                <Tooltip title={text} placement="bottom-end">
-                  <ListItemIcon className={classes.sideBarIcon}>
-                    {index === 0 ? (
-                      <EmojiObjectsOutlined />
-                    ) : index === 1 ? (
-                      <NotificationsOutlined />
-                    ) : index === 2 ? (
-                      <CreateOutlined />
-                    ) : index === 3 ? (
-                      <ArchiveOutlined />
-                    ) : (
-                      <DeleteOutlined />
-                    )}
-                  </ListItemIcon>
-                </Tooltip>
-                <ListItemText
-                  primary={text}
-                  className={classes.sideBarLabelText}
-                />
-              </ListItem>
+              <Link
+                className={classes.sideBarLink}
+                key={index}
+                to={
+                  index === 0
+                    ? "/dashboard"
+                    : index === 2
+                    ? "/dashboard/##"
+                    : `/dashboard/${text}`
+                }
+              >
+                <ListItem button key={index} className={classes.sideBarLabel}>
+                  <Tooltip title={text} placement="bottom-end">
+                    <ListItemIcon className={classes.sideBarIcon}>
+                      {index === 0 ? (
+                        <EmojiObjectsOutlined />
+                      ) : index === 1 ? (
+                        <NotificationsOutlined />
+                      ) : index === 2 ? (
+                        <CreateOutlined />
+                      ) : index === 3 ? (
+                        <ArchiveOutlined />
+                      ) : (
+                        <DeleteOutlined />
+                      )}
+                    </ListItemIcon>
+                  </Tooltip>
+                  <ListItemText
+                    primary={text}
+                    className={classes.sideBarLabelText}
+                  />
+                </ListItem>
+              </Link>
             )
           )}
         </List>
