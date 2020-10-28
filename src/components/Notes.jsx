@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { IconButton, Paper, InputBase, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import CropOriginalOutlinedIcon from "@material-ui/icons/CropOriginalOutlined";
-import AddAlertOutlinedIcon from "@material-ui/icons/AddAlertOutlined";
 import ArchiveOutlinedIcon from "@material-ui/icons/ArchiveOutlined";
 import MoreVertOutlinedIcon from "@material-ui/icons/MoreVertOutlined";
 import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutlined";
@@ -10,6 +9,7 @@ import BookmarkOutlinedIcon from "@material-ui/icons/BookmarkOutlined";
 import FundooNoteServices from "../services/FundooNoteServices";
 import ColorPalletIcon from "./ColorPalletIcon";
 import AddPersonIcon from "./AddPersonIcon";
+import RemindMe from "./RemindMe";
 
 function Note(props) {
   const [isArchived, setIsArchived] = useState(props.data.isArchived);
@@ -174,9 +174,10 @@ function Note(props) {
       />
       <div className={classes.noteList}>
         <div>
-          <IconButton className={classes.notesListIconButtons}>
-            <AddAlertOutlinedIcon className={classes.noteListIcons} />
-          </IconButton>
+          <RemindMe
+            buttonClassName={classes.notesListIconButtons}
+            iconClassName={classes.noteListIcons}
+          />
           <AddPersonIcon
             buttonClassName={classes.notesListIconButtons}
             iconClassName={classes.noteListIcons}
