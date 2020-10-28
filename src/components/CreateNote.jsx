@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { IconButton, Paper, InputBase, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import ArchiveOutlinedIcon from "@material-ui/icons/ArchiveOutlined";
-import MoreVertOutlinedIcon from "@material-ui/icons/MoreVertOutlined";
 import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutlined";
 import BookmarkOutlinedIcon from "@material-ui/icons/BookmarkOutlined";
 import FundooNoteServices from "../services/FundooNoteServices";
@@ -10,6 +9,7 @@ import ColorPalletIcon from "./ColorPalletIcon";
 import AddPersonIcon from "./AddPersonIcon";
 import RemindMe from "./RemindMe";
 import AddImageIcon from "./AddImageIcon";
+import MoreIcon from "./MoreIcon";
 
 const useStyles = makeStyles((theme) => ({
   createNote: {
@@ -133,9 +133,10 @@ function CreateNote(props) {
           >
             <ArchiveOutlinedIcon className={classes.createNoteListIcons} />
           </IconButton>
-          <IconButton className={classes.createNoteListIconButton}>
-            <MoreVertOutlinedIcon className={classes.createNoteListIcons} />
-          </IconButton>
+          <MoreIcon
+            buttonClassName={classes.createNoteListIconButton}
+            iconClassName={classes.createNoteListIcons}
+          />
         </div>
         <Button
           className={classes.createNoteCloseButton}
