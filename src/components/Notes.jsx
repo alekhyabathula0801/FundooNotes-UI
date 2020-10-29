@@ -88,19 +88,6 @@ function Note(props) {
       .catch((error) => console.log(error));
   };
 
-  let restoreNote = () => {
-    const data = {
-      isDeleted: false,
-      noteIdList: [noteId],
-    };
-    NoteServices.restoreNote(data)
-      .then((response) => {
-        console.log("restore note response " + response.data);
-        props.getAllNotes();
-      })
-      .catch((error) => console.log(error));
-  };
-
   let deleteNoteForever = () => {
     const data = {
       noteIdList: [noteId],
@@ -108,6 +95,19 @@ function Note(props) {
     NoteServices.deleteNoteForever(data)
       .then((response) => {
         console.log("delete note forever response " + response.data);
+        props.getAllNotes();
+      })
+      .catch((error) => console.log(error));
+  };
+
+  let toogleDeleteNote = (isDelete) => {
+    const data = {
+      isDeleted: isDelete,
+      noteIdList: [noteId],
+    };
+    NoteServices.restoreNote(data)
+      .then((response) => {
+        console.log("delete or restore note response " + response.data);
         props.getAllNotes();
       })
       .catch((error) => console.log(error));
@@ -208,6 +208,7 @@ function Note(props) {
       <MoreIcon
         buttonClassName={classes.notesListIconButtons}
         iconClassName={classes.noteListIcons}
+        deleteNote={toogleDeleteNote}
       />
     </>
   );
@@ -225,7 +226,7 @@ function Note(props) {
       <Tooltip title="Restore" placement="bottom">
         <IconButton
           className={classes.notesListIconButtons}
-          onClick={() => restoreNote()}
+          onClick={() => toogleDeleteNote(false)}
         >
           <RestoreFromTrashIcon className={classes.noteListIcons} />
         </IconButton>
