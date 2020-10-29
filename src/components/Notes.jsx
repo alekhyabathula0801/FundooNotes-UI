@@ -75,11 +75,24 @@ function Note(props) {
       .catch((error) => console.log(error));
   };
 
+  let setNoteColor = (color) => {
+    const data = {
+      color: color,
+      noteIdList: [noteId],
+    };
+    FundooNoteServices.updateNoteColor(data)
+      .then((response) => {
+        console.log("update color response " + response.data);
+        setColor(color);
+      })
+      .catch((error) => console.log(error));
+  };
+
   const useStyles = makeStyles((theme) => ({
     note: {
       display: "inline-flex",
       width: !props.isPopUp ? "14rem" : "30rem",
-      background: "white",
+      background: color,
       padding: "0.3rem 0.5rem",
       margin: "0.8rem",
       boxShadow: props.isPopUp ? "none" : "1px 1px 4px grey",
@@ -196,6 +209,7 @@ function Note(props) {
           <ColorPalletIcon
             buttonClassName={classes.notesListIconButtons}
             iconClassName={classes.noteListIcons}
+            setColor={setNoteColor}
           />
           <AddImageIcon
             buttonClassName={classes.notesListIconButtons}

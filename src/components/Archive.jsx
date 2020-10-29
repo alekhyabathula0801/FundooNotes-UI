@@ -4,7 +4,7 @@ import FundooNoteServices from "../services/FundooNoteServices";
 
 function Archive() {
   const [notesData, setNotesData] = useState([]);
-  
+
   let getAllArchiveNotes = () => {
     FundooNoteServices.getAllArchiveNotes()
       .then((response) => {

@@ -18,6 +18,14 @@ class FundooNoteService {
     );
   }
 
+  updateNoteColor(data) {
+    return HttpServices.postApiRequest(
+      data,
+      `${baseUrl}api/notes/changesColorNotes`,
+      token
+    );
+  }
+
   tooglePinNote(data) {
     return HttpServices.postApiRequest(
       data,
