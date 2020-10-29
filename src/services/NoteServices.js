@@ -42,6 +42,14 @@ class NoteService {
     );
   }
 
+  restoreNote(data) {
+    return HttpServices.postApiRequest(
+      data,
+      `${baseUrl}api/notes/trashNotes`,
+      token
+    );
+  }
+
   getAllNotes() {
     return HttpServices.getApiRequest(
       `${baseUrl}api/notes/getNotesList`,

@@ -88,6 +88,19 @@ function Note(props) {
       .catch((error) => console.log(error));
   };
 
+  let restoreNote = () => {
+    const data = {
+      isDeleted: false,
+      noteIdList: [noteId],
+    };
+    NoteServices.restoreNote(data)
+      .then((response) => {
+        console.log("restore note response " + response.data);
+        props.getAllNotes();
+      })
+      .catch((error) => console.log(error));
+  };
+
   const useStyles = makeStyles((theme) => ({
     note: {
       display: "inline-flex",
@@ -195,7 +208,10 @@ function Note(props) {
         </IconButton>
       </Tooltip>
       <Tooltip title="Restore" placement="bottom">
-        <IconButton className={classes.notesListIconButtons}>
+        <IconButton
+          className={classes.notesListIconButtons}
+          onClick={() => restoreNote()}
+        >
           <RestoreFromTrashIcon className={classes.noteListIcons} />
         </IconButton>
       </Tooltip>
