@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import CreateNote from "../components/CreateNote";
 import NotesView from "../components/NotesView";
-import FundooNoteServices from "../services/FundooNoteServices";
+import NoteServices from "../services/NoteServices";
 import MiniCreateNote from "../components/MiniCreateNote";
 
 function DisplayNotes() {
   const [showMiniCreateNote, setShowMiniCreateNote] = useState(true);
   const [notesData, setNotesData] = useState([]);
   let getAllNotes = () => {
-    FundooNoteServices.getAllNotes()
+    NoteServices.getAllNotes()
       .then((response) => {
         setNotesData(response.data.data.data);
       })

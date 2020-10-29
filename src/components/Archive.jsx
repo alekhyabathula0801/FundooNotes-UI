@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import NotesView from "../components/NotesView";
-import FundooNoteServices from "../services/FundooNoteServices";
+import NoteServices from "../services/NoteServices";
 
 function Archive() {
   const [notesData, setNotesData] = useState([]);
 
   let getAllArchiveNotes = () => {
-    FundooNoteServices.getAllArchiveNotes()
+    NoteServices.getAllArchiveNotes()
       .then((response) => {
         setNotesData(response.data.data.data);
       })

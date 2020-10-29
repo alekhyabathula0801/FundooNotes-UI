@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Paper, InputBase, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import FundooNoteServices from "../services/FundooNoteServices";
+import NoteServices from "../services/NoteServices";
 import ColorPalletIcon from "./ColorPalletIcon";
 import AddPersonIcon from "./AddPersonIcon";
 import RemindMe from "./RemindMe";
@@ -153,7 +153,7 @@ function CreateNote(props) {
               isArchived,
             };
             if (title !== "" && description !== "") {
-              FundooNoteServices.addNote(data).then((response) => {
+              NoteServices.addNote(data).then((response) => {
                 console.log(response.data);
                 props.getAllNotes();
               });

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Paper, InputBase, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import FundooNoteServices from "../services/FundooNoteServices";
+import NoteServices from "../services/NoteServices";
 import ColorPalletIcon from "./ColorPalletIcon";
 import AddPersonIcon from "./AddPersonIcon";
 import RemindMe from "./RemindMe";
@@ -53,7 +53,7 @@ function Note(props) {
       isPined: !isPined,
       noteIdList: [noteId],
     };
-    FundooNoteServices.tooglePinNote(data)
+    NoteServices.tooglePinNote(data)
       .then((response) => {
         console.log(response.data);
         props.getAllNotes();
@@ -67,7 +67,7 @@ function Note(props) {
       isArchived: !isArchived,
       noteIdList: [noteId],
     };
-    FundooNoteServices.toogleArchiveNote(data)
+    NoteServices.toogleArchiveNote(data)
       .then((response) => {
         console.log("Archive response data " + response.data);
         props.getAllNotes();
@@ -80,7 +80,7 @@ function Note(props) {
       color: color,
       noteIdList: [noteId],
     };
-    FundooNoteServices.updateNoteColor(data)
+    NoteServices.updateNoteColor(data)
       .then((response) => {
         console.log("update color response " + response.data);
         setColor(color);
@@ -235,7 +235,7 @@ function Note(props) {
               noteId: noteId,
             };
             if (title !== "" && description !== "") {
-              FundooNoteServices.updateNote(data)
+              NoteServices.updateNote(data)
                 .then((response) => {
                   console.log(response.data);
                   props.getAllNotes();
