@@ -77,6 +77,7 @@ function NotesView(props) {
             handleClickOpen={handleClickOpen}
             isPopUp={false}
             getAllNotes={props.getAllNotes}
+            isBin={props.isBin}
           ></Notes>
         ))}
       </div>
@@ -98,6 +99,7 @@ function NotesView(props) {
             handleClickOpen={handleClickOpen}
             isPopUp={false}
             getAllNotes={props.getAllNotes}
+            isBin={props.isBin}
           ></Notes>
         ))}
       </div>
@@ -121,6 +123,7 @@ function NotesView(props) {
           closePopUp={handleClose}
           showCloseButton={true}
           getAllNotes={props.getAllNotes}
+          isBin={props.isBin}
         ></Notes>
       </Dialog>
     </>

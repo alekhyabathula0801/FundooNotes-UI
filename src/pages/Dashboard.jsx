@@ -5,6 +5,7 @@ import "../css/dashboard.css";
 import DisplayNotes from "../components/DisplayNotes";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Archive from "../components/Archive";
+import Bin from "../components/Bin";
 
 class Dashboard extends React.Component {
   constructor() {
@@ -30,6 +31,7 @@ class Dashboard extends React.Component {
               <Switch>
                 <Route exact path="/dashboard/" component={DisplayNotes} />
                 <Route path="/dashboard/Archive" component={Archive} />
+                <Route path="/dashboard/Bin" component={Bin} />
               </Switch>
             </Router>
           </main>

@@ -55,6 +55,13 @@ class NoteService {
       token
     );
   }
+
+  getAllDeletedNotes() {
+    return HttpServices.getApiRequest(
+      `${baseUrl}api/notes/getTrashNotesList`,
+      token
+    );
+  }
 }
 
 export default new NoteService();

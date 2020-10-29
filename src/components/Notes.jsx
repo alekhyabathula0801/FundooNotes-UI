@@ -9,6 +9,10 @@ import AddImageIcon from "./AddImageIcon";
 import MoreIcon from "./MoreIcon";
 import PinNote from "./PinNoteIcon";
 import ArchiveNote from "./ArchiveNoteIcon";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import RestoreFromTrashIcon from "@material-ui/icons/RestoreFromTrash";
+import { IconButton } from "@material-ui/core";
+import Tooltip from "@material-ui/core/Tooltip";
 
 function Note(props) {
   const [isArchived, setIsArchived] = useState(props.data.isArchived);
@@ -17,7 +21,6 @@ function Note(props) {
   const [color, setColor] = useState(props.data.color);
   const [isPined, setIsPined] = useState(props.data.isPined);
   const [noteId, setNoteId] = useState(props.data.id);
-  const [noteData, setNoteData] = useState(props.data);
   const [displayListIcons, setDisplayListIcons] = useState(false);
 
   useEffect(() => {
@@ -43,10 +46,6 @@ function Note(props) {
   useEffect(() => {
     setNoteId(props.data.id);
   }, [props.data.id]);
-
-  useEffect(() => {
-    setNoteData(props.data);
-  }, [props.data]);
 
   let tooglePinNote = () => {
     let data = {};
@@ -94,10 +93,10 @@ function Note(props) {
       display: "inline-flex",
       width: !props.isPopUp ? "14rem" : "30rem",
       background: color,
-      padding: "0.35rem 0.5rem",
+      padding: "0.3rem 0.5rem",
       margin: props.isPopUp ? "0" : "0.8rem",
       boxShadow:
-        props.isPopUp || !displayListIcons ? "none" : "1px 1px 5px grey",
+        props.isPopUp || !displayListIcons ? "none" : "1px 1px 4px grey",
       flexDirection: "column",
       border: "1px solid #e0e0e0",
       borderRadius: "0.5rem",
@@ -156,6 +155,53 @@ function Note(props) {
   }));
 
   const classes = useStyles();
+
+  const notesIconList = (
+    <>
+      <RemindMe
+        buttonClassName={classes.notesListIconButtons}
+        iconClassName={classes.noteListIcons}
+      />
+      <AddPersonIcon
+        buttonClassName={classes.notesListIconButtons}
+        iconClassName={classes.noteListIcons}
+      />
+      <ColorPalletIcon
+        buttonClassName={classes.notesListIconButtons}
+        iconClassName={classes.noteListIcons}
+        setColor={setNoteColor}
+      />
+      <AddImageIcon
+        buttonClassName={classes.notesListIconButtons}
+        iconClassName={classes.noteListIcons}
+      />
+      <ArchiveNote
+        buttonClassName={classes.notesListIconButtons}
+        iconClassName={classes.noteListIcons}
+        toogleArchiveNote={toogleArchiveNote}
+      />
+      <MoreIcon
+        buttonClassName={classes.notesListIconButtons}
+        iconClassName={classes.noteListIcons}
+      />
+    </>
+  );
+
+  const notesBinIcons = (
+    <>
+      <Tooltip title="Delete forever" placement="bottom">
+        <IconButton className={classes.notesListIconButtons}>
+          <DeleteForeverIcon className={classes.noteListIcons} />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="Restore" placement="bottom">
+        <IconButton className={classes.notesListIconButtons}>
+          <RestoreFromTrashIcon className={classes.noteListIcons} />
+        </IconButton>
+      </Tooltip>
+    </>
+  );
+
   return (
     <Paper
       className={classes.note}
@@ -180,11 +226,13 @@ function Note(props) {
               : null
           }
         />
-        <PinNote
-          isPined={isPined}
-          tooglePinNote={tooglePinNote}
-          pinClassName={classes.notePin}
-        />
+        {!props.isBin ? (
+          <PinNote
+            isPined={isPined}
+            tooglePinNote={tooglePinNote}
+            pinClassName={classes.notePin}
+          />
+        ) : null}
       </div>
       <InputBase
         multiline={true}
@@ -206,34 +254,7 @@ function Note(props) {
         }
       />
       <div className={classes.noteList}>
-        <div>
-          <RemindMe
-            buttonClassName={classes.notesListIconButtons}
-            iconClassName={classes.noteListIcons}
-          />
-          <AddPersonIcon
-            buttonClassName={classes.notesListIconButtons}
-            iconClassName={classes.noteListIcons}
-          />
-          <ColorPalletIcon
-            buttonClassName={classes.notesListIconButtons}
-            iconClassName={classes.noteListIcons}
-            setColor={setNoteColor}
-          />
-          <AddImageIcon
-            buttonClassName={classes.notesListIconButtons}
-            iconClassName={classes.noteListIcons}
-          />
-          <ArchiveNote
-            buttonClassName={classes.notesListIconButtons}
-            iconClassName={classes.noteListIcons}
-            toogleArchiveNote={toogleArchiveNote}
-          />
-          <MoreIcon
-            buttonClassName={classes.notesListIconButtons}
-            iconClassName={classes.noteListIcons}
-          />
-        </div>
+        <div>{props.isBin ? notesBinIcons : notesIconList}</div>
         <Button
           className={classes.noteCloseButton}
           onClick={() => {

@@ -51,6 +51,7 @@ function DisplayNotes() {
         pinedNotes={pinedNotes}
         unPinedNotes={unPinedNotes}
         getAllNotes={getAllNotes}
+        isBin={false}
       ></NotesView>
     </>
   );
