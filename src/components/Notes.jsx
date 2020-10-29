@@ -101,6 +101,18 @@ function Note(props) {
       .catch((error) => console.log(error));
   };
 
+  let deleteNoteForever = () => {
+    const data = {
+      noteIdList: [noteId],
+    };
+    NoteServices.deleteNoteForever(data)
+      .then((response) => {
+        console.log("delete note forever response " + response.data);
+        props.getAllNotes();
+      })
+      .catch((error) => console.log(error));
+  };
+
   const useStyles = makeStyles((theme) => ({
     note: {
       display: "inline-flex",
@@ -203,7 +215,10 @@ function Note(props) {
   const notesBinIcons = (
     <>
       <Tooltip title="Delete forever" placement="bottom">
-        <IconButton className={classes.notesListIconButtons}>
+        <IconButton
+          className={classes.notesListIconButtons}
+          onClick={() => deleteNoteForever()}
+        >
           <DeleteForeverIcon className={classes.noteListIcons} />
         </IconButton>
       </Tooltip>

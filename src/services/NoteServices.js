@@ -50,6 +50,14 @@ class NoteService {
     );
   }
 
+  deleteNoteForever(data) {
+    return HttpServices.postApiRequest(
+      data,
+      `${baseUrl}api/notes/deleteForeverNotes`,
+      token
+    );
+  }
+
   getAllNotes() {
     return HttpServices.getApiRequest(
       `${baseUrl}api/notes/getNotesList`,
