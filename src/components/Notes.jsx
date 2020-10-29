@@ -18,6 +18,7 @@ function Note(props) {
   const [isPined, setIsPined] = useState(props.data.isPined);
   const [noteId, setNoteId] = useState(props.data.id);
   const [noteData, setNoteData] = useState(props.data);
+  const [displayListIcons, setDisplayListIcons] = useState(false);
 
   useEffect(() => {
     setIsArchived(props.data.isArchived);
@@ -93,10 +94,13 @@ function Note(props) {
       display: "inline-flex",
       width: !props.isPopUp ? "14rem" : "30rem",
       background: color,
-      padding: "0.3rem 0.5rem",
-      margin: "0.8rem",
-      boxShadow: props.isPopUp ? "none" : "1px 1px 4px grey",
+      padding: "0.35rem 0.5rem",
+      margin: props.isPopUp ? "0" : "0.8rem",
+      boxShadow:
+        props.isPopUp || !displayListIcons ? "none" : "1px 1px 5px grey",
       flexDirection: "column",
+      border: "1px solid #e0e0e0",
+      borderRadius: "0.5rem",
       [theme.breakpoints.down(600)]: {
         padding: "0.3rem",
         width: !props.isPopUp ? "14rem" : "400px",
@@ -117,7 +121,7 @@ function Note(props) {
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
-      paddingRight: "0.5rem",
+      paddingRight: "0.1rem",
       [theme.breakpoints.down(350)]: {
         flexDirection: "column",
       },
@@ -136,10 +140,11 @@ function Note(props) {
       width: "1.2rem",
       height: "1.2rem",
       color: "#202124",
-      opacity: "0.71",
+      opacity: props.isPopUp ? "0.71" : displayListIcons ? "0.71" : "0",
     },
     notePin: {
-      color: "rgba(0,0,0,0.73)",
+      color: "rgb(0,0,0)",
+      opacity: props.isPopUp ? "0.71" : displayListIcons ? "0.71" : "0",
     },
     notesListIconButtons: {
       padding: "0.35rem",
@@ -152,7 +157,11 @@ function Note(props) {
 
   const classes = useStyles();
   return (
-    <Paper className={classes.note}>
+    <Paper
+      className={classes.note}
+      onMouseOver={() => setDisplayListIcons(true)}
+      onMouseLeave={() => setDisplayListIcons(false)}
+    >
       <div className={classes.noteTitle}>
         <InputBase
           className={classes.notesTitleInput}

@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     display: "inline-flex",
     width: "50%",
     background: "white",
-    padding: "0.3rem 0.5rem",
+    padding: "0 0.5rem",
     margin: "1.6rem 0",
     boxShadow: "1px 1px 4px grey",
     [theme.breakpoints.down(960)]: {

@@ -11,7 +11,9 @@ function PinNote(props) {
         {!props.isPined ? (
           <BookmarkBorderOutlinedIcon className={props.pinClassName} />
         ) : (
-          <BookmarkOutlinedIcon></BookmarkOutlinedIcon>
+          <BookmarkOutlinedIcon
+            className={props.pinClassName}
+          ></BookmarkOutlinedIcon>
         )}
       </IconButton>
     </Tooltip>
