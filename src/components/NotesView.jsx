@@ -76,19 +76,21 @@ function NotesView(props) {
         <div className={classes.notesViewPinned}>PINNED</div>
       ) : null}
       <div className={classes.notesViewList}>
-        {Object.values(pinedNotes).reverse().map((notesData) => (
-          <Notes
-            key={notesData.id}
-            data={notesData}
-            showCloseButton={false}
-            getNotesData={getPopUpNotesData}
-            handleClickOpen={handleClickOpen}
-            isPopUp={false}
-            getAllNotes={props.getAllNotes}
-            isBin={props.isBin}
-            showListView={showListView}
-          ></Notes>
-        ))}
+        {Object.values(pinedNotes)
+          .reverse()
+          .map((notesData) => (
+            <Notes
+              key={notesData.id}
+              data={notesData}
+              showCloseButton={false}
+              getNotesData={getPopUpNotesData}
+              handleClickOpen={handleClickOpen}
+              isPopUp={false}
+              getAllNotes={props.getAllNotes}
+              isBin={props.isBin}
+              showListView={showListView}
+            ></Notes>
+          ))}
       </div>
     </>
   );
@@ -99,19 +101,21 @@ function NotesView(props) {
         <div className={classes.notesViewUnPinned}>OTHERS</div>
       ) : null}
       <div className={classes.notesViewList}>
-        {Object.values(unPinedNotes).reverse().map((notesData) => (
-          <Notes
-            key={notesData.id}
-            data={notesData}
-            showCloseButton={false}
-            getNotesData={getPopUpNotesData}
-            handleClickOpen={handleClickOpen}
-            isPopUp={false}
-            getAllNotes={props.getAllNotes}
-            isBin={props.isBin}
-            showListView={showListView}
-          ></Notes>
-        ))}
+        {Object.values(unPinedNotes)
+          .reverse()
+          .map((notesData) => (
+            <Notes
+              key={notesData.id}
+              data={notesData}
+              showCloseButton={false}
+              getNotesData={getPopUpNotesData}
+              handleClickOpen={handleClickOpen}
+              isPopUp={false}
+              getAllNotes={props.getAllNotes}
+              isBin={props.isBin}
+              showListView={showListView}
+            ></Notes>
+          ))}
       </div>
     </>
   );

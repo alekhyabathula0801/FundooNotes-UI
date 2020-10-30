@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Paper, InputBase, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import NoteServices from "../services/NoteServices";
@@ -9,8 +9,10 @@ import AddImageIcon from "./AddImageIcon";
 import MoreIcon from "./MoreIcon";
 import PinNote from "./PinNoteIcon";
 import ArchiveNote from "./ArchiveNoteIcon";
+import MessageContext from "../components/MessageContext";
 
 function CreateNote(props) {
+  const message = useContext(MessageContext);
   const [isArchived, setIsArchived] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -153,10 +155,21 @@ function CreateNote(props) {
               isArchived,
             };
             if (title !== "" && description !== "") {
-              NoteServices.addNote(data).then((response) => {
-                console.log(response.data);
-                props.getAllNotes();
-              });
+              NoteServices.addNote(data)
+                .then((response) => {
+                  message.setMessage("Note added Sucessfully");
+                  message.setSnackBar(true);
+                  props.getAllNotes();
+                })
+                .catch((err) => {
+                  message.setMessage(
+                    "Some Error Occured while processing request"
+                  );
+                  message.setSnackBar(true);
+                });
+            } else {
+              message.setMessage("Title and description cannot be empty");
+              message.setSnackBar(true);
             }
             props.setShowMiniCreateNote();
           }}

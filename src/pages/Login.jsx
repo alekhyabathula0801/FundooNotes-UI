@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Button,
   TextField,
@@ -15,7 +15,10 @@ import "../css/login.css";
 import UserService from "../services/UserService";
 import Validation from "../services/Validation";
 import { useHistory } from "react-router-dom";
+import MessageContext from "../components/MessageContext";
+
 function Login() {
+  const message = useContext(MessageContext);
   const [values, setValues] = useState({
     emailId: "",
     password: "",
@@ -45,17 +48,24 @@ function Login() {
         .then((data) => {
           console.log(data);
           localStorage.setItem("fundoo-notes", JSON.stringify(data));
+          message.setMessage("You Have Logged In Sucessfully");
+          message.setSnackBar(true);
           history.push("/dashboard");
         })
         .catch((err) => {
-          console.log(err);
+          message.setMessage("Incorrect Password or email");
+          message.setSnackBar(true);
         });
     } else {
-      console.log(
-        Validation.validateEmail(values.emailId) +
-          " " +
-          Validation.validatePassword(values.password)
-      );
+      if (!Validation.validateEmail(values.emailId)) {
+        message.setMessage("Please enter valid email");
+        message.setSnackBar(true);
+      } else if (!Validation.validatePassword(values.emailId)) {
+        message.setMessage(
+          "Password must contain atleast one uppercase, lowercase, digit, special character with minimum of 6 characters"
+        );
+        message.setSnackBar(true);
+      }
     }
   }
 
