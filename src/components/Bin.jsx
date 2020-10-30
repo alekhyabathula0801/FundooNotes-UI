@@ -2,8 +2,13 @@ import React, { useState, useEffect } from "react";
 import NotesView from "../components/NotesView";
 import NoteServices from "../services/NoteServices";
 
-function Bin() {
+function Bin(props) {
   const [notesData, setNotesData] = useState([]);
+  const [showListView, setShowListView] = useState(props.showListView);
+
+  useEffect(() => {
+    setShowListView(props.showListView);
+  }, [props.showListView]);
 
   let getAllDeletedNotes = () => {
     NoteServices.getAllDeletedNotes()
@@ -25,6 +30,7 @@ function Bin() {
       unPinedNotes={notesData}
       getAllNotes={getAllDeletedNotes}
       isBin={true}
+      showListView={showListView}
     ></NotesView>
   );
 }

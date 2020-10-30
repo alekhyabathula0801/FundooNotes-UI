@@ -9,6 +9,7 @@ import AccountCircleOutlined from "@material-ui/icons/AccountCircleOutlined";
 import ViewAgendaOutlined from "@material-ui/icons/ViewAgendaOutlined";
 import logo from "../assets/logo.svg";
 import Tooltip from "@material-ui/core/Tooltip";
+import AppsOutlinedIcon from "@material-ui/icons/AppsOutlined";
 
 function Header(props) {
   const useStyles = makeStyles((theme) => ({
@@ -119,11 +120,25 @@ function Header(props) {
         <InputBase placeholder="Search" fullWidth />
       </div>
       <div className={classes.appBarRight}>
-        <Tooltip title="List View" placement="bottom">
-          <IconButton className={classes.appBarRightIconButton}>
-            <ViewAgendaOutlined className={classes.rightIcon} />
-          </IconButton>
-        </Tooltip>
+        {props.showListView ? (
+          <Tooltip title="List View" placement="bottom">
+            <IconButton
+              className={classes.appBarRightIconButton}
+              onClick={() => props.setListView()}
+            >
+              <ViewAgendaOutlined className={classes.rightIcon} />
+            </IconButton>
+          </Tooltip>
+        ) : (
+          <Tooltip title="Grid View" placement="bottom">
+            <IconButton
+              className={classes.appBarRightIconButton}
+              onClick={() => props.setListView()}
+            >
+              <AppsOutlinedIcon className={classes.rightIcon} />
+            </IconButton>
+          </Tooltip>
+        )}
         <IconButton className={classes.appBarRightIconButton}>
           <AccountCircleOutlined className={classes.rightIcon} />
         </IconButton>

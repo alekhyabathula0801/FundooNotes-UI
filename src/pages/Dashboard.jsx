@@ -12,26 +12,50 @@ class Dashboard extends React.Component {
     super();
     this.state = {
       showDrawerLabels: true,
+      showListView: true,
     };
     this.setShowDrawerLabels = this.setShowDrawerLabels.bind(this);
+    this.setListView = this.setListView.bind(this);
   }
 
   setShowDrawerLabels() {
     this.setState({ showDrawerLabels: !this.state.showDrawerLabels });
   }
 
+  setListView() {
+    this.setState({ showListView: !this.state.showListView });
+  }
+
   render() {
     return (
       <div className="profile">
-        <Header setShowDrawerLabels={this.setShowDrawerLabels}></Header>
+        <Header
+          setShowDrawerLabels={this.setShowDrawerLabels}
+          setListView={this.setListView}
+          showListView={this.state.showListView}
+        ></Header>
         <main>
           <SideBar showDrawerLabels={this.state.showDrawerLabels}></SideBar>
           <main>
             <Router>
               <Switch>
-                <Route exact path="/dashboard/" component={DisplayNotes} />
-                <Route path="/dashboard/Archive" component={Archive} />
-                <Route path="/dashboard/Bin" component={Bin} />
+                <Route
+                  exact
+                  path="/dashboard/"
+                  render={() => (
+                    <DisplayNotes showListView={this.state.showListView} />
+                  )}
+                />
+                <Route
+                  path="/dashboard/Archive"
+                  render={() => (
+                    <Archive showListView={this.state.showListView} />
+                  )}
+                />
+                <Route
+                  path="/dashboard/Bin"
+                  render={() => <Bin showListView={this.state.showListView} />}
+                />
               </Switch>
             </Router>
           </main>

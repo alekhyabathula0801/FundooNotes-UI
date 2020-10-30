@@ -4,21 +4,25 @@ import Notes from "./Notes";
 import Dialog from "@material-ui/core/Dialog";
 
 function NotesView(props) {
+  const [showListView, setShowListView] = useState(props.showListView);
+
   const useStyles = makeStyles(() => ({
     notesView: {
       display: "inline-flex",
       width: "100%",
       background: "white",
       flexDirection: "column",
+      justifyContent: "center",
     },
     notesViewList: {
       width: "100%",
       display: "flex",
       flexWrap: "wrap",
       alignItems: "flex-start",
+      justifyContent: !showListView ? "center" : null,
     },
     notesViewPinned: {
-      textAlign: "left",
+      textAlign: !showListView ? "center" : "left",
       fontWeight: "500",
       color: "black",
       opacity: "0.69",
@@ -26,7 +30,7 @@ function NotesView(props) {
       fontSize: "1.1rem",
     },
     notesViewUnPinned: {
-      textAlign: "left",
+      textAlign: !showListView ? "center" : "left",
       fontWeight: "500",
       color: "grey",
       opacity: "0.97",
@@ -41,6 +45,10 @@ function NotesView(props) {
   const [pinedNotes, setPinedNotes] = useState(props.pinedNotes);
   const [unPinedNotes, setUnPinedNotes] = useState(props.unPinedNotes);
   const [popUpNoteData, setPopUpNoteData] = useState([]);
+
+  useEffect(() => {
+    setShowListView(props.showListView);
+  }, [props.showListView]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -63,7 +71,7 @@ function NotesView(props) {
   }, [props.unPinedNotes]);
 
   const pinedNotesContent = (
-    <div>
+    <>
       {pinedNotes.length > 0 ? (
         <div className={classes.notesViewPinned}>PINNED</div>
       ) : null}
@@ -78,14 +86,15 @@ function NotesView(props) {
             isPopUp={false}
             getAllNotes={props.getAllNotes}
             isBin={props.isBin}
+            showListView={showListView}
           ></Notes>
         ))}
       </div>
-    </div>
+    </>
   );
 
   const unPinedNotesContent = (
-    <div>
+    <>
       {pinedNotes.length > 0 && unPinedNotes.length > 0 ? (
         <div className={classes.notesViewUnPinned}>OTHERS</div>
       ) : null}
@@ -100,10 +109,11 @@ function NotesView(props) {
             isPopUp={false}
             getAllNotes={props.getAllNotes}
             isBin={props.isBin}
+            showListView={showListView}
           ></Notes>
         ))}
       </div>
-    </div>
+    </>
   );
 
   return (

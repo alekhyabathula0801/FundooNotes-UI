@@ -4,9 +4,15 @@ import NotesView from "../components/NotesView";
 import NoteServices from "../services/NoteServices";
 import MiniCreateNote from "../components/MiniCreateNote";
 
-function DisplayNotes() {
+function DisplayNotes(props) {
   const [showMiniCreateNote, setShowMiniCreateNote] = useState(true);
   const [notesData, setNotesData] = useState([]);
+  const [showListView, setShowListView] = useState(props.showListView);
+
+  useEffect(() => {
+    setShowListView(props.showListView);
+  }, [props.showListView]);
+
   let getAllNotes = () => {
     NoteServices.getAllNotes()
       .then((response) => {
@@ -52,6 +58,7 @@ function DisplayNotes() {
         unPinedNotes={unPinedNotes}
         getAllNotes={getAllNotes}
         isBin={false}
+        showListView={showListView}
       ></NotesView>
     </>
   );

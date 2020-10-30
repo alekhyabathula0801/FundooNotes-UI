@@ -22,6 +22,11 @@ function Note(props) {
   const [isPined, setIsPined] = useState(props.data.isPined);
   const [noteId, setNoteId] = useState(props.data.id);
   const [displayListIcons, setDisplayListIcons] = useState(false);
+  const [showListView, setShowListView] = useState(props.showListView);
+
+  useEffect(() => {
+    setShowListView(props.showListView);
+  }, [props.showListView]);
 
   useEffect(() => {
     setIsArchived(props.data.isArchived);
@@ -116,7 +121,12 @@ function Note(props) {
   const useStyles = makeStyles((theme) => ({
     note: {
       display: "inline-flex",
-      width: !props.isPopUp ? "14rem" : "30rem",
+      width:
+        !showListView && !props.isPopUp
+          ? "50%"
+          : props.isPopUp
+          ? "30rem"
+          : "14rem",
       background: color,
       padding: "0.3rem 0.5rem",
       margin: props.isPopUp ? "0" : "0.8rem",
@@ -125,12 +135,25 @@ function Note(props) {
       flexDirection: "column",
       border: "1px solid #e0e0e0",
       borderRadius: "0.5rem",
+      [theme.breakpoints.down(960)]: {
+        width:
+          !showListView && !props.isPopUp
+            ? "70%"
+            : props.isPopUp
+            ? "30rem"
+            : "14rem",
+      },
       [theme.breakpoints.down(600)]: {
         padding: "0.3rem",
-        width: !props.isPopUp ? "14rem" : "400px",
+        width:
+          !showListView && !props.isPopUp
+            ? "85%"
+            : props.isPopUp
+            ? "400px"
+            : "14rem",
       },
       [theme.breakpoints.down(500)]: {
-        width: !props.isPopUp ? "20rem" : "90%",
+        width: props.isPopUp ? "90%" : "20rem",
       },
     },
     noteTitle: {
