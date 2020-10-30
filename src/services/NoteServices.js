@@ -1,11 +1,12 @@
 import HttpServices from "./HttpServices";
+import * as noteApiConstants from "../apiConstants/noteApiConstants";
 let baseUrl = process.env.REACT_APP_API_URL;
 let token = JSON.parse(localStorage.getItem("fundoo-notes")).data.id;
 class NoteService {
   addNote(data) {
     return HttpServices.postApiRequest(
       data,
-      `${baseUrl}api/notes/addNotes`,
+      baseUrl + noteApiConstants.notesApi.addNotes,
       token
     );
   }
@@ -13,7 +14,7 @@ class NoteService {
   updateNote(data) {
     return HttpServices.postApiRequest(
       data,
-      `${baseUrl}api/notes/updateNotes`,
+      baseUrl + noteApiConstants.notesApi.updateNotes,
       token
     );
   }
@@ -21,7 +22,7 @@ class NoteService {
   updateNoteColor(data) {
     return HttpServices.postApiRequest(
       data,
-      `${baseUrl}api/notes/changesColorNotes`,
+      baseUrl + noteApiConstants.notesApi.changesColorNotes,
       token
     );
   }
@@ -29,7 +30,7 @@ class NoteService {
   tooglePinNote(data) {
     return HttpServices.postApiRequest(
       data,
-      `${baseUrl}api/notes/pinUnpinNotes`,
+      baseUrl + noteApiConstants.notesApi.pinUnpinNotes,
       token
     );
   }
@@ -37,7 +38,7 @@ class NoteService {
   toogleArchiveNote(data) {
     return HttpServices.postApiRequest(
       data,
-      `${baseUrl}api/notes/archiveNotes`,
+      baseUrl + noteApiConstants.notesApi.archiveNotes,
       token
     );
   }
@@ -45,7 +46,7 @@ class NoteService {
   restoreNote(data) {
     return HttpServices.postApiRequest(
       data,
-      `${baseUrl}api/notes/trashNotes`,
+      baseUrl + noteApiConstants.notesApi.trashNotes,
       token
     );
   }
@@ -53,28 +54,28 @@ class NoteService {
   deleteNoteForever(data) {
     return HttpServices.postApiRequest(
       data,
-      `${baseUrl}api/notes/deleteForeverNotes`,
+      baseUrl + noteApiConstants.notesApi.deleteForeverNotes,
       token
     );
   }
 
   getAllNotes() {
     return HttpServices.getApiRequest(
-      `${baseUrl}api/notes/getNotesList`,
+      baseUrl + noteApiConstants.notesApi.getNotesList,
       token
     );
   }
 
   getAllArchiveNotes() {
     return HttpServices.getApiRequest(
-      `${baseUrl}api/notes/getArchiveNotesList`,
+      baseUrl + noteApiConstants.notesApi.getArchiveNotesList,
       token
     );
   }
 
   getAllDeletedNotes() {
     return HttpServices.getApiRequest(
-      `${baseUrl}api/notes/getTrashNotesList`,
+      baseUrl + noteApiConstants.notesApi.getTrashNotesList,
       token
     );
   }
