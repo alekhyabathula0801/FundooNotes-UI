@@ -76,7 +76,7 @@ function NotesView(props) {
         <div className={classes.notesViewPinned}>PINNED</div>
       ) : null}
       <div className={classes.notesViewList}>
-        {Object.values(pinedNotes).map((notesData) => (
+        {Object.values(pinedNotes).reverse().map((notesData) => (
           <Notes
             key={notesData.id}
             data={notesData}
@@ -99,7 +99,7 @@ function NotesView(props) {
         <div className={classes.notesViewUnPinned}>OTHERS</div>
       ) : null}
       <div className={classes.notesViewList}>
-        {Object.values(unPinedNotes).map((notesData) => (
+        {Object.values(unPinedNotes).reverse().map((notesData) => (
           <Notes
             key={notesData.id}
             data={notesData}
