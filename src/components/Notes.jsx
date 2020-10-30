@@ -200,6 +200,12 @@ function Note(props) {
       fontWeight: "500",
       opacity: "0.88",
     },
+    noteListLeftIcons: {
+      width: "100%",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
   }));
 
   const classes = useStyles();
@@ -309,7 +315,13 @@ function Note(props) {
         }
       />
       <div className={classes.noteList}>
-        <div>{props.isBin ? notesBinIcons : notesIconList}</div>
+        <div
+          className={
+            !props.isBin && !props.isPopUp ? classes.noteListLeftIcons : null
+          }
+        >
+          {props.isBin ? notesBinIcons : notesIconList}
+        </div>
         <Button
           className={classes.noteCloseButton}
           onClick={() => {
