@@ -10,6 +10,11 @@ function DisplayNotes(props) {
   const [notesData, setNotesData] = useState([]);
   const [showListView, setShowListView] = useState(props.showListView);
   const [loading, setLoading] = useState(false);
+  const [searchValue, setSearchValue] = useState(props.searchValue);
+
+  useEffect(() => {
+    setSearchValue(props.searchValue);
+  }, [props.searchValue]);
 
   useEffect(() => {
     setShowListView(props.showListView);
@@ -36,11 +41,22 @@ function DisplayNotes(props) {
     getAllNotes();
   }, []);
 
-  const pinedNotes = notesData.filter(
+  let searchData = [];
+  if ((searchValue !== "") & (searchValue !== null)) {
+    searchData = notesData.filter(
+      (notes) =>
+        notes.title.includes(searchValue) ||
+        notes.description.includes(searchValue)
+    );
+  } else {
+    searchData = notesData;
+  }
+
+  const pinedNotes = searchData.filter(
     (notes) => notes.isPined && !notes.isDeleted && !notes.isArchived
   );
 
-  const unPinedNotes = notesData.filter(
+  const unPinedNotes = searchData.filter(
     (notes) => !notes.isPined && !notes.isDeleted && !notes.isArchived
   );
 

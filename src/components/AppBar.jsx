@@ -117,7 +117,11 @@ function Header(props) {
             <SearchIcon />
           </IconButton>
         </Tooltip>
-        <InputBase placeholder="Search" fullWidth />
+        <InputBase
+          placeholder="Search"
+          fullWidth
+          onChange={(e) => props.setSearchValue(e.currentTarget.value)}
+        />
       </div>
       <div className={classes.appBarRight}>
         {props.showListView ? (

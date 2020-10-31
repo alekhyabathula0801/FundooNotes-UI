@@ -13,9 +13,11 @@ class Dashboard extends React.Component {
     this.state = {
       showDrawerLabels: true,
       showListView: true,
+      searchValue: "",
     };
     this.setShowDrawerLabels = this.setShowDrawerLabels.bind(this);
     this.setListView = this.setListView.bind(this);
+    this.setSearchValue = this.setSearchValue.bind(this);
   }
 
   setShowDrawerLabels() {
@@ -26,6 +28,10 @@ class Dashboard extends React.Component {
     this.setState({ showListView: !this.state.showListView });
   }
 
+  setSearchValue(value) {
+    this.setState({ searchValue: value });
+  }
+
   render() {
     return (
       <div className="profile">
@@ -33,6 +39,7 @@ class Dashboard extends React.Component {
           setShowDrawerLabels={this.setShowDrawerLabels}
           setListView={this.setListView}
           showListView={this.state.showListView}
+          setSearchValue={this.setSearchValue}
         ></Header>
         <main>
           <SideBar showDrawerLabels={this.state.showDrawerLabels}></SideBar>
@@ -43,7 +50,10 @@ class Dashboard extends React.Component {
                   exact
                   path="/dashboard/"
                   render={() => (
-                    <DisplayNotes showListView={this.state.showListView} />
+                    <DisplayNotes
+                      showListView={this.state.showListView}
+                      searchValue={this.state.searchValue}
+                    />
                   )}
                 />
                 <Route

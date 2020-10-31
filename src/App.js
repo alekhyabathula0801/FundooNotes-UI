@@ -3,7 +3,6 @@ import "./App.css";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { ThemeProvider } from "@material-ui/styles";
 import { MessageProvider } from "./components/MessageContext";
 import SnackBar from "./components/SnackBar";
 
@@ -28,30 +27,28 @@ function App() {
   const [showSnackBar, setShowSnackBar] = useState(false);
 
   return (
-    <ThemeProvider>
-      <MessageProvider
-        value={{
-          message: message,
-          setMessage: setMessage,
-          showSnakBar: showSnackBar,
-          setSnackBar: setShowSnackBar,
-        }}
-      >
-        <SnackBar
-          type={messagesList[message]}
-          message={message}
-          show={showSnackBar}
-        />
-        <div className="App">
-          <Router>
-            <Switch>
-              <Route exact path="/" component={Login} />
-              <Route path="/dashboard" component={Dashboard} />
-            </Switch>
-          </Router>
-        </div>
-      </MessageProvider>
-    </ThemeProvider>
+    <MessageProvider
+      value={{
+        message: message,
+        setMessage: setMessage,
+        showSnakBar: showSnackBar,
+        setSnackBar: setShowSnackBar,
+      }}
+    >
+      <SnackBar
+        type={messagesList[message]}
+        message={message}
+        show={showSnackBar}
+      />
+      <div className="App">
+        <Router>
+          <Switch>
+            <Route exact path="/" component={Login} />
+            <Route path="/dashboard" component={Dashboard} />
+          </Switch>
+        </Router>
+      </div>
+    </MessageProvider>
   );
 }
 
