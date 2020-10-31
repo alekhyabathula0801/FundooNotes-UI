@@ -10,6 +10,7 @@ import MoreIcon from "./MoreIcon";
 import PinNote from "./PinNoteIcon";
 import ArchiveNote from "./ArchiveNoteIcon";
 import MessageContext from "../components/MessageContext";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 function CreateNote(props) {
   const message = useContext(MessageContext);
@@ -18,6 +19,7 @@ function CreateNote(props) {
   const [description, setDescription] = useState("");
   const [color, setColor] = useState("#FFFFFF");
   const [isPined, setIsPined] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const useStyles = makeStyles((theme) => ({
     createNote: {
@@ -88,96 +90,103 @@ function CreateNote(props) {
   let toogleArchiveNote = () => {
     setIsArchived(!isArchived);
   };
+
   return (
-    <Paper className={classes.createNote}>
-      <div className={classes.createNoteTittle}>
-        <InputBase
-          placeholder=" Title"
-          fullWidth
-          onChange={(e) => {
-            setTitle(e.currentTarget.value);
-          }}
-        />
-        <PinNote
-          isPined={isPined}
-          tooglePinNote={tooglePinNote}
-          pinClassName={classes.createNotePin}
-        />
-      </div>
-      <InputBase
-        multiline={true}
-        rowsMax={20}
-        placeholder=" Take a note..."
-        fullWidth
-        className={classes.createNoteDescription}
-        onChange={(e) => {
-          setDescription(e.currentTarget.value);
-        }}
-      />
-      <div className={classes.createNoteList}>
-        <div>
-          <RemindMe
-            buttonClassName={classes.createNoteListIconButton}
-            iconClassName={classes.createNoteListIcons}
+    <>
+      {loading ? <CircularProgress /> : null}
+      <Paper className={classes.createNote}>
+        <div className={classes.createNoteTittle}>
+          <InputBase
+            placeholder=" Title"
+            fullWidth
+            onChange={(e) => {
+              setTitle(e.currentTarget.value);
+            }}
           />
-          <AddPersonIcon
-            buttonClassName={classes.createNoteListIconButton}
-            iconClassName={classes.createNoteListIcons}
-          />
-          <ColorPalletIcon
-            buttonClassName={classes.createNoteListIconButton}
-            iconClassName={classes.createNoteListIcons}
-            setColor={setColor}
-          />
-          <AddImageIcon
-            buttonClassName={classes.createNoteListIconButton}
-            iconClassName={classes.createNoteListIcons}
-          />
-          <ArchiveNote
-            buttonClassName={classes.createNoteListIconButton}
-            iconClassName={classes.createNoteListIcons}
-            toogleArchiveNote={toogleArchiveNote}
-          />
-          <MoreIcon
-            buttonClassName={classes.createNoteListIconButton}
-            iconClassName={classes.createNoteListIcons}
+          <PinNote
+            isPined={isPined}
+            tooglePinNote={tooglePinNote}
+            pinClassName={classes.createNotePin}
           />
         </div>
-        <Button
-          className={classes.createNoteCloseButton}
-          onClick={() => {
-            let data = {};
-            data = {
-              title,
-              description,
-              isPined,
-              color,
-              isArchived,
-            };
-            if (title !== "" && description !== "") {
-              NoteServices.addNote(data)
-                .then((response) => {
-                  message.setMessage("Note added Sucessfully");
-                  message.setSnackBar(true);
-                  props.getAllNotes();
-                })
-                .catch((err) => {
-                  message.setMessage(
-                    "Some Error Occured while processing request"
-                  );
-                  message.setSnackBar(true);
-                });
-            } else {
-              message.setMessage("Title and description cannot be empty");
-              message.setSnackBar(true);
-            }
-            props.setShowMiniCreateNote();
+        <InputBase
+          multiline={true}
+          rowsMax={20}
+          placeholder=" Take a note..."
+          fullWidth
+          className={classes.createNoteDescription}
+          onChange={(e) => {
+            setDescription(e.currentTarget.value);
           }}
-        >
-          Close
-        </Button>
-      </div>
-    </Paper>
+        />
+        <div className={classes.createNoteList}>
+          <div>
+            <RemindMe
+              buttonClassName={classes.createNoteListIconButton}
+              iconClassName={classes.createNoteListIcons}
+            />
+            <AddPersonIcon
+              buttonClassName={classes.createNoteListIconButton}
+              iconClassName={classes.createNoteListIcons}
+            />
+            <ColorPalletIcon
+              buttonClassName={classes.createNoteListIconButton}
+              iconClassName={classes.createNoteListIcons}
+              setColor={setColor}
+            />
+            <AddImageIcon
+              buttonClassName={classes.createNoteListIconButton}
+              iconClassName={classes.createNoteListIcons}
+            />
+            <ArchiveNote
+              buttonClassName={classes.createNoteListIconButton}
+              iconClassName={classes.createNoteListIcons}
+              toogleArchiveNote={toogleArchiveNote}
+            />
+            <MoreIcon
+              buttonClassName={classes.createNoteListIconButton}
+              iconClassName={classes.createNoteListIcons}
+            />
+          </div>
+          <Button
+            className={classes.createNoteCloseButton}
+            onClick={() => {
+              let data = {};
+              data = {
+                title,
+                description,
+                isPined,
+                color,
+                isArchived,
+              };
+              if (title !== "" && description !== "") {
+                setLoading(true);
+                NoteServices.addNote(data)
+                  .then((response) => {
+                    setLoading(false);
+                    message.setMessage("Note added Sucessfully");
+                    message.setSnackBar(true);
+                    props.getAllNotes();
+                  })
+                  .catch((err) => {
+                    setLoading(false);
+                    message.setMessage(
+                      "Some Error Occured while processing request"
+                    );
+                    message.setSnackBar(true);
+                  });
+              } else {
+                message.setMessage("Title and description cannot be empty");
+                message.setSnackBar(true);
+              }
+              props.setShowMiniCreateNote();
+            }}
+          >
+            Close
+          </Button>
+        </div>
+      </Paper>
+    </>
   );
 }
 
