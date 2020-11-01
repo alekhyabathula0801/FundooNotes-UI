@@ -13,6 +13,9 @@ import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import RestoreFromTrashIcon from "@material-ui/icons/RestoreFromTrash";
 import { IconButton } from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";
+import CalculateTime from "../util/CalculateTime";
+import AccessTimeOutlinedIcon from "@material-ui/icons/AccessTimeOutlined";
+import ClearOutlinedIcon from "@material-ui/icons/ClearOutlined";
 
 function Note(props) {
   const [isArchived, setIsArchived] = useState(props.data.isArchived);
@@ -20,9 +23,24 @@ function Note(props) {
   const [description, setDescription] = useState(props.data.description);
   const [color, setColor] = useState(props.data.color);
   const [isPined, setIsPined] = useState(props.data.isPined);
+  const [reminder, setReminder] = useState(props.data.reminder);
   const [noteId, setNoteId] = useState(props.data.id);
   const [displayListIcons, setDisplayListIcons] = useState(false);
   const [showListView, setShowListView] = useState(props.showListView);
+  const [showReminderClearIcon, setShowReminderClearIcon] = useState(false);
+
+  let dateSection = "";
+  let timeSection = "";
+  let timeGotOver = "";
+  let reminderTime = "";
+
+  if (reminder.length > 0) {
+    const [date, time, over] = CalculateTime(reminder[0]);
+    dateSection = date;
+    timeSection = time;
+    timeGotOver = over;
+    reminderTime = date + ", " + time;
+  }
 
   useEffect(() => {
     setShowListView(props.showListView);
@@ -206,6 +224,31 @@ function Note(props) {
       justifyContent: "space-between",
       alignItems: "center",
     },
+    notesRemainderLabel: {
+      display: "flex",
+      alignItems: "center",
+      backgroundColor: timeGotOver ? "rgba(0,0,0,0.05)" : "rgba(0,0,0,0.2)",
+      borderRadius: "1.5rem",
+      padding: "0.2rem 0 0.2rem 0.2rem",
+      textDecoration: timeGotOver ? "line-through" : null,
+      maxWidth: "13rem",
+    },
+    notesRemainderLabelClockIcon: {
+      fontSize: "1.2rem",
+    },
+    notesRemainderLabelClearButton: {
+      padding: "0.2rem",
+    },
+    notesRemainderLabelClearIcon: {
+      padding: "0",
+      fontSize: "1rem",
+      display: showReminderClearIcon ? "block" : "none",
+    },
+    notesRemainderLabelDateTime: {
+      textAlign: "left",
+      verticalAlign: "middle",
+      width: "10rem",
+    },
   }));
 
   const classes = useStyles();
@@ -314,6 +357,29 @@ function Note(props) {
             : null
         }
       />
+      {reminder.length > 0 ? (
+        <div
+          className={classes.notesRemainderLabel}
+          onMouseOver={() => {
+            setShowReminderClearIcon(true);
+          }}
+          onMouseLeave={() => {
+            setShowReminderClearIcon(false);
+          }}
+        >
+          <AccessTimeOutlinedIcon
+            className={classes.notesRemainderLabelClockIcon}
+          />
+          <span className={classes.notesRemainderLabelDateTime}>
+            {reminderTime}
+          </span>
+          <IconButton className={classes.notesRemainderLabelClearButton}>
+            <ClearOutlinedIcon
+              className={classes.notesRemainderLabelClearIcon}
+            />
+          </IconButton>
+        </div>
+      ) : null}
       <div className={classes.noteList}>
         <div
           className={
