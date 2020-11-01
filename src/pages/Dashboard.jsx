@@ -6,6 +6,7 @@ import DisplayNotes from "../components/DisplayNotes";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Archive from "../components/Archive";
 import Bin from "../components/Bin";
+import Reminder from "../components/Reminder";
 
 class Dashboard extends React.Component {
   constructor() {
@@ -57,12 +58,24 @@ class Dashboard extends React.Component {
                   )}
                 />
                 <Route
+                  exact
+                  path="/dashboard/Reminders"
+                  render={() => (
+                    <Reminder
+                      showListView={this.state.showListView}
+                      searchValue={this.state.searchValue}
+                    />
+                  )}
+                />
+                <Route
+                  exact
                   path="/dashboard/Archive"
                   render={() => (
                     <Archive showListView={this.state.showListView} />
                   )}
                 />
                 <Route
+                  exact
                   path="/dashboard/Bin"
                   render={() => <Bin showListView={this.state.showListView} />}
                 />
