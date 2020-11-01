@@ -54,6 +54,14 @@ class NoteService {
     );
   }
 
+  removeReminder(data) {
+    return HttpServices.postApiRequest(
+      data,
+      baseUrl + noteApiConstants.notesApi.removeReminder,
+      token
+    );
+  }
+
   deleteNoteForever(data) {
     return HttpServices.postApiRequest(
       data,

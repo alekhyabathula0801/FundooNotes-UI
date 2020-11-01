@@ -136,6 +136,18 @@ function Note(props) {
       .catch((error) => console.log(error));
   };
 
+  let removeReminder = () => {
+    const data = {
+      noteIdList: [noteId],
+    };
+    NoteServices.removeReminder(data)
+      .then((response) => {
+        console.log("remove reminder note response " + response.data);
+        props.getAllNotes();
+      })
+      .catch((error) => console.log(error));
+  };
+
   const useStyles = makeStyles((theme) => ({
     note: {
       display: "inline-flex",
@@ -373,7 +385,10 @@ function Note(props) {
           <span className={classes.notesRemainderLabelDateTime}>
             {reminderTime}
           </span>
-          <IconButton className={classes.notesRemainderLabelClearButton}>
+          <IconButton
+            className={classes.notesRemainderLabelClearButton}
+            onClick={() => removeReminder()}
+          >
             <ClearOutlinedIcon
               className={classes.notesRemainderLabelClearIcon}
             />
