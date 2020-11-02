@@ -11,4 +11,5 @@ export const notesApi = {
   getNotesList: "api/notes/getNotesList",
   getArchiveNotesList: "api/notes/getArchiveNotesList",
   getTrashNotesList: "api/notes/getTrashNotesList",
+  noteLabels: "api/noteLabels",
 };

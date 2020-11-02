@@ -74,19 +74,18 @@ function SideBar(props) {
             (text, index) => (
               <Link
                 className={classes.sideBarLink}
+                onClick={index === 2 ? () => props.openEditLabelPopup() : null}
                 key={index}
                 to={
-                  index === 0
+                  index === 0 || index === 2
                     ? "/dashboard"
-                    : index === 2
-                    ? "/dashboard/#"
                     : `/dashboard/${text}`
                 }
               >
                 <ListItem
                   button
                   key={index}
-                  onClick={() => props.setHeading(text)}
+                  onClick={index !== 2 ? () => props.setHeading(text) : null}
                   className={
                     props.heading === text
                       ? classes.sideBarLabelSelected

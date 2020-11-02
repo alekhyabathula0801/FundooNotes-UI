@@ -62,6 +62,14 @@ class NoteService {
     );
   }
 
+  addLabel(data) {
+    return HttpServices.postApiRequest(
+      data,
+      baseUrl + noteApiConstants.notesApi.noteLabels,
+      token
+    );
+  }
+
   removeReminder(data) {
     return HttpServices.postApiRequest(
       data,
