@@ -15,10 +15,12 @@ class Dashboard extends React.Component {
       showDrawerLabels: true,
       showListView: true,
       searchValue: "",
+      heading: "Notes",
     };
     this.setShowDrawerLabels = this.setShowDrawerLabels.bind(this);
     this.setListView = this.setListView.bind(this);
     this.setSearchValue = this.setSearchValue.bind(this);
+    this.setHeading = this.setHeading.bind(this);
   }
 
   setShowDrawerLabels() {
@@ -33,6 +35,16 @@ class Dashboard extends React.Component {
     this.setState({ searchValue: value });
   }
 
+  setHeading(value) {
+    this.setState({ heading: value });
+  }
+
+  componentDidMount() {
+    let path = window.location.pathname.split("/dashboard/")[1];
+    if (path === undefined) this.setHeading("Notes");
+    else this.setHeading(path);
+  }
+
   render() {
     return (
       <div className="profile">
@@ -43,7 +55,11 @@ class Dashboard extends React.Component {
           setSearchValue={this.setSearchValue}
         ></Header>
         <main>
-          <SideBar showDrawerLabels={this.state.showDrawerLabels}></SideBar>
+          <SideBar
+            showDrawerLabels={this.state.showDrawerLabels}
+            heading={this.state.heading}
+            setHeading={this.setHeading}
+          ></SideBar>
           <main>
             <Switch>
               <Route

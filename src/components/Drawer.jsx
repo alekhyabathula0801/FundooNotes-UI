@@ -40,6 +40,10 @@ function SideBar(props) {
     sideBarLabel: {
       borderRadius: "0 25px 25px 0",
     },
+    sideBarLabelSelected: {
+      borderRadius: "0 25px 25px 0",
+      backgroundColor: "#feefc3",
+    },
     sideBarIcon: {
       margin: "0.3rem 0",
       [theme.breakpoints.down(960)]: {
@@ -75,11 +79,20 @@ function SideBar(props) {
                   index === 0
                     ? "/dashboard"
                     : index === 2
-                    ? "/dashboard/##"
+                    ? "/dashboard/#"
                     : `/dashboard/${text}`
                 }
               >
-                <ListItem button key={index} className={classes.sideBarLabel}>
+                <ListItem
+                  button
+                  key={index}
+                  onClick={() => props.setHeading(text)}
+                  className={
+                    props.heading === text
+                      ? classes.sideBarLabelSelected
+                      : classes.sideBarLabel
+                  }
+                >
                   <Tooltip title={text} placement="bottom-end">
                     <ListItemIcon className={classes.sideBarIcon}>
                       {index === 0 ? (
