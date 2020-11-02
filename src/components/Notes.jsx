@@ -50,27 +50,13 @@ function Note(props) {
 
   useEffect(() => {
     setIsArchived(props.data.isArchived);
-  }, [props.data.isArchived]);
-
-  useEffect(() => {
     setTitle(props.data.title);
-  }, [props.data.title]);
-
-  useEffect(() => {
     setDescription(props.data.description);
-  }, [props.data.description]);
-
-  useEffect(() => {
     setColor(props.data.color);
-  }, [props.data.color]);
-
-  useEffect(() => {
     setIsPined(props.data.isPined);
-  }, [props.data.isPined]);
-
-  useEffect(() => {
     setNoteId(props.data.id);
-  }, [props.data.id]);
+    setReminder(props.data.reminder);
+  }, [props.data]);
 
   let tooglePinNote = () => {
     let data = {};
