@@ -38,6 +38,7 @@ class Dashboard extends React.Component {
       newLabel: "",
       labels: [],
       labelDetails: [],
+      updateLabel: "",
     };
     this.setShowDrawerLabels = this.setShowDrawerLabels.bind(this);
     this.setListView = this.setListView.bind(this);
@@ -49,6 +50,11 @@ class Dashboard extends React.Component {
     this.offCreateLabel = this.offCreateLabel.bind(this);
     this.setNewLabel = this.setNewLabel.bind(this);
     this.setLabels = this.setLabels.bind(this);
+    this.setUpdateLabel = this.setUpdateLabel.bind(this);
+  }
+
+  setUpdateLabel(value) {
+    this.setState({ updateLabel: value });
   }
 
   setShowDrawerLabels() {
@@ -98,7 +104,6 @@ class Dashboard extends React.Component {
   setLabels() {
     NoteServices.getLabelsList()
       .then((response) => {
-        console.log(response.data.data.details);
         this.setState({ labelDetails: response.data.data.details });
         const labelsOnly = response.data.data.details.map((label) => {
           return label.label;
@@ -192,7 +197,7 @@ class Dashboard extends React.Component {
               )}
               <InputBase
                 placeholder="Create New Labels"
-                value={this.state.newLabel}
+                defaultValue={this.state.newLabel}
                 onChange={(e) => this.setNewLabel(e.currentTarget.value)}
                 onClick={
                   !this.state.createLabel ? () => this.onCreateLabel() : null
@@ -253,9 +258,27 @@ class Dashboard extends React.Component {
                       <DeleteIcon />
                     </IconButton>
                   </Tooltip>
-                  <InputBase placeholder="Rename Labels" value={label.label} />
+                  <InputBase
+                    placeholder="Rename Labels"
+                    defaultValue={label.label}
+                    onChange={(e) => this.setUpdateLabel(e.currentTarget.value)}
+                  />
                   <Tooltip title="Rename label" placement="bottom">
-                    <IconButton>
+                    <IconButton
+                      onClick={() => {
+                        let data = {
+                          label: this.state.updateLabel,
+                        };
+                        NoteServices.updateLabel(data, label.id)
+                          .then(() => {
+                            this.setUpdateLabel("");
+                            this.setLabels();
+                          })
+                          .catch((error) => {
+                            console.log(error);
+                          });
+                      }}
+                    >
                       <EditIcon />
                     </IconButton>
                   </Tooltip>

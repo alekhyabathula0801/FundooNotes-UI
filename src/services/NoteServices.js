@@ -124,6 +124,18 @@ class NoteService {
       token
     );
   }
+
+  updateLabel(data, labelId) {
+    return HttpServices.postApiRequest(
+      data,
+      baseUrl +
+        noteApiConstants.notesApi.noteLabels +
+        "/" +
+        labelId +
+        noteApiConstants.notesApi.updateLabel,
+      token
+    );
+  }
 }
 
 export default new NoteService();
