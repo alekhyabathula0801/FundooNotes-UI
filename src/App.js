@@ -15,12 +15,17 @@ function App() {
     "Incorrect Password or email": "error",
     "Some Error Occured while processing request": "error",
     "Note added Sucessfully": "success",
+    "Note updated Sucessfully": "success",
     "Title and description cannot be empty": "error",
     "Note archived Sucessfully": "success",
     "Note unArchived Sucessfully": "success",
     "Note deleted Sucessfully": "success",
     "Note restored Sucessfully": "success",
     "Note deleted forever Sucessfully": "success",
+    "Note pinned Sucessfully": "success",
+    "Note unpinned Sucessfully": "success",
+    "Note reminder deleted Sucessfully": "success",
+    "Note reminder updated Sucessfully": "success",
   };
 
   const [message, setMessage] = useState("");

@@ -79,11 +79,16 @@ function Note(props) {
       noteIdList: [noteId],
     };
     NoteServices.tooglePinNote(data)
-      .then((response) => {
-        console.log(response.data);
+      .then(() => {
+        if (data.isPined) message.setMessage("Note pinned Sucessfully");
+        else message.setMessage("Note unpinned Sucessfully");
+        message.setSnackBar(true);
         props.getAllNotes();
       })
-      .catch((error) => console.log(error));
+      .catch(() => {
+        message.setMessage("Some Error Occured while processing request");
+        message.setSnackBar(true);
+      });
   };
 
   let toogleArchiveNote = () => {
@@ -93,14 +98,16 @@ function Note(props) {
       noteIdList: [noteId],
     };
     NoteServices.toogleArchiveNote(data)
-      .then((response) => {
+      .then(() => {
         if (data.isArchived) message.setMessage("Note archived Sucessfully");
         else message.setMessage("Note unArchived Sucessfully");
         message.setSnackBar(true);
-        console.log("Archive response data " + response.data);
         props.getAllNotes();
       })
-      .catch((error) => console.log(error));
+      .catch(() => {
+        message.setMessage("Some Error Occured while processing request");
+        message.setSnackBar(true);
+      });
   };
 
   let setNoteColor = (color) => {
@@ -109,11 +116,15 @@ function Note(props) {
       noteIdList: [noteId],
     };
     NoteServices.updateNoteColor(data)
-      .then((response) => {
-        console.log("update color response " + response.data);
+      .then(() => {
+        message.setMessage("Note color updated Sucessfully");
+        message.setSnackBar(true);
         setColor(color);
       })
-      .catch((error) => console.log(error));
+      .catch(() => {
+        message.setMessage("Some Error Occured while processing request");
+        message.setSnackBar(true);
+      });
   };
 
   let deleteNoteForever = () => {
@@ -121,11 +132,15 @@ function Note(props) {
       noteIdList: [noteId],
     };
     NoteServices.deleteNoteForever(data)
-      .then((response) => {
-        console.log("delete note forever response " + response.data);
+      .then(() => {
+        message.setMessage("Note deleted forever Sucessfully");
+        message.setSnackBar(true);
         props.getAllNotes();
       })
-      .catch((error) => console.log(error));
+      .catch(() => {
+        message.setMessage("Some Error Occured while processing request");
+        message.setSnackBar(true);
+      });
   };
 
   let toogleDeleteNote = (isDelete) => {
@@ -134,10 +149,16 @@ function Note(props) {
       noteIdList: [noteId],
     };
     NoteServices.restoreNote(data)
-      .then((response) => {
+      .then(() => {
+        if (data.isDeleted) message.setMessage("Note deleted Sucessfully");
+        else message.setMessage("Note restored Sucessfully");
+        message.setSnackBar(true);
         props.getAllNotes();
       })
-      .catch((error) => console.log(error));
+      .catch(() => {
+        message.setMessage("Some Error Occured while processing request");
+        message.setSnackBar(true);
+      });
   };
 
   let removeReminder = () => {
@@ -145,11 +166,15 @@ function Note(props) {
       noteIdList: [noteId],
     };
     NoteServices.removeReminder(data)
-      .then((response) => {
-        console.log("remove reminder note response " + response.data);
+      .then(() => {
+        message.setMessage("Note reminder deleted Sucessfully");
+        message.setSnackBar(true);
         props.getAllNotes();
       })
-      .catch((error) => console.log(error));
+      .catch(() => {
+        message.setMessage("Some Error Occured while processing request");
+        message.setSnackBar(true);
+      });
   };
 
   let addOrUpdateReminder = (date) => {
@@ -159,10 +184,13 @@ function Note(props) {
     };
     NoteServices.addOrUpdateReminder(data)
       .then(() => {
+        message.setMessage("Note reminder updated Sucessfully");
+        message.setSnackBar(true);
         props.getAllNotes();
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
+        message.setMessage("Some Error Occured while processing request");
+        message.setSnackBar(true);
       });
   };
 
@@ -433,11 +461,17 @@ function Note(props) {
             };
             if (title !== "" && description !== "") {
               NoteServices.updateNote(data)
-                .then((response) => {
-                  console.log(response.data);
+                .then(() => {
+                  message.setMessage("Note updated Sucessfully");
+                  message.setSnackBar(true);
                   props.getAllNotes();
                 })
-                .catch((error) => console.log(error));
+                .catch(() => {
+                  message.setMessage(
+                    "Some Error Occured while processing request"
+                  );
+                  message.setSnackBar(true);
+                });
             }
             props.closePopUp();
           }}
