@@ -15,8 +15,8 @@ const CalculateTime = (date) => {
   ];
   const reminderDate = new Date(date);
   const today = new Date();
-  reminderDate.setHours(reminderDate.getHours());
-  reminderDate.setMinutes(reminderDate.getMinutes());
+  reminderDate.setHours(reminderDate.getHours() - 5);
+  reminderDate.setMinutes(reminderDate.getMinutes() - 30);
 
   let yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);

@@ -54,6 +54,14 @@ class NoteService {
     );
   }
 
+  addOrUpdateReminder(data) {
+    return HttpServices.postApiRequest(
+      data,
+      baseUrl + noteApiConstants.notesApi.addOrUpdateReminder,
+      token
+    );
+  }
+
   removeReminder(data) {
     return HttpServices.postApiRequest(
       data,

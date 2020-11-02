@@ -20,6 +20,7 @@ function CreateNote(props) {
   const [color, setColor] = useState("#FFFFFF");
   const [isPined, setIsPined] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [reminder, setReminder] = useState(null);
 
   const useStyles = makeStyles((theme) => ({
     createNote: {
@@ -124,6 +125,7 @@ function CreateNote(props) {
             <RemindMe
               buttonClassName={classes.createNoteListIconButton}
               iconClassName={classes.createNoteListIcons}
+              setReminder={setReminder}
             />
             <AddPersonIcon
               buttonClassName={classes.createNoteListIconButton}

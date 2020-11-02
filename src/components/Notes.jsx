@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Paper, InputBase, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import NoteServices from "../services/NoteServices";
@@ -16,8 +16,10 @@ import Tooltip from "@material-ui/core/Tooltip";
 import CalculateTime from "../util/CalculateTime";
 import AccessTimeOutlinedIcon from "@material-ui/icons/AccessTimeOutlined";
 import ClearOutlinedIcon from "@material-ui/icons/ClearOutlined";
+import MessageContext from "../components/MessageContext";
 
 function Note(props) {
+  const message = useContext(MessageContext);
   const [isArchived, setIsArchived] = useState(props.data.isArchived);
   const [title, setTitle] = useState(props.data.title);
   const [description, setDescription] = useState(props.data.description);
@@ -92,6 +94,9 @@ function Note(props) {
     };
     NoteServices.toogleArchiveNote(data)
       .then((response) => {
+        if (data.isArchived) message.setMessage("Note archived Sucessfully");
+        else message.setMessage("Note unArchived Sucessfully");
+        message.setSnackBar(true);
         console.log("Archive response data " + response.data);
         props.getAllNotes();
       })
@@ -130,7 +135,6 @@ function Note(props) {
     };
     NoteServices.restoreNote(data)
       .then((response) => {
-        console.log("delete or restore note response " + response.data);
         props.getAllNotes();
       })
       .catch((error) => console.log(error));
@@ -146,6 +150,20 @@ function Note(props) {
         props.getAllNotes();
       })
       .catch((error) => console.log(error));
+  };
+
+  let addOrUpdateReminder = (date) => {
+    const data = {
+      reminder: date,
+      noteIdList: [noteId],
+    };
+    NoteServices.addOrUpdateReminder(data)
+      .then(() => {
+        props.getAllNotes();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const useStyles = makeStyles((theme) => ({
@@ -270,6 +288,7 @@ function Note(props) {
       <RemindMe
         buttonClassName={classes.notesListIconButtons}
         iconClassName={classes.noteListIcons}
+        setReminder={addOrUpdateReminder}
       />
       <AddPersonIcon
         buttonClassName={classes.notesListIconButtons}

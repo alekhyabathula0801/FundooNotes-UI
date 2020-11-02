@@ -5,6 +5,7 @@ export const notesApi = {
   pinUnpinNotes: "api/notes/pinUnpinNotes",
   archiveNotes: "api/notes/archiveNotes",
   trashNotes: "api/notes/trashNotes",
+  addOrUpdateReminder: "api/notes/addUpdateReminderNotes",
   deleteForeverNotes: "api/notes/deleteForeverNotes",
   removeReminder: "api/notes/removeReminderNotes",
   getNotesList: "api/notes/getNotesList",

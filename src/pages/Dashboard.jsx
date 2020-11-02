@@ -49,7 +49,7 @@ class Dashboard extends React.Component {
               <Switch>
                 <Route
                   exact
-                  path="/dashboard/"
+                  path={`/dashboard/`}
                   render={() => (
                     <DisplayNotes
                       showListView={this.state.showListView}
@@ -59,7 +59,7 @@ class Dashboard extends React.Component {
                 />
                 <Route
                   exact
-                  path="/dashboard/Reminders"
+                  path={`/dashboard/Reminders`}
                   render={() => (
                     <Reminder
                       showListView={this.state.showListView}
@@ -69,14 +69,14 @@ class Dashboard extends React.Component {
                 />
                 <Route
                   exact
-                  path="/dashboard/Archive"
+                  path={`/dashboard/Archive`}
                   render={() => (
                     <Archive showListView={this.state.showListView} />
                   )}
                 />
                 <Route
                   exact
-                  path="/dashboard/Bin"
+                  path={`/dashboard/Bin`}
                   render={() => <Bin showListView={this.state.showListView} />}
                 />
               </Switch>
