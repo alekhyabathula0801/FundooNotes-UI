@@ -35,6 +35,9 @@ class Dashboard extends React.Component {
       openEditLabelPopup: false,
       createLabel: true,
       newLabel: "",
+      labels: [],
+      // startingLabels = ["Notes", "Reminders"],
+      // endingLabels = ["Edit labels", "Archive", "Bin"],
     };
     this.setShowDrawerLabels = this.setShowDrawerLabels.bind(this);
     this.setListView = this.setListView.bind(this);
@@ -45,6 +48,7 @@ class Dashboard extends React.Component {
     this.onCreateLabel = this.onCreateLabel.bind(this);
     this.offCreateLabel = this.offCreateLabel.bind(this);
     this.setNewLabel = this.setNewLabel.bind(this);
+    this.setLabels = this.setLabels.bind(this);
   }
 
   setShowDrawerLabels() {
@@ -80,6 +84,7 @@ class Dashboard extends React.Component {
     let path = window.location.pathname.split("/dashboard/")[1];
     if (path === undefined) this.setHeading("Notes");
     else this.setHeading(path);
+    this.setLabels();
   }
 
   closeEditLabelPopup() {
@@ -88,6 +93,18 @@ class Dashboard extends React.Component {
 
   openEditLabelPopup() {
     this.setState({ openEditLabelPopup: true });
+  }
+
+  setLabels() {
+    NoteServices.getLabelsList()
+      .then((response) => {
+        console.log(response.data);
+        const labelsOnly = response.data.data.details.map((label) => {
+          return label.label;
+        });
+        this.setState({ labels: labelsOnly });
+      })
+      .catch((error) => console.log(error));
   }
 
   render() {
@@ -106,6 +123,7 @@ class Dashboard extends React.Component {
               heading={this.state.heading}
               setHeading={this.setHeading}
               openEditLabelPopup={this.openEditLabelPopup}
+              labels={this.state.labels}
             ></SideBar>
             <main>
               <Switch>
@@ -196,6 +214,7 @@ class Dashboard extends React.Component {
                         NoteServices.addLabel(data)
                           .then((response) => {
                             console.log(response.data);
+                            this.setLabels();
                             this.setNewLabel("");
                           })
                           .catch((error) => console.log(error));

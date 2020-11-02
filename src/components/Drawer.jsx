@@ -11,6 +11,7 @@ import NotificationsOutlined from "@material-ui/icons/NotificationsOutlined";
 import EmojiObjectsOutlined from "@material-ui/icons/EmojiObjectsOutlined";
 import Tooltip from "@material-ui/core/Tooltip";
 import { Link } from "react-router-dom";
+import LabelOutlinedIcon from "@material-ui/icons/LabelOutlined";
 
 function SideBar(props) {
   const useStyles = makeStyles((theme) => ({
@@ -66,55 +67,73 @@ function SideBar(props) {
     },
   }));
   const classes = useStyles();
+  const sideBarLabels = [
+    "Notes",
+    "Reminders",
+    ...props.labels,
+    "Edit labels",
+    "Archive",
+    "Bin",
+  ];
   return (
     <div className={classes.sideBar}>
       <div>
         <List>
-          {["Notes", "Reminders", "Edit labels", "Archive", "Bin"].map(
-            (text, index) => (
-              <Link
-                className={classes.sideBarLink}
-                onClick={index === 2 ? () => props.openEditLabelPopup() : null}
+          {sideBarLabels.map((text, index) => (
+            <Link
+              className={classes.sideBarLink}
+              onClick={
+                index === sideBarLabels.length - 3
+                  ? () => props.openEditLabelPopup()
+                  : null
+              }
+              key={index}
+              to={
+                index === 0 || index === sideBarLabels.length - 3
+                  ? "/dashboard"
+                  : index > sideBarLabels.length - 3 || index === 1
+                  ? `/dashboard/${text}`
+                  : `/dashboard/label/${text}`
+              }
+            >
+              <ListItem
+                button
                 key={index}
-                to={
-                  index === 0 || index === 2
-                    ? "/dashboard"
-                    : `/dashboard/${text}`
+                onClick={
+                  index !== sideBarLabels.length - 3
+                    ? () => props.setHeading(text)
+                    : null
+                }
+                className={
+                  props.heading === text
+                    ? classes.sideBarLabelSelected
+                    : classes.sideBarLabel
                 }
               >
-                <ListItem
-                  button
-                  key={index}
-                  onClick={index !== 2 ? () => props.setHeading(text) : null}
-                  className={
-                    props.heading === text
-                      ? classes.sideBarLabelSelected
-                      : classes.sideBarLabel
-                  }
-                >
-                  <Tooltip title={text} placement="bottom-end">
-                    <ListItemIcon className={classes.sideBarIcon}>
-                      {index === 0 ? (
-                        <EmojiObjectsOutlined />
-                      ) : index === 1 ? (
-                        <NotificationsOutlined />
-                      ) : index === 2 ? (
-                        <CreateOutlined />
-                      ) : index === 3 ? (
-                        <ArchiveOutlined />
-                      ) : (
-                        <DeleteOutlined />
-                      )}
-                    </ListItemIcon>
-                  </Tooltip>
-                  <ListItemText
-                    primary={text}
-                    className={classes.sideBarLabelText}
-                  />
-                </ListItem>
-              </Link>
-            )
-          )}
+                <Tooltip title={text} placement="bottom-end">
+                  <ListItemIcon className={classes.sideBarIcon}>
+                    {index === 0 ? (
+                      <EmojiObjectsOutlined />
+                    ) : index === 1 ? (
+                      <NotificationsOutlined />
+                    ) : index === sideBarLabels.length - 3 ? (
+                      <CreateOutlined />
+                    ) : index === sideBarLabels.length - 2 ? (
+                      <ArchiveOutlined />
+                    ) : index === sideBarLabels.length - 1 ? (
+                      <DeleteOutlined />
+                    ) : (
+                      <LabelOutlinedIcon />
+                    )}
+                  </ListItemIcon>
+                </Tooltip>
+                <ListItemText
+                  primary={text}
+                  className={classes.sideBarLabelText}
+                />
+              </ListItem>
+            </Link>
+          ))}
         </List>
       </div>
       <div className={classes.drawerLicence}>Open-source licences</div>

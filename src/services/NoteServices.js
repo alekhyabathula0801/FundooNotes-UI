@@ -106,6 +106,13 @@ class NoteService {
       token
     );
   }
+
+  getLabelsList() {
+    return HttpServices.getApiRequest(
+      baseUrl + noteApiConstants.notesApi.getNoteLabelList,
+      token
+    );
+  }
 }
 
 export default new NoteService();
