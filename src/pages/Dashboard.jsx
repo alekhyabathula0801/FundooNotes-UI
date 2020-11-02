@@ -1,7 +1,6 @@
 import React from "react";
 import Header from "../components/AppBar";
 import SideBar from "../components/Drawer";
-import "../css/dashboard.css";
 import DisplayNotes from "../components/DisplayNotes";
 import { Route, Switch } from "react-router-dom";
 import Archive from "../components/Archive";
@@ -15,6 +14,7 @@ import {
   IconButton,
   InputBase,
   Tooltip,
+  Button,
 } from "@material-ui/core";
 import AddOutlinedIcon from "@material-ui/icons/AddOutlined";
 import CloseOutlinedIcon from "@material-ui/icons/CloseOutlined";
@@ -23,6 +23,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import DoneIcon from "@material-ui/icons/Done";
 import LabelIcon from "@material-ui/icons/Label";
 import NoteServices from "../services/NoteServices";
+import "../css/dashboard.css";
 
 class Dashboard extends React.Component {
   constructor() {
@@ -36,8 +37,7 @@ class Dashboard extends React.Component {
       createLabel: true,
       newLabel: "",
       labels: [],
-      // startingLabels = ["Notes", "Reminders"],
-      // endingLabels = ["Edit labels", "Archive", "Bin"],
+      labelDetails: [],
     };
     this.setShowDrawerLabels = this.setShowDrawerLabels.bind(this);
     this.setListView = this.setListView.bind(this);
@@ -98,7 +98,8 @@ class Dashboard extends React.Component {
   setLabels() {
     NoteServices.getLabelsList()
       .then((response) => {
-        console.log(response.data);
+        console.log(response.data.data.details);
+        this.setState({ labelDetails: response.data.data.details });
         const labelsOnly = response.data.data.details.map((label) => {
           return label.label;
         });
@@ -168,9 +169,14 @@ class Dashboard extends React.Component {
           onClose={this.closeEditLabelPopup}
           aria-labelledby="responsive-dialog-title"
         >
-          <DialogTitle id="simple-dialog-title">Edit labels</DialogTitle>
+          <DialogTitle
+            id="simple-dialog-title"
+            className="dashboard--edit--labels"
+          >
+            Edit labels
+          </DialogTitle>
           <List>
-            <ListItem>
+            <ListItem className="dashboard__edit__labels__list__item" key={0}>
               {this.state.createLabel ? (
                 <Tooltip title="cancel" placement="bottom">
                   <IconButton onClick={() => this.offCreateLabel()}>
@@ -227,7 +233,37 @@ class Dashboard extends React.Component {
                 </Tooltip>
               ) : null}
             </ListItem>
+            {this.state.labelDetails.map((label, index) => {
+              return (
+                <ListItem
+                  className="dashboard__edit__labels__list__item"
+                  key={index + 1}
+                >
+                  <Tooltip title="Delete label" placement="bottom">
+                    <IconButton
+                      onClick={() => {
+                        NoteServices.deleteLabel(label.id)
+                          .then((response) => {
+                            console.log(response);
+                            this.setLabels();
+                          })
+                          .catch((error) => console.log(error));
+                      }}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </Tooltip>
+                  <InputBase placeholder="Rename Labels" value={label.label} />
+                  <Tooltip title="Rename label" placement="bottom">
+                    <IconButton>
+                      <EditIcon />
+                    </IconButton>
+                  </Tooltip>
+                </ListItem>
+              );
+            })}
           </List>
+          <Button onClick={() => this.closeEditLabelPopup()}>Close</Button>
         </Dialog>
       </>
     );

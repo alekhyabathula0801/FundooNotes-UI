@@ -113,6 +113,17 @@ class NoteService {
       token
     );
   }
+
+  deleteLabel(labelId) {
+    return HttpServices.deleteApiRequest(
+      baseUrl +
+        noteApiConstants.notesApi.noteLabels +
+        "/" +
+        labelId +
+        noteApiConstants.notesApi.deleteLabel,
+      token
+    );
+  }
 }
 
 export default new NoteService();

@@ -19,7 +19,15 @@
   overflow: auto;
 }
 
-@media only screen and (max-width:480px) {
+.dashboard--edit--labels {
+  padding: 0.4rem 0.6rem !important;
+}
+
+.dashboard__edit__labels__list__item {
+  padding: 0.3rem 0.6rem !important;
+}
+
+@media only screen and (max-width: 480px) {
   .profile > main > main {
     padding: 0 1rem;
   }
