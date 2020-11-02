@@ -30,6 +30,8 @@ function Note(props) {
   const [displayListIcons, setDisplayListIcons] = useState(false);
   const [showListView, setShowListView] = useState(props.showListView);
   const [showReminderClearIcon, setShowReminderClearIcon] = useState(false);
+  const [noteLabels, setNoteLabels] = useState(props.data.noteLabels);
+  const [showLabelClearIcon, setShowLabelClearIcon] = useState(false);
 
   let dateSection = "";
   let timeSection = "";
@@ -281,7 +283,7 @@ function Note(props) {
       fontSize: "1.2rem",
     },
     notesRemainderLabelClearButton: {
-      padding: "0.2rem",
+      padding: "0.1rem",
     },
     notesRemainderLabelClearIcon: {
       padding: "0",
@@ -292,6 +294,23 @@ function Note(props) {
       textAlign: "left",
       verticalAlign: "middle",
       width: "10rem",
+    },
+    notesLabels: {
+      display: "flex",
+      flexWrap: "wrap",
+      alignItems: "flex-start",
+      padding: "0.2rem",
+    },
+    notesLabelElement: {
+      padding: "0.2rem 0.5rem",
+      borderRadius: "1.5rem",
+      backgroundColor: "rgba(0,0,0,0.3)",
+      margin: "0.2rem",
+    },
+    notesLabelClearIcon: {
+      padding: "0",
+      fontSize: "1rem",
+      display: showLabelClearIcon ? "block" : "none",
     },
   }));
 
@@ -402,7 +421,7 @@ function Note(props) {
             : null
         }
       />
-      {reminder.length > 0 ? (
+      {reminder.length > 0 && !props.isBin ? (
         <div
           className={classes.notesRemainderLabel}
           onMouseOver={() => {
@@ -428,6 +447,29 @@ function Note(props) {
           </IconButton>
         </div>
       ) : null}
+      <div className={classes.notesLabels}>
+        {noteLabels.map((label, index) => {
+          return (
+            <span
+              key={index}
+              className={classes.notesLabelElement}
+              onMouseOver={() => {
+                setShowLabelClearIcon(true);
+              }}
+              onMouseLeave={() => {
+                setShowLabelClearIcon(false);
+              }}
+            >
+              <span>{label.label}</span>
+              {props.isBin ? null : (
+                <IconButton className={classes.notesRemainderLabelClearButton}>
+                  <ClearOutlinedIcon className={classes.notesLabelClearIcon} />
+                </IconButton>
+              )}
+            </span>
+          );
+        })}
+      </div>
       <div className={classes.noteList}>
         <div
           className={
