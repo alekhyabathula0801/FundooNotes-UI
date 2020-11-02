@@ -1,4 +1,4 @@
-const CalculateTime = (date) => {
+const CalculateTime = (date, isCreated) => {
   const months = [
     "Jan",
     "Feb",
@@ -15,8 +15,13 @@ const CalculateTime = (date) => {
   ];
   const reminderDate = new Date(date);
   const today = new Date();
-  reminderDate.setHours(reminderDate.getHours() - 5);
-  reminderDate.setMinutes(reminderDate.getMinutes() - 30);
+  if (isCreated) {
+    reminderDate.setHours(reminderDate.getHours());
+    reminderDate.setMinutes(reminderDate.getMinutes());
+  } else {
+    reminderDate.setHours(reminderDate.getHours() - 5);
+    reminderDate.setMinutes(reminderDate.getMinutes() - 30);
+  }
 
   let yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);

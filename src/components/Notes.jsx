@@ -37,7 +37,7 @@ function Note(props) {
   let reminderTime = "";
 
   if (reminder.length > 0) {
-    const [date, time, over] = CalculateTime(reminder[0]);
+    const [date, time, over] = CalculateTime(reminder[0], false);
     dateSection = date;
     timeSection = time;
     timeGotOver = over;

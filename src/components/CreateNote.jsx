@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Paper, InputBase, Button } from "@material-ui/core";
+import { Paper, InputBase, Button, IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import NoteServices from "../services/NoteServices";
 import ColorPalletIcon from "./ColorPalletIcon";
@@ -11,6 +11,9 @@ import PinNote from "./PinNoteIcon";
 import ArchiveNote from "./ArchiveNoteIcon";
 import MessageContext from "../components/MessageContext";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import CalculateTime from "../util/CalculateTime";
+import AccessTimeOutlinedIcon from "@material-ui/icons/AccessTimeOutlined";
+import ClearOutlinedIcon from "@material-ui/icons/ClearOutlined";
 
 function CreateNote(props) {
   const message = useContext(MessageContext);
@@ -20,7 +23,21 @@ function CreateNote(props) {
   const [color, setColor] = useState("#FFFFFF");
   const [isPined, setIsPined] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [reminder, setReminder] = useState(null);
+  const [reminder, setReminder] = useState("");
+  const [showReminderClearIcon, setShowReminderClearIcon] = useState(false);
+
+  let dateSection = "";
+  let timeSection = "";
+  let timeGotOver = "";
+  let reminderTime = "";
+
+  if (reminder !== "") {
+    const [date, time, over] = CalculateTime(reminder, true);
+    dateSection = date;
+    timeSection = time;
+    timeGotOver = over;
+    reminderTime = date + ", " + time;
+  }
 
   const useStyles = makeStyles((theme) => ({
     createNote: {
@@ -81,6 +98,31 @@ function CreateNote(props) {
       color: "#202124",
       opacity: "0.71",
     },
+    notesRemainderLabel: {
+      display: "flex",
+      alignItems: "center",
+      backgroundColor: timeGotOver ? "rgba(0,0,0,0.05)" : "rgba(0,0,0,0.2)",
+      borderRadius: "1.5rem",
+      padding: "0.2rem 0 0.2rem 0.2rem",
+      textDecoration: timeGotOver ? "line-through" : null,
+      maxWidth: "13rem",
+    },
+    notesRemainderLabelClockIcon: {
+      fontSize: "1.2rem",
+    },
+    notesRemainderLabelClearButton: {
+      padding: "0.2rem",
+    },
+    notesRemainderLabelClearIcon: {
+      padding: "0",
+      fontSize: "1rem",
+      display: showReminderClearIcon ? "block" : "none",
+    },
+    notesRemainderLabelDateTime: {
+      textAlign: "left",
+      verticalAlign: "middle",
+      width: "10rem",
+    },
   }));
 
   const classes = useStyles();
@@ -88,8 +130,13 @@ function CreateNote(props) {
   let tooglePinNote = () => {
     setIsPined(!isPined);
   };
+
   let toogleArchiveNote = () => {
     setIsArchived(!isArchived);
+  };
+
+  let removeReminder = () => {
+    setReminder("");
   };
 
   return (
@@ -120,6 +167,32 @@ function CreateNote(props) {
             setDescription(e.currentTarget.value);
           }}
         />
+        {reminder !== "" ? (
+          <div
+            className={classes.notesRemainderLabel}
+            onMouseOver={() => {
+              setShowReminderClearIcon(true);
+            }}
+            onMouseLeave={() => {
+              setShowReminderClearIcon(false);
+            }}
+          >
+            <AccessTimeOutlinedIcon
+              className={classes.notesRemainderLabelClockIcon}
+            />
+            <span className={classes.notesRemainderLabelDateTime}>
+              {reminderTime}
+            </span>
+            <IconButton
+              className={classes.notesRemainderLabelClearButton}
+              onClick={() => removeReminder()}
+            >
+              <ClearOutlinedIcon
+                className={classes.notesRemainderLabelClearIcon}
+              />
+            </IconButton>
+          </div>
+        ) : null}
         <div className={classes.createNoteList}>
           <div>
             <RemindMe
@@ -160,6 +233,7 @@ function CreateNote(props) {
                 isPined,
                 color,
                 isArchived,
+                reminder,
               };
               if (title !== "" && description !== "") {
                 setLoading(true);
