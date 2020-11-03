@@ -163,6 +163,37 @@ function CreateNote(props) {
     setNoteLabels(labels);
   };
 
+  let addNote = () => {
+    let labelIdList = noteLabels.map((label) => {
+      return label.id;
+    });
+    const data = new FormData();
+    data.append("title", title);
+    data.append("description", description);
+    data.append("reminder", reminder);
+    data.append("isArchived", isArchived);
+    data.append("color", color);
+    data.append("labelIdList", JSON.stringify(labelIdList));
+    if (title !== "" && description !== "") {
+      setLoading(true);
+      NoteServices.addNote(data)
+        .then(() => {
+          setLoading(false);
+          message.setMessage("Note added Sucessfully");
+          message.setSnackBar(true);
+          props.getAllNotes();
+        })
+        .catch(() => {
+          setLoading(false);
+          message.setMessage("Some Error Occured while processing request");
+          message.setSnackBar(true);
+        });
+    } else {
+      message.setMessage("Title and description cannot be empty");
+      message.setSnackBar(true);
+    }
+  };
+
   let addLabelFromNote = (labelId) => {
     let label = props.labelDetails.find((label) => label.id === labelId);
     setNoteLabels([...noteLabels, label]);
@@ -288,38 +319,7 @@ function CreateNote(props) {
           <Button
             className={classes.createNoteCloseButton}
             onClick={() => {
-              let labelIdList = noteLabels.map((label) => {
-                return label.id;
-              });
-              let data = {
-                title: title,
-                description: description,
-                isPined: isPined,
-                color: color,
-                isArchived: isArchived,
-                reminder: reminder,
-                labelIdList: JSON.stringify(labelIdList),
-              };
-              if (title !== "" && description !== "") {
-                setLoading(true);
-                NoteServices.addNote(data)
-                  .then(() => {
-                    setLoading(false);
-                    message.setMessage("Note added Sucessfully");
-                    message.setSnackBar(true);
-                    props.getAllNotes();
-                  })
-                  .catch(() => {
-                    setLoading(false);
-                    message.setMessage(
-                      "Some Error Occured while processing request"
-                    );
-                    message.setSnackBar(true);
-                  });
-              } else {
-                message.setMessage("Title and description cannot be empty");
-                message.setSnackBar(true);
-              }
+              addNote();
               props.setShowMiniCreateNote();
             }}
           >

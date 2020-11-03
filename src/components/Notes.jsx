@@ -209,6 +209,26 @@ function Note(props) {
       });
   };
 
+  let updateNote = () => {
+    let data = {
+      title: title,
+      description: description,
+      noteId: noteId,
+    };
+    if (title !== "" && description !== "") {
+      NoteServices.updateNote(data)
+        .then(() => {
+          message.setMessage("Note updated Sucessfully");
+          message.setSnackBar(true);
+          props.getAllNotes();
+        })
+        .catch(() => {
+          message.setMessage("Some Error Occured while processing request");
+          message.setSnackBar(true);
+        });
+    }
+  };
+
   const useStyles = makeStyles((theme) => ({
     note: {
       display: "inline-flex",
@@ -515,26 +535,7 @@ function Note(props) {
         <Button
           className={classes.noteCloseButton}
           onClick={() => {
-            let data = {};
-            data = {
-              title: title,
-              description: description,
-              noteId: noteId,
-            };
-            if (title !== "" && description !== "") {
-              NoteServices.updateNote(data)
-                .then(() => {
-                  message.setMessage("Note updated Sucessfully");
-                  message.setSnackBar(true);
-                  props.getAllNotes();
-                })
-                .catch(() => {
-                  message.setMessage(
-                    "Some Error Occured while processing request"
-                  );
-                  message.setSnackBar(true);
-                });
-            }
+            updateNote();
             props.closePopUp();
           }}
         >
