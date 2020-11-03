@@ -83,6 +83,7 @@ function DisplayNotes(props) {
           getAllNotes={getAllNotes}
           isBin={false}
           showListView={showListView}
+          labelDetails={props.labelDetails}
         ></NotesView>
       )}
     </>

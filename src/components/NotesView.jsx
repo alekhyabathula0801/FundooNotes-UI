@@ -78,9 +78,9 @@ function NotesView(props) {
       <div className={classes.notesViewList}>
         {Object.values(pinedNotes)
           .reverse()
-          .map((notesData) => (
+          .map((notesData, index) => (
             <Notes
-              key={notesData.id}
+              key={index}
               data={notesData}
               showCloseButton={false}
               getNotesData={getPopUpNotesData}
@@ -89,6 +89,7 @@ function NotesView(props) {
               getAllNotes={props.getAllNotes}
               isBin={props.isBin}
               showListView={showListView}
+              labelDetails={props.labelDetails}
             ></Notes>
           ))}
       </div>
@@ -114,6 +115,7 @@ function NotesView(props) {
               getAllNotes={props.getAllNotes}
               isBin={props.isBin}
               showListView={showListView}
+              labelDetails={props.labelDetails}
             ></Notes>
           ))}
       </div>
@@ -138,6 +140,7 @@ function NotesView(props) {
           showCloseButton={true}
           getAllNotes={props.getAllNotes}
           isBin={props.isBin}
+          labelDetails={props.labelDetails}
         ></Notes>
       </Dialog>
     </>

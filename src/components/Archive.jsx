@@ -43,6 +43,7 @@ function Archive(props) {
           unPinedNotes={unPinedNotes}
           getAllNotes={getAllArchiveNotes}
           showListView={showListView}
+          labelDetails={props.labelDetails}
         ></NotesView>
       )}
     </>

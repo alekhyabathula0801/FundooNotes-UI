@@ -58,6 +58,7 @@ function Note(props) {
     setIsPined(props.data.isPined);
     setNoteId(props.data.id);
     setReminder(props.data.reminder);
+    setNoteLabels(props.data.noteLabels);
   }, [props.data]);
 
   let tooglePinNote = () => {
@@ -345,6 +346,8 @@ function Note(props) {
         buttonClassName={classes.notesListIconButtons}
         iconClassName={classes.noteListIcons}
         deleteNote={toogleDeleteNote}
+        noteLabels={noteLabels}
+        labelDetails={props.labelDetails}
       />
     </>
   );

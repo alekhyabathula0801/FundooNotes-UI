@@ -140,6 +140,7 @@ class Dashboard extends React.Component {
                     <DisplayNotes
                       showListView={this.state.showListView}
                       searchValue={this.state.searchValue}
+                      labelDetails={this.state.labelDetails}
                     />
                   )}
                 />
@@ -150,6 +151,7 @@ class Dashboard extends React.Component {
                     <Reminder
                       showListView={this.state.showListView}
                       searchValue={this.state.searchValue}
+                      labelDetails={this.state.labelDetails}
                     />
                   )}
                 />
@@ -157,7 +159,10 @@ class Dashboard extends React.Component {
                   exact
                   path={`/dashboard/Archive`}
                   render={() => (
-                    <Archive showListView={this.state.showListView} />
+                    <Archive
+                      showListView={this.state.showListView}
+                      labelDetails={this.state.labelDetails}
+                    />
                   )}
                 />
                 <Route

@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import { IconButton, Menu, MenuItem } from "@material-ui/core";
+import { IconButton, Menu, MenuItem, MenuList } from "@material-ui/core";
 import MoreVertOutlinedIcon from "@material-ui/icons/MoreVertOutlined";
 import Tooltip from "@material-ui/core/Tooltip";
+import CheckBoxOutlineBlankOutlinedIcon from "@material-ui/icons/CheckBoxOutlineBlankOutlined";
+import CheckBoxOutlinedIcon from "@material-ui/icons/CheckBoxOutlined";
 
 function MoreIcon(props) {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [displayLabel, setDisplayLabel] = useState(false);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -12,7 +15,28 @@ function MoreIcon(props) {
 
   const handleClose = () => {
     setAnchorEl(null);
+    setDisplayLabel(false);
   };
+
+  const noteLabels = props.noteLabels.map((label) => {
+    return label.label;
+  });
+  const labelsList = Object.values(props.labelDetails).map((label, index) => {
+    return (
+      <MenuItem key={index}>
+        {noteLabels.includes(label.label) ? (
+          <IconButton>
+            <CheckBoxOutlinedIcon />
+          </IconButton>
+        ) : (
+          <IconButton>
+            <CheckBoxOutlineBlankOutlinedIcon />
+          </IconButton>
+        )}
+        {label.label}
+      </MenuItem>
+    );
+  });
 
   const moreList = (
     <Menu
@@ -22,7 +46,16 @@ function MoreIcon(props) {
       open={Boolean(anchorEl)}
       onClose={handleClose}
     >
-      <MenuItem onClick={() => props.deleteNote(true)}>Delete note</MenuItem>
+      {displayLabel ? (
+        labelsList
+      ) : (
+        <MenuList>
+          <MenuItem onClick={() => props.deleteNote(true)}>
+            Delete note
+          </MenuItem>
+          <MenuItem onClick={() => setDisplayLabel(true)}>Add label</MenuItem>
+        </MenuList>
+      )}
     </Menu>
   );
 
