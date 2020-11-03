@@ -25,6 +25,8 @@ function CreateNote(props) {
   const [loading, setLoading] = useState(false);
   const [reminder, setReminder] = useState("");
   const [showReminderClearIcon, setShowReminderClearIcon] = useState(false);
+  const [showLabelClearIcon, setShowLabelClearIcon] = useState(false);
+  const [noteLabels, setNoteLabels] = useState([]);
 
   let dateSection = "";
   let timeSection = "";
@@ -123,6 +125,23 @@ function CreateNote(props) {
       verticalAlign: "middle",
       width: "10rem",
     },
+    notesLabels: {
+      display: "flex",
+      flexWrap: "wrap",
+      alignItems: "flex-start",
+      padding: "0.2rem",
+    },
+    notesLabelElement: {
+      padding: "0.2rem 0.5rem",
+      borderRadius: "1.5rem",
+      backgroundColor: "rgba(0,0,0,0.3)",
+      margin: "0.2rem",
+    },
+    notesLabelClearIcon: {
+      padding: "0",
+      fontSize: "1rem",
+      display: showLabelClearIcon ? "block" : "none",
+    },
   }));
 
   const classes = useStyles();
@@ -137,6 +156,16 @@ function CreateNote(props) {
 
   let removeReminder = () => {
     setReminder("");
+  };
+
+  let removeLabelFromNote = (labelId) => {
+    let labels = noteLabels.filter((label) => label.id !== labelId);
+    setNoteLabels(labels);
+  };
+
+  let addLabelFromNote = (labelId) => {
+    let label = props.labelDetails.find((label) => label.id === labelId);
+    setNoteLabels([...noteLabels, label]);
   };
 
   return (
@@ -193,6 +222,35 @@ function CreateNote(props) {
             </IconButton>
           </div>
         ) : null}
+        <div className={classes.notesLabels}>
+          {noteLabels.map((label, index) => {
+            console.log(label.label);
+            return (
+              <span
+                key={index}
+                className={classes.notesLabelElement}
+                onMouseOver={() => {
+                  setShowLabelClearIcon(true);
+                }}
+                onMouseLeave={() => {
+                  setShowLabelClearIcon(false);
+                }}
+              >
+                <span>{label.label}</span>
+                {props.isBin ? null : (
+                  <IconButton
+                    className={classes.notesRemainderLabelClearButton}
+                    onClick={() => removeLabelFromNote(label.id)}
+                  >
+                    <ClearOutlinedIcon
+                      className={classes.notesLabelClearIcon}
+                    />
+                  </IconButton>
+                )}
+              </span>
+            );
+          })}
+        </div>
         <div className={classes.createNoteList}>
           <div>
             <RemindMe
@@ -221,13 +279,16 @@ function CreateNote(props) {
             <MoreIcon
               buttonClassName={classes.createNoteListIconButton}
               iconClassName={classes.createNoteListIcons}
+              noteLabels={noteLabels}
+              labelDetails={props.labelDetails}
+              removeLabelFromNote={removeLabelFromNote}
+              addLabelFromNote={addLabelFromNote}
             />
           </div>
           <Button
             className={classes.createNoteCloseButton}
             onClick={() => {
-              let data = {};
-              data = {
+              let data = {
                 title,
                 description,
                 isPined,
@@ -238,13 +299,13 @@ function CreateNote(props) {
               if (title !== "" && description !== "") {
                 setLoading(true);
                 NoteServices.addNote(data)
-                  .then((response) => {
+                  .then(() => {
                     setLoading(false);
                     message.setMessage("Note added Sucessfully");
                     message.setSnackBar(true);
                     props.getAllNotes();
                   })
-                  .catch((err) => {
+                  .catch(() => {
                     setLoading(false);
                     message.setMessage(
                       "Some Error Occured while processing request"

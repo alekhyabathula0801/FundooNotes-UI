@@ -72,6 +72,7 @@ function DisplayNotes(props) {
           setShowMiniCreateNote={toogleShowMiniCreateNote}
           showMiniCreateNote={showMiniCreateNote}
           getAllNotes={getAllNotes}
+          labelDetails={props.labelDetails}
         ></CreateNote>
       )}
       {loading ? (

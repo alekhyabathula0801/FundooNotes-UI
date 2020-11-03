@@ -21,6 +21,7 @@ function MoreIcon(props) {
   const noteLabels = props.noteLabels.map((label) => {
     return label.label;
   });
+
   const labelsList = Object.values(props.labelDetails).map((label, index) => {
     return (
       <MenuItem key={index}>
