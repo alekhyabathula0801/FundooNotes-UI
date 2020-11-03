@@ -26,6 +26,7 @@ function App() {
     "Note unpinned Sucessfully": "success",
     "Note reminder deleted Sucessfully": "success",
     "Note reminder updated Sucessfully": "success",
+    "Note label removed Sucessfully": "success",
   };
 
   const [message, setMessage] = useState("");

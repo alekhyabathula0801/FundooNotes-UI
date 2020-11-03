@@ -136,6 +136,19 @@ class NoteService {
       token
     );
   }
+
+  removeLabelFromNote(labelId, noteId) {
+    return HttpServices.postApiRequest(
+      {},
+      baseUrl +
+        noteApiConstants.notesApi.addOrRemoveLabelFromNoteStartUrl +
+        noteId +
+        noteApiConstants.notesApi.addOrRemoveLabelFromNoteMiddleUrl +
+        labelId +
+        noteApiConstants.notesApi.removeLabelFromNoteEndUrl,
+      token
+    );
+  }
 }
 
 export default new NoteService();

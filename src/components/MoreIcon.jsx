@@ -25,7 +25,7 @@ function MoreIcon(props) {
     return (
       <MenuItem key={index}>
         {noteLabels.includes(label.label) ? (
-          <IconButton>
+          <IconButton onClick={() => props.removeLabelFromNote(label.id)}>
             <CheckBoxOutlinedIcon />
           </IconButton>
         ) : (

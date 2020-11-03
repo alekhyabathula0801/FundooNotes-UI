@@ -166,6 +166,19 @@ function Note(props) {
       });
   };
 
+  let removeLabelFromNote = (labelId) => {
+    NoteServices.removeLabelFromNote(labelId, noteId)
+      .then(() => {
+        message.setMessage("Note label removed Sucessfully");
+        message.setSnackBar(true);
+        props.getAllNotes();
+      })
+      .catch(() => {
+        message.setMessage("Some Error Occured while processing request");
+        message.setSnackBar(true);
+      });
+  };
+
   let addOrUpdateReminder = (date) => {
     const data = {
       reminder: date,
@@ -348,6 +361,7 @@ function Note(props) {
         deleteNote={toogleDeleteNote}
         noteLabels={noteLabels}
         labelDetails={props.labelDetails}
+        removeLabelFromNote={removeLabelFromNote}
       />
     </>
   );
@@ -465,7 +479,10 @@ function Note(props) {
             >
               <span>{label.label}</span>
               {props.isBin ? null : (
-                <IconButton className={classes.notesRemainderLabelClearButton}>
+                <IconButton
+                  className={classes.notesRemainderLabelClearButton}
+                  onClick={() => removeLabelFromNote(label.id)}
+                >
                   <ClearOutlinedIcon className={classes.notesLabelClearIcon} />
                 </IconButton>
               )}
