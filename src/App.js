@@ -27,6 +27,7 @@ function App() {
     "Note reminder deleted Sucessfully": "success",
     "Note reminder updated Sucessfully": "success",
     "Note label removed Sucessfully": "success",
+    "Note label added Sucessfully": "success",
   };
 
   const [message, setMessage] = useState("");

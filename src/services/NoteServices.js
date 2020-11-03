@@ -149,6 +149,19 @@ class NoteService {
       token
     );
   }
+
+  addLabelFromNote(labelId, noteId) {
+    return HttpServices.postApiRequest(
+      {},
+      baseUrl +
+        noteApiConstants.notesApi.addOrRemoveLabelFromNoteStartUrl +
+        noteId +
+        noteApiConstants.notesApi.addOrRemoveLabelFromNoteMiddleUrl +
+        labelId +
+        noteApiConstants.notesApi.addLabelFromNoteEndUrl,
+      token
+    );
+  }
 }
 
 export default new NoteService();

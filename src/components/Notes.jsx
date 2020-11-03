@@ -179,6 +179,19 @@ function Note(props) {
       });
   };
 
+  let addLabelFromNote = (labelId) => {
+    NoteServices.addLabelFromNote(labelId, noteId)
+      .then(() => {
+        message.setMessage("Note label added Sucessfully");
+        message.setSnackBar(true);
+        props.getAllNotes();
+      })
+      .catch(() => {
+        message.setMessage("Some Error Occured while processing request");
+        message.setSnackBar(true);
+      });
+  };
+
   let addOrUpdateReminder = (date) => {
     const data = {
       reminder: date,
@@ -362,6 +375,7 @@ function Note(props) {
         noteLabels={noteLabels}
         labelDetails={props.labelDetails}
         removeLabelFromNote={removeLabelFromNote}
+        addLabelFromNote={addLabelFromNote}
       />
     </>
   );

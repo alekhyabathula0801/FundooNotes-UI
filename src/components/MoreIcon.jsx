@@ -29,7 +29,7 @@ function MoreIcon(props) {
             <CheckBoxOutlinedIcon />
           </IconButton>
         ) : (
-          <IconButton>
+          <IconButton onClick={() => props.addLabelFromNote(label.id)}>
             <CheckBoxOutlineBlankOutlinedIcon />
           </IconButton>
         )}
