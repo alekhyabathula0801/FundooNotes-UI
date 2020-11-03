@@ -288,13 +288,17 @@ function CreateNote(props) {
           <Button
             className={classes.createNoteCloseButton}
             onClick={() => {
+              let labelIdList = noteLabels.map((label) => {
+                return label.id;
+              });
               let data = {
-                title,
-                description,
-                isPined,
-                color,
-                isArchived,
-                reminder,
+                title: title,
+                description: description,
+                isPined: isPined,
+                color: color,
+                isArchived: isArchived,
+                reminder: reminder,
+                labelIdList: JSON.stringify(labelIdList),
               };
               if (title !== "" && description !== "") {
                 setLoading(true);
