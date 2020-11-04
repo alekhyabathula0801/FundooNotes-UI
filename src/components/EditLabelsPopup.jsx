@@ -45,14 +45,19 @@ function EditLabelsPopup(props) {
             </Tooltip>
           ) : (
             <Tooltip title="Create label" placement="bottom">
-              <IconButton onClick={() => setCreateLabel(true)}>
+              <IconButton
+                onClick={() => {
+                  setCreateLabel(true);
+                  setNewLabel("");
+                }}
+              >
                 <AddOutlinedIcon />
               </IconButton>
             </Tooltip>
           )}
           <InputBase
             placeholder="Create New Labels"
-            defaultValue={newLabel}
+            value={newLabel}
             onChange={(e) => setNewLabel(e.currentTarget.value)}
             onClick={!createLabel ? () => setCreateLabel(true) : null}
           />
@@ -86,7 +91,7 @@ function EditLabelsPopup(props) {
               </Tooltip>
               <InputBase
                 placeholder="Rename Labels"
-                defaultValue={label.label}
+                value={label.label}
                 onChange={(e) => setUpdateLabel(e.currentTarget.value)}
               />
               <Tooltip title="Rename label" placement="bottom">
