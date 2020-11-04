@@ -61,14 +61,14 @@ function Collaborator(props) {
       {searchUserList.length > 0 ? (
         searchUserList
           .filter((user) => !collaboratorUserIds.includes(user.userId))
-          .map((user) => {
+          .map((user, index) => {
             return (
-              <MenuItem onClick={() => props.addCollaborator(user)}>
+              <MenuItem onClick={() => props.addCollaborator(user)} key={index}>
                 <div>
                   <ListItemText
                     primary={`${user.firstName} ${user.lastName}`}
+                    secondary={user.email}
                   />
-                  <ListItemText primary={user.email} />
                 </div>
               </MenuItem>
             );
@@ -99,8 +99,8 @@ function Collaborator(props) {
           <div>
             <ListItemText
               primary={`${userDetails.firstName} ${userDetails.lastName} (Owner) `}
+              secondary={userDetails.email}
             />
-            <ListItemText primary={userDetails.email} />
           </div>
         </ListItem>
         {props.noteCollaborators.map((collaborator, index) => {
@@ -112,8 +112,8 @@ function Collaborator(props) {
               <div>
                 <ListItemText
                   primary={`${collaborator.firstName} ${collaborator.lastName}`}
+                  secondary={collaborator.email}
                 />
-                <ListItemText primary={collaborator.email} />
               </div>
               <ListItemSecondaryAction>
                 <IconButton edge="end" aria-label="delete">
