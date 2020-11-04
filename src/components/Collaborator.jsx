@@ -65,7 +65,13 @@ function Collaborator(props) {
           .filter((user) => !collaboratorUserIds.includes(user.userId))
           .map((user, index) => {
             return (
-              <MenuItem onClick={() => props.addCollaborator(user)} key={index}>
+              <MenuItem
+                onClick={() => {
+                  props.addCollaborator(user);
+                  handleClose();
+                }}
+                key={index}
+              >
                 <div>
                   <ListItemText
                     primary={`${user.firstName} ${user.lastName}`}
@@ -144,7 +150,7 @@ function Collaborator(props) {
         </ListItem>
       </List>
       <DialogActions>
-        <Button onClick={() => props.getAllNotes()}>Save</Button>
+        <Button onClick={() => props.closeCollaboratorPopup()}>Save</Button>
       </DialogActions>
     </Dialog>
   );

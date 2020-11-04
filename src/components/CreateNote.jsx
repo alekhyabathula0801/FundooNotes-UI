@@ -1,5 +1,13 @@
 import React, { useState, useContext } from "react";
-import { Paper, InputBase, Button, IconButton } from "@material-ui/core";
+import {
+  Paper,
+  InputBase,
+  Button,
+  IconButton,
+  Tooltip,
+  Avatar,
+  ListItemAvatar,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import NoteServices from "../services/NoteServices";
 import ColorPalletIcon from "./ColorPalletIcon";
@@ -27,6 +35,7 @@ function CreateNote(props) {
   const [showReminderClearIcon, setShowReminderClearIcon] = useState(false);
   const [showLabelClearIcon, setShowLabelClearIcon] = useState(false);
   const [noteLabels, setNoteLabels] = useState([]);
+  const [noteCollaborators, setNoteCollaborators] = useState([]);
 
   let dateSection = "";
   let timeSection = "";
@@ -163,6 +172,16 @@ function CreateNote(props) {
     setNoteLabels(labels);
   };
 
+  let addCollaborator = (user) => {
+    setNoteCollaborators([...noteCollaborators, user]);
+  };
+
+  let removeCollaborator = (userId) => {
+    setNoteCollaborators(
+      noteCollaborators.filter((user) => user.userId !== userId)
+    );
+  };
+
   let addNote = () => {
     let labelIdList = noteLabels.map((label) => {
       return label.id;
@@ -174,6 +193,7 @@ function CreateNote(props) {
     data.append("isArchived", isArchived);
     data.append("color", color);
     data.append("labelIdList", JSON.stringify(labelIdList));
+    data.append("collaberators", JSON.stringify(noteCollaborators));
     if (title !== "" && description !== "") {
       setLoading(true);
       NoteServices.addNote(data)
@@ -282,6 +302,23 @@ function CreateNote(props) {
             );
           })}
         </div>
+        <div className={classes.notesLabels}>
+          {noteCollaborators.map((collaborator, index) => {
+            return (
+              <Tooltip
+                title={collaborator.email}
+                placement="bottom"
+                key={index}
+              >
+                <ListItemAvatar>
+                  <Avatar alt={collaborator.firstName}>
+                    {collaborator.firstName[0]}
+                  </Avatar>
+                </ListItemAvatar>
+              </Tooltip>
+            );
+          })}
+        </div>
         <div className={classes.createNoteList}>
           <div>
             <RemindMe
@@ -292,6 +329,10 @@ function CreateNote(props) {
             <AddPersonIcon
               buttonClassName={classes.createNoteListIconButton}
               iconClassName={classes.createNoteListIcons}
+              addCollaborator={addCollaborator}
+              noteCollaborators={noteCollaborators}
+              removeCollaborator={removeCollaborator}
+              getAllNotes={() => {}}
             />
             <ColorPalletIcon
               buttonClassName={classes.createNoteListIconButton}
