@@ -29,6 +29,7 @@ function App() {
     "Note label removed Sucessfully": "success",
     "Note label added Sucessfully": "success",
     "Note Collaborator added Sucessfully": "success",
+    "Note Collaborator removed Sucessfully": "success",
   };
 
   const [message, setMessage] = useState("");

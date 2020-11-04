@@ -116,7 +116,11 @@ function Collaborator(props) {
                 />
               </div>
               <ListItemSecondaryAction>
-                <IconButton edge="end" aria-label="delete">
+                <IconButton
+                  edge="end"
+                  aria-label="delete"
+                  onClick={() => props.removeCollaborator(collaborator.userId)}
+                >
                   <CloseOutlinedIcon />
                 </IconButton>
               </ListItemSecondaryAction>

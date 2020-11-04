@@ -251,6 +251,19 @@ function Note(props) {
       });
   };
 
+  let removeCollaborator = (userId) => {
+    NoteServices.removeCollaborator(userId, noteId)
+      .then(() => {
+        message.setMessage("Note Collaborator removed Sucessfully");
+        message.setSnackBar(true);
+        props.getAllNotes();
+      })
+      .catch(() => {
+        message.setMessage("Some Error Occured while processing request");
+        message.setSnackBar(true);
+      });
+  };
+
   const useStyles = makeStyles((theme) => ({
     note: {
       display: "inline-flex",
@@ -397,6 +410,7 @@ function Note(props) {
         iconClassName={classes.noteListIcons}
         addCollaborator={addCollaborator}
         noteCollaborators={noteCollaborators}
+        removeCollaborator={removeCollaborator}
       />
       <ColorPalletIcon
         buttonClassName={classes.notesListIconButtons}

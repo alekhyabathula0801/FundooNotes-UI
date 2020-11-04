@@ -181,6 +181,17 @@ class NoteService {
       token
     );
   }
+
+  removeCollaborator(userId, noteId) {
+    return HttpServices.deleteApiRequest(
+      baseUrl +
+        noteApiConstants.notesApi.addOrRemoveLabelFromNoteStartUrl +
+        noteId +
+        noteApiConstants.notesApi.removeCollaboratorsNotes +
+        userId,
+      token
+    );
+  }
 }
 
 export default new NoteService();
