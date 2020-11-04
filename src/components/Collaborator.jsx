@@ -10,9 +10,12 @@ import {
   TextField,
   Menu,
   MenuItem,
+  ListItemSecondaryAction,
+  IconButton,
 } from "@material-ui/core";
 import "../css/dashboard.css";
 import NoteServices from "../services/NoteServices";
+import CloseOutlinedIcon from "@material-ui/icons/CloseOutlined";
 
 function Collaborator(props) {
   let userDetails = [];
@@ -85,7 +88,7 @@ function Collaborator(props) {
       <List>
         <ListItem button>
           <ListItemAvatar>
-            <Avatar></Avatar>
+            <Avatar>{userDetails.firstName[0]}</Avatar>
           </ListItemAvatar>
           <div>
             <ListItemText
@@ -94,6 +97,26 @@ function Collaborator(props) {
             <ListItemText primary={userDetails.email} />
           </div>
         </ListItem>
+        {props.noteCollaborators.map((collaborator, index) => {
+          return (
+            <ListItem key={index}>
+              <ListItemAvatar>
+                <Avatar>{collaborator.firstName[0]}</Avatar>
+              </ListItemAvatar>
+              <div>
+                <ListItemText
+                  primary={`${collaborator.firstName} ${collaborator.lastName}`}
+                />
+                <ListItemText primary={collaborator.email} />
+              </div>
+              <ListItemSecondaryAction>
+                <IconButton edge="end" aria-label="delete">
+                  <CloseOutlinedIcon />
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
+          );
+        })}
         <ListItem>
           <ListItemAvatar>
             <Avatar></Avatar>

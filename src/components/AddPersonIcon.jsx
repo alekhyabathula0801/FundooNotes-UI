@@ -29,6 +29,7 @@ function AddPersonIcon(props) {
         collaboratorPopup={collaboratorPopup}
         closeCollaboratorPopup={closeCollaboratorPopup}
         addCollaborator={props.addCollaborator}
+        noteCollaborators={props.noteCollaborators}
       />
     </>
   );

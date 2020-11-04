@@ -104,9 +104,9 @@ function NotesView(props) {
       <div className={classes.notesViewList}>
         {Object.values(unPinedNotes)
           .reverse()
-          .map((notesData) => (
+          .map((notesData, index) => (
             <Notes
-              key={notesData.id}
+              key={index + pinedNotes.length}
               data={notesData}
               showCloseButton={false}
               getNotesData={getPopUpNotesData}

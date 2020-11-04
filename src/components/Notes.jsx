@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Paper, InputBase, Button } from "@material-ui/core";
+import {
+  Paper,
+  InputBase,
+  Button,
+  Avatar,
+  ListItemAvatar,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import NoteServices from "../services/NoteServices";
 import ColorPalletIcon from "./ColorPalletIcon";
@@ -32,6 +38,9 @@ function Note(props) {
   const [showReminderClearIcon, setShowReminderClearIcon] = useState(false);
   const [noteLabels, setNoteLabels] = useState(props.data.noteLabels);
   const [showLabelClearIcon, setShowLabelClearIcon] = useState(false);
+  const [noteCollaborators, setNoteCollaborators] = useState(
+    props.data.collaborators
+  );
 
   let dateSection = "";
   let timeSection = "";
@@ -387,6 +396,7 @@ function Note(props) {
         buttonClassName={classes.notesListIconButtons}
         iconClassName={classes.noteListIcons}
         addCollaborator={addCollaborator}
+        noteCollaborators={noteCollaborators}
       />
       <ColorPalletIcon
         buttonClassName={classes.notesListIconButtons}
@@ -535,6 +545,19 @@ function Note(props) {
                 </IconButton>
               )}
             </span>
+          );
+        })}
+      </div>
+      <div className={classes.notesLabels}>
+        {noteCollaborators.map((collaborator, index) => {
+          return (
+            <Tooltip title={collaborator.email} placement="bottom" key={index}>
+              <ListItemAvatar>
+                <Avatar alt={collaborator.firstName}>
+                  {collaborator.firstName[0]}
+                </Avatar>
+              </ListItemAvatar>
+            </Tooltip>
           );
         })}
       </div>
