@@ -243,7 +243,7 @@ function Note(props) {
       .then(() => {
         message.setMessage("Note Collaborator added Sucessfully");
         message.setSnackBar(true);
-        props.getAllNotes();
+        setNoteCollaborators([...noteCollaborators, user]);
       })
       .catch(() => {
         message.setMessage("Some Error Occured while processing request");
@@ -256,7 +256,9 @@ function Note(props) {
       .then(() => {
         message.setMessage("Note Collaborator removed Sucessfully");
         message.setSnackBar(true);
-        props.getAllNotes();
+        setNoteCollaborators(
+          noteCollaborators.filter((user) => user.userId !== userId)
+        );
       })
       .catch(() => {
         message.setMessage("Some Error Occured while processing request");
@@ -411,6 +413,7 @@ function Note(props) {
         addCollaborator={addCollaborator}
         noteCollaborators={noteCollaborators}
         removeCollaborator={removeCollaborator}
+        getAllNotes={props.getAllNotes}
       />
       <ColorPalletIcon
         buttonClassName={classes.notesListIconButtons}

@@ -12,6 +12,8 @@ import {
   MenuItem,
   ListItemSecondaryAction,
   IconButton,
+  Button,
+  DialogActions,
 } from "@material-ui/core";
 import "../css/dashboard.css";
 import NoteServices from "../services/NoteServices";
@@ -141,6 +143,9 @@ function Collaborator(props) {
           {searchList}
         </ListItem>
       </List>
+      <DialogActions>
+        <Button onClick={() => props.getAllNotes()}>Save</Button>
+      </DialogActions>
     </Dialog>
   );
 }
