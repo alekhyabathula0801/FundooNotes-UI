@@ -56,7 +56,7 @@ function Collaborator(props) {
       {searchUserList.length > 0 ? (
         searchUserList.map((user) => {
           return (
-            <MenuItem>
+            <MenuItem onClick={() => props.addCollaborator(user)}>
               <div>
                 <ListItemText primary={`${user.firstName} ${user.lastName}`} />
                 <ListItemText primary={user.email} />
@@ -101,7 +101,6 @@ function Collaborator(props) {
           <TextField
             label="Search Collaborator"
             margin="normal"
-            variant="outlined"
             fullWidth
             onChange={(e) => getSearchListData(e.currentTarget.value)}
             onClick={searchWord.length > 0 ? handleClick : null}

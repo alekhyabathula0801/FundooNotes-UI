@@ -170,6 +170,17 @@ class NoteService {
       token
     );
   }
+
+  addCollaborator(data, noteId) {
+    return HttpServices.postApiRequest(
+      data,
+      baseUrl +
+        noteApiConstants.notesApi.addOrRemoveLabelFromNoteStartUrl +
+        noteId +
+        noteApiConstants.notesApi.addCollaboratorNotes,
+      token
+    );
+  }
 }
 
 export default new NoteService();

@@ -20,4 +20,5 @@ export const notesApi = {
   removeLabelFromNoteEndUrl: "/remove",
   addLabelFromNoteEndUrl: "/add",
   userSearchList: "api/user/searchUserList",
+  addCollaboratorNotes: "/AddcollaboratorsNotes",
 };

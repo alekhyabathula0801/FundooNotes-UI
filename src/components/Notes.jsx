@@ -229,6 +229,19 @@ function Note(props) {
     }
   };
 
+  let addCollaborator = (user) => {
+    NoteServices.addCollaborator(user, noteId)
+      .then(() => {
+        message.setMessage("Note Collaborator added Sucessfully");
+        message.setSnackBar(true);
+        props.getAllNotes();
+      })
+      .catch(() => {
+        message.setMessage("Some Error Occured while processing request");
+        message.setSnackBar(true);
+      });
+  };
+
   const useStyles = makeStyles((theme) => ({
     note: {
       display: "inline-flex",
@@ -373,6 +386,7 @@ function Note(props) {
       <AddPersonIcon
         buttonClassName={classes.notesListIconButtons}
         iconClassName={classes.noteListIcons}
+        addCollaborator={addCollaborator}
       />
       <ColorPalletIcon
         buttonClassName={classes.notesListIconButtons}
