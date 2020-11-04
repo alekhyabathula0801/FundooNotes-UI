@@ -162,6 +162,14 @@ class NoteService {
       token
     );
   }
+
+  searchUserList(data) {
+    return HttpServices.postApiRequest(
+      data,
+      baseUrl + noteApiConstants.notesApi.userSearchList,
+      token
+    );
+  }
 }
 
 export default new NoteService();
