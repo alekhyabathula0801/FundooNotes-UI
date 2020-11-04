@@ -1,9 +1,16 @@
 import React, { useState } from "react";
-import { IconButton, Menu, MenuItem, MenuList } from "@material-ui/core";
+import {
+  IconButton,
+  Menu,
+  MenuItem,
+  MenuList,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Checkbox,
+} from "@material-ui/core";
 import MoreVertOutlinedIcon from "@material-ui/icons/MoreVertOutlined";
 import Tooltip from "@material-ui/core/Tooltip";
-import CheckBoxOutlineBlankOutlinedIcon from "@material-ui/icons/CheckBoxOutlineBlankOutlined";
-import CheckBoxOutlinedIcon from "@material-ui/icons/CheckBoxOutlined";
 
 function MoreIcon(props) {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -24,18 +31,21 @@ function MoreIcon(props) {
 
   const labelsList = Object.values(props.labelDetails).map((label, index) => {
     return (
-      <MenuItem key={index}>
-        {noteLabels.includes(label.label) ? (
-          <IconButton onClick={() => props.removeLabelFromNote(label.id)}>
-            <CheckBoxOutlinedIcon />
-          </IconButton>
-        ) : (
-          <IconButton onClick={() => props.addLabelFromNote(label.id)}>
-            <CheckBoxOutlineBlankOutlinedIcon />
-          </IconButton>
-        )}
-        {label.label}
-      </MenuItem>
+      <ListItem key={index} dense button>
+        <ListItemIcon>
+          <Checkbox
+            edge="start"
+            color="primary"
+            checked={noteLabels.includes(label.label)}
+            onChange={
+              noteLabels.includes(label.label)
+                ? () => props.removeLabelFromNote(label.id)
+                : () => props.addLabelFromNote(label.id)
+            }
+          />
+        </ListItemIcon>
+        <ListItemText primary={label.label} />
+      </ListItem>
     );
   });
 
@@ -48,7 +58,16 @@ function MoreIcon(props) {
       onClose={handleClose}
     >
       {displayLabel ? (
-        labelsList
+        <MenuList>
+          {labelsList}
+          <MenuItem
+            onClick={() => {
+              props.getAllNotes();
+            }}
+          >
+            Save
+          </MenuItem>
+        </MenuList>
       ) : (
         <MenuList>
           <MenuItem onClick={() => props.deleteNote(true)}>

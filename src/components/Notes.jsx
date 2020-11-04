@@ -180,7 +180,7 @@ function Note(props) {
       .then(() => {
         message.setMessage("Note label removed Sucessfully");
         message.setSnackBar(true);
-        props.getAllNotes();
+        setNoteLabels(noteLabels.filter((label) => label.id !== labelId));
       })
       .catch(() => {
         message.setMessage("Some Error Occured while processing request");
@@ -193,7 +193,10 @@ function Note(props) {
       .then(() => {
         message.setMessage("Note label added Sucessfully");
         message.setSnackBar(true);
-        props.getAllNotes();
+        setNoteLabels([
+          ...noteLabels,
+          props.labelDetails.find((label) => label.id === labelId),
+        ]);
       })
       .catch(() => {
         message.setMessage("Some Error Occured while processing request");
@@ -437,6 +440,7 @@ function Note(props) {
         labelDetails={props.labelDetails}
         removeLabelFromNote={removeLabelFromNote}
         addLabelFromNote={addLabelFromNote}
+        getAllNotes={props.getAllNotes}
       />
     </>
   );

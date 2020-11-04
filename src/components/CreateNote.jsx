@@ -355,6 +355,7 @@ function CreateNote(props) {
               labelDetails={props.labelDetails}
               removeLabelFromNote={removeLabelFromNote}
               addLabelFromNote={addLabelFromNote}
+              getAllNotes={() => {}}
             />
           </div>
           <Button
