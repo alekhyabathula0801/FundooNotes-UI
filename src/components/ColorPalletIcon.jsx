@@ -66,6 +66,7 @@ function ColorPalletIcon(props) {
               className={classes.colorOption}
               onClick={() => {
                 props.setColor(color);
+                handleClose();
               }}
             ></IconButton>
           );

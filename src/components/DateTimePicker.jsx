@@ -24,9 +24,11 @@ export default function DateAndTimePicker(props) {
 
   let todayDate = today.getDate();
   if (todayDate < 10) todayDate = `0${todayDate}`;
-  const d = `${today.getFullYear()}-${month}-${todayDate}T${
+  let d = `${today.getFullYear()}-${month}-${todayDate}T${
     today.getHours() + 2
   }:00`;
+  if (today.getHours() > 21)
+    d = `${today.getFullYear()}-${month}-${todayDate}T${today.getHours()}:00`;
   const [date, setDate] = useState(d);
   const classes = useStyles();
   return (
@@ -45,8 +47,8 @@ export default function DateAndTimePicker(props) {
       />
       <Button
         onClick={() => {
-          console.log("date " + date);
           props.setReminder(date);
+          props.closeMenu();
         }}
       >
         Save

@@ -24,7 +24,10 @@ function RemindMeIcon(props) {
       onClose={handleClose}
     >
       <MenuItem>
-        <DateAndTimePicker setReminder={props.setReminder} />
+        <DateAndTimePicker
+          setReminder={props.setReminder}
+          closeMenu={handleClose}
+        />
       </MenuItem>
     </Menu>
   );
