@@ -48,6 +48,8 @@ function Collaborator(props) {
     }
   };
 
+  let collaboratorUserIds = props.noteCollaborators.map((user) => user.userId);
+
   const searchList = (
     <Menu
       id="simple-menu"
@@ -57,16 +59,20 @@ function Collaborator(props) {
       onClose={handleClose}
     >
       {searchUserList.length > 0 ? (
-        searchUserList.map((user) => {
-          return (
-            <MenuItem onClick={() => props.addCollaborator(user)}>
-              <div>
-                <ListItemText primary={`${user.firstName} ${user.lastName}`} />
-                <ListItemText primary={user.email} />
-              </div>
-            </MenuItem>
-          );
-        })
+        searchUserList
+          .filter((user) => !collaboratorUserIds.includes(user.userId))
+          .map((user) => {
+            return (
+              <MenuItem onClick={() => props.addCollaborator(user)}>
+                <div>
+                  <ListItemText
+                    primary={`${user.firstName} ${user.lastName}`}
+                  />
+                  <ListItemText primary={user.email} />
+                </div>
+              </MenuItem>
+            );
+          })
       ) : (
         <MenuItem>
           <ListItemText primary="No results found" />
