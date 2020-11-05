@@ -36,7 +36,9 @@ function Note(props) {
   const [displayListIcons, setDisplayListIcons] = useState(false);
   const [showListView, setShowListView] = useState(props.showListView);
   const [showReminderClearIcon, setShowReminderClearIcon] = useState(false);
-  const [noteLabels, setNoteLabels] = useState(props.data.noteLabels);
+  const [noteLabels, setNoteLabels] = useState(
+    props.data.noteLabels.filter((label) => !label.isDeleted)
+  );
   const [showLabelClearIcon, setShowLabelClearIcon] = useState(false);
   const [noteCollaborators, setNoteCollaborators] = useState(
     props.data.collaborators
@@ -56,6 +58,14 @@ function Note(props) {
   }
 
   useEffect(() => {
+    props.data.noteLabels
+      .filter((label) => label.isDeleted)
+      .forEach((element) => {
+        removeLabelFromNote(element.id);
+      });
+  }, [props.data.noteLabels]);
+
+  useEffect(() => {
     setShowListView(props.showListView);
   }, [props.showListView]);
 
@@ -67,7 +77,7 @@ function Note(props) {
     setIsPined(props.data.isPined);
     setNoteId(props.data.id);
     setReminder(props.data.reminder);
-    setNoteLabels(props.data.noteLabels);
+    setNoteLabels(props.data.noteLabels.filter((label) => !label.isDeleted));
   }, [props.data]);
 
   let tooglePinNote = () => {
@@ -178,8 +188,6 @@ function Note(props) {
   let removeLabelFromNote = (labelId) => {
     NoteServices.removeLabelFromNote(labelId, noteId)
       .then(() => {
-        message.setMessage("Note label removed Sucessfully");
-        message.setSnackBar(true);
         setNoteLabels(noteLabels.filter((label) => label.id !== labelId));
       })
       .catch(() => {
