@@ -32,8 +32,6 @@ function CreateNote(props) {
   const [isPined, setIsPined] = useState(false);
   const [loading, setLoading] = useState(false);
   const [reminder, setReminder] = useState("");
-  const [showReminderClearIcon, setShowReminderClearIcon] = useState(false);
-  const [showLabelClearIcon, setShowLabelClearIcon] = useState(false);
   const [noteLabels, setNoteLabels] = useState([]);
   const [noteCollaborators, setNoteCollaborators] = useState([]);
 
@@ -112,27 +110,28 @@ function CreateNote(props) {
     notesRemainderLabel: {
       display: "flex",
       alignItems: "center",
-      backgroundColor: timeGotOver ? "rgba(0,0,0,0.05)" : "rgba(0,0,0,0.2)",
+      backgroundColor: timeGotOver ? "rgba(0,0,0,0.05)" : "rgba(0,0,0,0.09)",
       borderRadius: "1.5rem",
-      padding: "0.2rem 0 0.2rem 0.2rem",
+      padding: "0.2rem 0 0.2rem 0.5rem",
       textDecoration: timeGotOver ? "line-through" : null,
-      maxWidth: "13rem",
+      maxInlineSize: "fit-content",
+      "&:hover $notesRemainderLabelClearIcon": {
+        opacity: "1",
+      },
     },
     notesRemainderLabelClockIcon: {
       fontSize: "1.2rem",
     },
     notesRemainderLabelClearButton: {
-      padding: "0.2rem",
+      padding: "0.08rem",
     },
     notesRemainderLabelClearIcon: {
       padding: "0",
       fontSize: "1rem",
-      display: showReminderClearIcon ? "block" : "none",
+      opacity: "0",
     },
     notesRemainderLabelDateTime: {
       textAlign: "left",
-      verticalAlign: "middle",
-      width: "10rem",
     },
     notesLabels: {
       display: "flex",
@@ -141,15 +140,18 @@ function CreateNote(props) {
       padding: "0.2rem",
     },
     notesLabelElement: {
-      padding: "0.2rem 0.5rem",
+      padding: "0.2rem 0 0.2rem 0.8rem",
       borderRadius: "1.5rem",
-      backgroundColor: "rgba(0,0,0,0.3)",
+      backgroundColor: "rgba(0,0,0,0.09)",
       margin: "0.2rem",
+      "&:hover $notesLabelClearIcon": {
+        opacity: "1",
+      },
     },
     notesLabelClearIcon: {
       padding: "0",
       fontSize: "1rem",
-      display: showLabelClearIcon ? "block" : "none",
+      opacity: "0",
     },
   }));
 
@@ -248,15 +250,7 @@ function CreateNote(props) {
           }}
         />
         {reminder !== "" ? (
-          <div
-            className={classes.notesRemainderLabel}
-            onMouseOver={() => {
-              setShowReminderClearIcon(true);
-            }}
-            onMouseLeave={() => {
-              setShowReminderClearIcon(false);
-            }}
-          >
+          <div className={classes.notesRemainderLabel}>
             <AccessTimeOutlinedIcon
               className={classes.notesRemainderLabelClockIcon}
             />
@@ -277,16 +271,7 @@ function CreateNote(props) {
           {noteLabels.map((label, index) => {
             console.log(label.label);
             return (
-              <span
-                key={index}
-                className={classes.notesLabelElement}
-                onMouseOver={() => {
-                  setShowLabelClearIcon(true);
-                }}
-                onMouseLeave={() => {
-                  setShowLabelClearIcon(false);
-                }}
-              >
+              <span key={index} className={classes.notesLabelElement}>
                 <span>{label.label}</span>
                 {props.isBin ? null : (
                   <IconButton

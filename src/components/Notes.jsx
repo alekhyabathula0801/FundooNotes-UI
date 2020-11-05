@@ -35,11 +35,9 @@ function Note(props) {
   const [noteId, setNoteId] = useState(props.data.id);
   const [displayListIcons, setDisplayListIcons] = useState(false);
   const [showListView, setShowListView] = useState(props.showListView);
-  const [showReminderClearIcon, setShowReminderClearIcon] = useState(false);
   const [noteLabels, setNoteLabels] = useState(
     props.data.noteLabels.filter((label) => !label.isDeleted)
   );
-  const [showLabelClearIcon, setShowLabelClearIcon] = useState(false);
   const [noteCollaborators, setNoteCollaborators] = useState(
     props.data.collaborators
   );
@@ -368,27 +366,28 @@ function Note(props) {
     notesRemainderLabel: {
       display: "flex",
       alignItems: "center",
-      backgroundColor: timeGotOver ? "rgba(0,0,0,0.05)" : "rgba(0,0,0,0.2)",
+      backgroundColor: timeGotOver ? "rgba(0,0,0,0.05)" : "rgba(0,0,0,0.09)",
       borderRadius: "1.5rem",
-      padding: "0.2rem 0 0.2rem 0.2rem",
+      padding: "0.2rem 0 0.2rem 0.5rem",
       textDecoration: timeGotOver ? "line-through" : null,
-      maxWidth: "13rem",
+      maxInlineSize: "fit-content",
+      "&:hover $notesRemainderLabelClearIcon": {
+        opacity: "1",
+      },
     },
     notesRemainderLabelClockIcon: {
       fontSize: "1.2rem",
     },
     notesRemainderLabelClearButton: {
-      padding: "0.1rem",
+      padding: "0.08rem",
     },
     notesRemainderLabelClearIcon: {
       padding: "0",
       fontSize: "1rem",
-      display: showReminderClearIcon ? "block" : "none",
+      opacity: "0",
     },
     notesRemainderLabelDateTime: {
       textAlign: "left",
-      verticalAlign: "middle",
-      width: "10rem",
     },
     notesLabels: {
       display: "flex",
@@ -397,15 +396,18 @@ function Note(props) {
       padding: "0.2rem",
     },
     notesLabelElement: {
-      padding: "0.2rem 0.5rem",
+      padding: "0.2rem 0 0.2rem 0.75rem",
       borderRadius: "1.5rem",
-      backgroundColor: "rgba(0,0,0,0.3)",
+      backgroundColor: "rgba(0,0,0,0.09)",
       margin: "0.2rem",
+      "&:hover $notesLabelClearIcon": {
+        opacity: "1",
+      },
     },
     notesLabelClearIcon: {
       padding: "0",
-      fontSize: "1rem",
-      display: showLabelClearIcon ? "block" : "none",
+      fontSize: "0.9rem",
+      opacity: "0",
     },
   }));
 
@@ -526,15 +528,7 @@ function Note(props) {
         }
       />
       {reminder.length > 0 && !props.isBin ? (
-        <div
-          className={classes.notesRemainderLabel}
-          onMouseOver={() => {
-            setShowReminderClearIcon(true);
-          }}
-          onMouseLeave={() => {
-            setShowReminderClearIcon(false);
-          }}
-        >
+        <span className={classes.notesRemainderLabel}>
           <AccessTimeOutlinedIcon
             className={classes.notesRemainderLabelClockIcon}
           />
@@ -549,21 +543,12 @@ function Note(props) {
               className={classes.notesRemainderLabelClearIcon}
             />
           </IconButton>
-        </div>
+        </span>
       ) : null}
       <div className={classes.notesLabels}>
         {noteLabels.map((label, index) => {
           return (
-            <span
-              key={index}
-              className={classes.notesLabelElement}
-              onMouseOver={() => {
-                setShowLabelClearIcon(true);
-              }}
-              onMouseLeave={() => {
-                setShowLabelClearIcon(false);
-              }}
-            >
+            <span key={index} className={classes.notesLabelElement}>
               <span>{label.label}</span>
               {props.isBin ? null : (
                 <IconButton
