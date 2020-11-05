@@ -15,20 +15,26 @@ const useStyles = makeStyles(() => ({
 
 export default function DateAndTimePicker(props) {
   const today = new Date();
-  let month = "";
-  if (today.getMonth() > 9) {
-    month = parseInt(today.getMonth()) + 1;
-  } else {
-    month = `0${parseInt(today.getMonth()) + 1}`;
-  }
 
-  let todayDate = today.getDate();
-  if (todayDate < 10) todayDate = `0${todayDate}`;
-  let d = `${today.getFullYear()}-${month}-${todayDate}T${
-    today.getHours() + 2
-  }:00`;
+  let getMonth = (month) => {
+    if (month > 9) return parseInt(month) + 1;
+    return `0${parseInt(month) + 1}`;
+  };
+
+  let getDate = (date) => {
+    if (date < 10) return `0${date}`;
+    return date;
+  };
+
+  let d = `${today.getFullYear()}-${getMonth(today.getMonth())}-${getDate(
+    today.getDate()
+  )}T${today.getHours() + 2}:00`;
+
   if (today.getHours() > 21)
-    d = `${today.getFullYear()}-${month}-${todayDate}T${today.getHours()}:00`;
+    d = `${today.getFullYear()}-${getMonth(today.getMonth())}-${getDate(
+      today.getDate()
+    )}T${today.getHours()}:00`;
+
   const [date, setDate] = useState(d);
   const classes = useStyles();
   return (
