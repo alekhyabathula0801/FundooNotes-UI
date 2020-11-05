@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { MessageProvider } from "./components/MessageContext";
 import SnackBar from "./components/SnackBar";
+import PrivateRoute from "./components/PrivateRouter";
 
 function App() {
   const messagesList = {
@@ -53,7 +54,7 @@ function App() {
         <Router>
           <Switch>
             <Route exact path="/" component={Login} />
-            <Route path="/dashboard" component={Dashboard} />
+            <PrivateRoute path="/dashboard" component={Dashboard} />
           </Switch>
         </Router>
       </div>

@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../components/AppBar";
 import SideBar from "../components/Drawer";
 import DisplayNotes from "../components/DisplayNotes";
-import { Route, Switch } from "react-router-dom";
+import { Route } from "react-router-dom";
 import Archive from "../components/Archive";
 import Bin from "../components/Bin";
 import Reminder from "../components/Reminder";
@@ -142,45 +142,43 @@ class Dashboard extends React.Component {
               labels={this.state.labels}
             ></SideBar>
             <main>
-              <Switch>
-                <Route
-                  exact
-                  path={`/dashboard/`}
-                  render={() => (
-                    <DisplayNotes
-                      showListView={this.state.showListView}
-                      searchValue={this.state.searchValue}
-                      labelDetails={this.state.labelDetails}
-                    />
-                  )}
-                />
-                <Route
-                  exact
-                  path={`/dashboard/Reminders`}
-                  render={() => (
-                    <Reminder
-                      showListView={this.state.showListView}
-                      searchValue={this.state.searchValue}
-                      labelDetails={this.state.labelDetails}
-                    />
-                  )}
-                />
-                <Route
-                  exact
-                  path={`/dashboard/Archive`}
-                  render={() => (
-                    <Archive
-                      showListView={this.state.showListView}
-                      labelDetails={this.state.labelDetails}
-                    />
-                  )}
-                />
-                <Route
-                  exact
-                  path={`/dashboard/Bin`}
-                  render={() => <Bin showListView={this.state.showListView} />}
-                />
-              </Switch>
+              <Route
+                exact
+                path="/dashboard/"
+                render={() => (
+                  <DisplayNotes
+                    showListView={this.state.showListView}
+                    searchValue={this.state.searchValue}
+                    labelDetails={this.state.labelDetails}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/dashboard/Reminders"
+                render={() => (
+                  <Reminder
+                    showListView={this.state.showListView}
+                    searchValue={this.state.searchValue}
+                    labelDetails={this.state.labelDetails}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path={`/dashboard/Archive`}
+                render={() => (
+                  <Archive
+                    showListView={this.state.showListView}
+                    labelDetails={this.state.labelDetails}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path={`/dashboard/Bin`}
+                render={() => <Bin showListView={this.state.showListView} />}
+              />
             </main>
           </main>
         </div>
