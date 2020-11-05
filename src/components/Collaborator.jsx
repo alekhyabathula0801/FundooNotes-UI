@@ -7,13 +7,13 @@ import {
   Avatar,
   ListItemAvatar,
   ListItemText,
-  TextField,
   Menu,
   MenuItem,
   ListItemSecondaryAction,
   IconButton,
   Button,
   DialogActions,
+  InputBase,
 } from "@material-ui/core";
 import "../css/dashboard.css";
 import NoteServices from "../services/NoteServices";
@@ -54,11 +54,19 @@ function Collaborator(props) {
 
   const searchList = (
     <Menu
-      id="simple-menu"
+      elevation={0}
+      getContentAnchorEl={null}
       anchorEl={anchorEl}
-      keepMounted
       open={Boolean(anchorEl)}
       onClose={handleClose}
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "center",
+      }}
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "center",
+      }}
     >
       {searchUserList.length > 0 ? (
         searchUserList
@@ -139,8 +147,8 @@ function Collaborator(props) {
           <ListItemAvatar>
             <Avatar></Avatar>
           </ListItemAvatar>
-          <TextField
-            label="Search Collaborator"
+          <InputBase
+            placeholder="Search Collaborator"
             margin="normal"
             fullWidth
             onChange={(e) => getSearchListData(e.currentTarget.value)}
