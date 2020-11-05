@@ -19,7 +19,6 @@ import "../css/dashboard.css";
 function EditLabelsPopup(props) {
   const [createLabel, setCreateLabel] = useState(true);
   const [newLabel, setNewLabel] = useState("");
-  const [updateLabel, setUpdateLabel] = useState("");
   const [labelDetails, setLabelDetails] = useState(props.labelDetails);
 
   useEffect(() => {
@@ -76,40 +75,53 @@ function EditLabelsPopup(props) {
         </ListItem>
         {labelDetails.map((label, index) => {
           return (
-            <ListItem
-              className="dashboard__edit__labels__list__item"
+            <UpdateLabel
               key={index + 1}
-            >
-              <Tooltip title="Delete label" placement="bottom">
-                <IconButton
-                  onClick={() => {
-                    props.deleteLabel(label.id);
-                  }}
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </Tooltip>
-              <InputBase
-                placeholder="Rename Labels"
-                value={label.label}
-                onChange={(e) => setUpdateLabel(e.currentTarget.value)}
-              />
-              <Tooltip title="Rename label" placement="bottom">
-                <IconButton
-                  onClick={() => {
-                    props.updateLabel(updateLabel, label.id);
-                    setUpdateLabel("");
-                  }}
-                >
-                  <EditIcon />
-                </IconButton>
-              </Tooltip>
-            </ListItem>
+              label={label}
+              deleteLabel={props.deleteLabel}
+              updateLabel={props.updateLabel}
+            />
           );
         })}
       </List>
       <Button onClick={() => props.closeEditLabelPopup()}>Close</Button>
     </Dialog>
+  );
+}
+
+function UpdateLabel(props) {
+  const [updateLabel, setUpdateLabel] = useState(props.label.label);
+  useEffect(() => {
+    setUpdateLabel(props.label.label);
+  }, [props.label]);
+  return (
+    <ListItem className="dashboard__edit__labels__list__item">
+      <Tooltip title="Delete label" placement="bottom">
+        <IconButton
+          onClick={() => {
+            props.deleteLabel(props.label.id);
+          }}
+        >
+          <DeleteIcon />
+        </IconButton>
+      </Tooltip>
+      <InputBase
+        placeholder="Rename Labels"
+        value={updateLabel}
+        onChange={(e) => {
+          setUpdateLabel(e.currentTarget.value);
+        }}
+      />
+      <Tooltip title="Rename label" placement="bottom">
+        <IconButton
+          onClick={() => {
+            props.updateLabel(updateLabel, props.label.id);
+          }}
+        >
+          <EditIcon />
+        </IconButton>
+      </Tooltip>
+    </ListItem>
   );
 }
 
