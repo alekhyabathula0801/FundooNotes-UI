@@ -192,6 +192,17 @@ class NoteService {
       token
     );
   }
+
+  getNotesByLabel(label) {
+    return HttpServices.postApiRequest(
+      {},
+      baseUrl +
+        noteApiConstants.notesApi.addOrRemoveLabelFromNoteStartUrl +
+        noteApiConstants.notesApi.getNotesListByLabel +
+        label,
+      token
+    );
+  }
 }
 
 export default new NoteService();

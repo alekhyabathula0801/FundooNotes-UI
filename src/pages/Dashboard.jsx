@@ -9,6 +9,7 @@ import Reminder from "../components/Reminder";
 import NoteServices from "../services/NoteServices";
 import "../css/dashboard.css";
 import EditLabelsPopup from "../components/EditLabelsPopup";
+import Labels from "../components/Labels";
 
 class Dashboard extends React.Component {
   constructor() {
@@ -180,6 +181,22 @@ class Dashboard extends React.Component {
                 path={`/dashboard/Bin`}
                 render={() => <Bin showListView={this.state.showListView} />}
               />
+              {this.state.labelDetails.map((label) => {
+                return (
+                  <Route
+                    exact
+                    path={`/dashboard/label/` + label.label}
+                    render={() => (
+                      <Labels
+                        label={label.label}
+                        searchValue={this.state.searchValue}
+                        labelDetails={this.state.labelDetails}
+                        showListView={this.state.showListView}
+                      />
+                    )}
+                  />
+                );
+              })}
             </main>
           </main>
         </div>

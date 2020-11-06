@@ -22,4 +22,5 @@ export const notesApi = {
   userSearchList: "api/user/searchUserList",
   addCollaboratorNotes: "/AddcollaboratorsNotes",
   removeCollaboratorsNotes: "/removeCollaboratorsNotes/",
+  getNotesListByLabel: "getNotesListByLabel/",
 };
