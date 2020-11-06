@@ -10,6 +10,7 @@ import PrivateRoute from "./components/PrivateRouter";
 function App() {
   const messagesList = {
     "You Have Logged In Sucessfully": "success",
+    "You Have Logged Out Sucessfully": "success",
     "Please enter valid email": "error",
     "Password must contain atleast one uppercase, lowercase, digit, special character with minimum of 6 characters":
       "error",

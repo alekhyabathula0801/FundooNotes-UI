@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   IconButton,
   Typography,
@@ -16,8 +16,13 @@ import ViewAgendaOutlined from "@material-ui/icons/ViewAgendaOutlined";
 import logo from "../assets/logo.svg";
 import Tooltip from "@material-ui/core/Tooltip";
 import AppsOutlinedIcon from "@material-ui/icons/AppsOutlined";
+import { useHistory } from "react-router-dom";
+import MessageContext from "../components/MessageContext";
 
 function Header(props) {
+  const message = useContext(MessageContext);
+  const history = useHistory();
+
   let userDetails = [];
   if (localStorage.getItem("fundoo-notes") !== null) {
     userDetails = JSON.parse(localStorage.getItem("fundoo-notes")).data;
@@ -31,6 +36,13 @@ function Header(props) {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  let logout = () => {
+    localStorage.removeItem("fundoo-notes");
+    message.setMessage("You Have Logged Out Sucessfully");
+    message.setSnackBar(true);
+    history.push("/");
   };
 
   const open = Boolean(anchorEl);
@@ -190,7 +202,7 @@ function Header(props) {
           aria-describedby={id}
         >
           <Avatar
-            alt={userDetails.firstName[0]}
+            alt={userDetails.firstName}
             src={userDetails.imageUrl !== "" ? userDetails.imageUrl : null}
           ></Avatar>
         </IconButton>
@@ -219,7 +231,7 @@ function Header(props) {
               primary={`${userDetails.firstName} ${userDetails.lastName}`}
               secondary={userDetails.email}
             />
-            <Button> Sign Out </Button>
+            <Button onClick={() => logout()}> Sign Out </Button>
           </List>
         </Popover>
       </div>
