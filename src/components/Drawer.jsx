@@ -36,7 +36,7 @@ function SideBar(props) {
       },
     },
     sideBarLink: {
-      color: "rgba(0,0,0,0.95)",
+      color: "rgba(0,0,0,0.8)",
     },
     sideBarLabel: {
       borderRadius: "0 25px 25px 0",
@@ -44,6 +44,12 @@ function SideBar(props) {
     sideBarLabelSelected: {
       borderRadius: "0 25px 25px 0",
       backgroundColor: "#feefc3",
+      "&:hover": {
+        backgroundColor: "#feefc3",
+      },
+      "& $sideBarIcon": {
+        color: "rgba(0,0,0,0.8)",
+      },
     },
     sideBarIcon: {
       margin: "0.3rem 0",
@@ -61,6 +67,8 @@ function SideBar(props) {
     },
     sideBarLabelText: {
       display: props.showDrawerLabels ? "block" : "none",
+      padding: "0",
+      fontWeight: "500",
       [theme.breakpoints.down(650)]: {
         display: "none",
       },
@@ -127,10 +135,7 @@ function SideBar(props) {
                     )}
                   </ListItemIcon>
                 </Tooltip>
-                <ListItemText
-                  primary={text}
-                  className={classes.sideBarLabelText}
-                />
+                <ListItem className={classes.sideBarLabelText}>{text}</ListItem>
               </ListItem>
             </Link>
           ))}
