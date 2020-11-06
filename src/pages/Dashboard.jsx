@@ -37,8 +37,8 @@ class Dashboard extends React.Component {
 
   addLabel(newLabel) {
     let userId = "";
-    if (JSON.parse(localStorage.getItem("fundoo-notes")) !== null) {
-      userId = JSON.parse(localStorage.getItem("fundoo-notes")).data.userId;
+    if (localStorage.getItem("userId") !== null) {
+      userId = localStorage.getItem("userId");
     }
     if (newLabel !== "") {
       const data = {

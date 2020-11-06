@@ -2,8 +2,8 @@ import HttpServices from "./HttpServices";
 import * as noteApiConstants from "../apiConstants/noteApiConstants";
 let baseUrl = process.env.REACT_APP_API_URL;
 let token = "";
-if (JSON.parse(localStorage.getItem("fundoo-notes")) !== null) {
-  token = JSON.parse(localStorage.getItem("fundoo-notes")).data.id;
+if (localStorage.getItem("token") !== null) {
+  token = localStorage.getItem("token");
 }
 class NoteService {
   addNote(data) {

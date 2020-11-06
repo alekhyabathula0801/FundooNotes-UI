@@ -46,13 +46,17 @@ function Login() {
       };
       UserService.userLogin(data)
         .then((data) => {
-          console.log(data);
-          localStorage.setItem("fundoo-notes", JSON.stringify(data));
+          localStorage.setItem("token", data.data.id);
+          localStorage.setItem("firstName", data.data.firstName);
+          localStorage.setItem("lastName", data.data.lastName);
+          localStorage.setItem("imageUrl", data.data.imageUrl);
+          localStorage.setItem("email", data.data.email);
+          localStorage.setItem("userId", data.data.userId);
           message.setMessage("You Have Logged In Sucessfully");
           message.setSnackBar(true);
           history.push("/dashboard");
         })
-        .catch((err) => {
+        .catch(() => {
           message.setMessage("Incorrect Password or email");
           message.setSnackBar(true);
         });

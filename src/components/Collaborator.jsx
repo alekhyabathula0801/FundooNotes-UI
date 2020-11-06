@@ -20,9 +20,14 @@ import NoteServices from "../services/NoteServices";
 import CloseOutlinedIcon from "@material-ui/icons/CloseOutlined";
 
 function Collaborator(props) {
-  let userDetails = [];
-  if (localStorage.getItem("fundoo-notes") !== null) {
-    userDetails = JSON.parse(localStorage.getItem("fundoo-notes")).data;
+  let userDetails = {};
+  if (localStorage.getItem("token") !== null) {
+    userDetails = {
+      firstName: localStorage.getItem("firstName"),
+      lastName: localStorage.getItem("lastName"),
+      imageUrl: localStorage.getItem("imageUrl"),
+      email: localStorage.getItem("email"),
+    };
   }
 
   const [searchUserList, setSearchUserList] = useState([]);

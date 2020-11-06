@@ -23,9 +23,14 @@ function Header(props) {
   const message = useContext(MessageContext);
   const history = useHistory();
 
-  let userDetails = [];
-  if (localStorage.getItem("fundoo-notes") !== null) {
-    userDetails = JSON.parse(localStorage.getItem("fundoo-notes")).data;
+  let userDetails = {};
+  if (localStorage.getItem("token") !== null) {
+    userDetails = {
+      firstName: localStorage.getItem("firstName"),
+      lastName: localStorage.getItem("lastName"),
+      imageUrl: localStorage.getItem("imageUrl"),
+      email: localStorage.getItem("email"),
+    };
   }
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -39,7 +44,12 @@ function Header(props) {
   };
 
   let logout = () => {
-    localStorage.removeItem("fundoo-notes");
+    localStorage.removeItem("token");
+    localStorage.removeItem("firstName");
+    localStorage.removeItem("lastName");
+    localStorage.removeItem("imageUrl");
+    localStorage.removeItem("email");
+    localStorage.removeItem("userId");
     message.setMessage("You Have Logged Out Sucessfully");
     message.setSnackBar(true);
     history.push("/");
