@@ -114,6 +114,7 @@ function CreateNote(props) {
       padding: "0.2rem 0 0.2rem 0.5rem",
       textDecoration: timeGotOver ? "line-through" : null,
       maxInlineSize: "fit-content",
+      margin: "0.2rem 0",
       "&:hover $notesRemainderLabelClearIcon": {
         opacity: "1",
       },
@@ -257,27 +258,26 @@ function CreateNote(props) {
             setDescription(e.currentTarget.value);
           }}
         />
-        {reminder !== "" ? (
-          <div className={classes.notesRemainderLabel}>
-            <AccessTimeOutlinedIcon
-              className={classes.notesRemainderLabelClockIcon}
-            />
-            <span className={classes.notesRemainderLabelDateTime}>
-              {reminderTime}
-            </span>
-            <IconButton
-              className={classes.notesRemainderLabelClearButton}
-              onClick={() => removeReminder()}
-            >
-              <ClearOutlinedIcon
-                className={classes.notesRemainderLabelClearIcon}
-              />
-            </IconButton>
-          </div>
-        ) : null}
         <div className={classes.notesLabels}>
+          {reminder !== "" ? (
+            <div className={classes.notesRemainderLabel}>
+              <AccessTimeOutlinedIcon
+                className={classes.notesRemainderLabelClockIcon}
+              />
+              <span className={classes.notesRemainderLabelDateTime}>
+                {reminderTime}
+              </span>
+              <IconButton
+                className={classes.notesRemainderLabelClearButton}
+                onClick={() => removeReminder()}
+              >
+                <ClearOutlinedIcon
+                  className={classes.notesRemainderLabelClearIcon}
+                />
+              </IconButton>
+            </div>
+          ) : null}
           {noteLabels.map((label, index) => {
-            console.log(label.label);
             return (
               <span key={index} className={classes.notesLabelElement}>
                 <span>{label.label}</span>
@@ -294,8 +294,6 @@ function CreateNote(props) {
               </span>
             );
           })}
-        </div>
-        <div className={classes.notesLabels}>
           {noteCollaborators.map((collaborator, index) => {
             return (
               <Tooltip

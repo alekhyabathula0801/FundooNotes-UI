@@ -365,6 +365,7 @@ function Note(props) {
       padding: "0.2rem 0 0.2rem 0.5rem",
       textDecoration: timeGotOver ? "line-through" : null,
       maxInlineSize: "fit-content",
+      margin: "0.2rem 0",
       "&:hover $notesRemainderLabelClearIcon": {
         opacity: "1",
       },
@@ -530,25 +531,25 @@ function Note(props) {
             : null
         }
       />
-      {reminder.length > 0 && !props.isBin ? (
-        <span className={classes.notesRemainderLabel}>
-          <AccessTimeOutlinedIcon
-            className={classes.notesRemainderLabelClockIcon}
-          />
-          <span className={classes.notesRemainderLabelDateTime}>
-            {reminderTime}
-          </span>
-          <IconButton
-            className={classes.notesRemainderLabelClearButton}
-            onClick={() => removeReminder()}
-          >
-            <ClearOutlinedIcon
-              className={classes.notesRemainderLabelClearIcon}
-            />
-          </IconButton>
-        </span>
-      ) : null}
       <div className={classes.notesLabels}>
+        {reminder.length > 0 && !props.isBin ? (
+          <span className={classes.notesRemainderLabel}>
+            <AccessTimeOutlinedIcon
+              className={classes.notesRemainderLabelClockIcon}
+            />
+            <span className={classes.notesRemainderLabelDateTime}>
+              {reminderTime}
+            </span>
+            <IconButton
+              className={classes.notesRemainderLabelClearButton}
+              onClick={() => removeReminder()}
+            >
+              <ClearOutlinedIcon
+                className={classes.notesRemainderLabelClearIcon}
+              />
+            </IconButton>
+          </span>
+        ) : null}
         {noteLabels.map((label, index) => {
           return (
             <span key={index} className={classes.notesLabelElement}>
@@ -564,8 +565,6 @@ function Note(props) {
             </span>
           );
         })}
-      </div>
-      <div className={classes.notesLabels}>
         {noteCollaborators.map((collaborator, index) => {
           return (
             <Tooltip title={collaborator.email} placement="bottom" key={index}>
