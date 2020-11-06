@@ -22,14 +22,25 @@ function Notes(props) {
 
   let getAllNotes = () => {
     setLoading(true);
-    NoteServices.getAllNotes()
-      .then((response) => {
-        setNotesData(response.data.data.data);
-        setLoading(false);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
+    if (props.label !== "") {
+      NoteServices.getNotesByLabel(props.label)
+        .then((response) => {
+          setNotesData(response.data.data.data);
+          setLoading(false);
+        })
+        .catch(() => {
+          setLoading(false);
+        });
+    } else {
+      NoteServices.getAllNotes()
+        .then((response) => {
+          setNotesData(response.data.data.data);
+          setLoading(false);
+        })
+        .catch(() => {
+          setLoading(false);
+        });
+    }
   };
 
   let toogleShowMiniCreateNote = () => {
