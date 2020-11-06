@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import NotesView from "../components/NotesView";
+import DisplayNotes from "./DisplayNotes";
 import NoteServices from "../services/NoteServices";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
@@ -38,13 +38,13 @@ function Archive(props) {
       {loading ? (
         <CircularProgress />
       ) : (
-        <NotesView
+        <DisplayNotes
           pinedNotes={[]}
           unPinedNotes={unPinedNotes}
           getAllNotes={getAllArchiveNotes}
           showListView={showListView}
           labelDetails={props.labelDetails}
-        ></NotesView>
+        ></DisplayNotes>
       )}
     </>
   );

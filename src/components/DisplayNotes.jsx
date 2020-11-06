@@ -1,92 +1,148 @@
-import React, { useState, useEffect } from "react";
-import CreateNote from "../components/CreateNote";
-import NotesView from "../components/NotesView";
-import NoteServices from "../services/NoteServices";
-import MiniCreateNote from "../components/MiniCreateNote";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import React, { useEffect, useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Note from "./Note";
+import Dialog from "@material-ui/core/Dialog";
 
 function DisplayNotes(props) {
-  const [showMiniCreateNote, setShowMiniCreateNote] = useState(true);
-  const [notesData, setNotesData] = useState([]);
   const [showListView, setShowListView] = useState(props.showListView);
-  const [loading, setLoading] = useState(false);
-  const [searchValue, setSearchValue] = useState(props.searchValue);
 
-  useEffect(() => {
-    setSearchValue(props.searchValue);
-  }, [props.searchValue]);
+  const useStyles = makeStyles(() => ({
+    notesView: {
+      display: "inline-flex",
+      width: "100%",
+      background: "white",
+      flexDirection: "column",
+      justifyContent: "center",
+    },
+    notesViewList: {
+      width: "100%",
+      display: "flex",
+      flexWrap: "wrap",
+      alignItems: "flex-start",
+      justifyContent: !showListView ? "center" : null,
+    },
+    notesViewPinned: {
+      textAlign: !showListView ? "center" : "left",
+      fontWeight: "500",
+      color: "black",
+      opacity: "0.69",
+      padding: "0.5rem 0 0.5rem 0.8rem",
+      fontSize: "1.1rem",
+    },
+    notesViewUnPinned: {
+      textAlign: !showListView ? "center" : "left",
+      fontWeight: "500",
+      color: "grey",
+      opacity: "0.97",
+      padding: "0.5rem 0 0.5rem 0.8rem",
+      fontSize: "1.1rem",
+    },
+  }));
+
+  const classes = useStyles();
+
+  const [open, setOpen] = React.useState(false);
+  const [pinedNotes, setPinedNotes] = useState(props.pinedNotes);
+  const [unPinedNotes, setUnPinedNotes] = useState(props.unPinedNotes);
+  const [popUpNoteData, setPopUpNoteData] = useState([]);
 
   useEffect(() => {
     setShowListView(props.showListView);
   }, [props.showListView]);
 
-  let getAllNotes = () => {
-    setLoading(true);
-    NoteServices.getAllNotes()
-      .then((response) => {
-        setNotesData(response.data.data.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        setLoading(false);
-      });
+  const handleClickOpen = () => {
+    setOpen(true);
   };
 
-  let toogleShowMiniCreateNote = () => {
-    setShowMiniCreateNote(!showMiniCreateNote);
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const getPopUpNotesData = (data) => {
+    setPopUpNoteData(data);
   };
 
   useEffect(() => {
-    getAllNotes();
-  }, []);
+    setPinedNotes(props.pinedNotes);
+  }, [props.pinedNotes]);
 
-  let searchData = [];
-  if ((searchValue !== "") & (searchValue !== null)) {
-    searchData = notesData.filter(
-      (notes) =>
-        notes.title.includes(searchValue) ||
-        notes.description.includes(searchValue)
-    );
-  } else {
-    searchData = notesData;
-  }
+  useEffect(() => {
+    setUnPinedNotes(props.unPinedNotes);
+  }, [props.unPinedNotes]);
 
-  const pinedNotes = searchData.filter(
-    (notes) => notes.isPined && !notes.isDeleted && !notes.isArchived
+  const pinedNotesContent = (
+    <>
+      {pinedNotes.length > 0 ? (
+        <div className={classes.notesViewPinned}>PINNED</div>
+      ) : null}
+      <div className={classes.notesViewList}>
+        {Object.values(pinedNotes)
+          .reverse()
+          .map((notesData, index) => (
+            <Note
+              key={index}
+              data={notesData}
+              showCloseButton={false}
+              getNotesData={getPopUpNotesData}
+              handleClickOpen={handleClickOpen}
+              isPopUp={false}
+              getAllNotes={props.getAllNotes}
+              isBin={props.isBin}
+              showListView={showListView}
+              labelDetails={props.labelDetails}
+            ></Note>
+          ))}
+      </div>
+    </>
   );
 
-  const unPinedNotes = searchData.filter(
-    (notes) => !notes.isPined && !notes.isDeleted && !notes.isArchived
+  const unPinedNotesContent = (
+    <>
+      {pinedNotes.length > 0 && unPinedNotes.length > 0 ? (
+        <div className={classes.notesViewUnPinned}>OTHERS</div>
+      ) : null}
+      <div className={classes.notesViewList}>
+        {Object.values(unPinedNotes)
+          .reverse()
+          .map((notesData, index) => (
+            <Note
+              key={index + pinedNotes.length}
+              data={notesData}
+              showCloseButton={false}
+              getNotesData={getPopUpNotesData}
+              handleClickOpen={handleClickOpen}
+              isPopUp={false}
+              getAllNotes={props.getAllNotes}
+              isBin={props.isBin}
+              showListView={showListView}
+              labelDetails={props.labelDetails}
+            ></Note>
+          ))}
+      </div>
+    </>
   );
 
   return (
     <>
-      {showMiniCreateNote ? (
-        <MiniCreateNote
-          setShowMiniCreateNote={toogleShowMiniCreateNote}
-          showMiniCreateNote={showMiniCreateNote}
-        ></MiniCreateNote>
-      ) : (
-        <CreateNote
-          setShowMiniCreateNote={toogleShowMiniCreateNote}
-          showMiniCreateNote={showMiniCreateNote}
-          getAllNotes={getAllNotes}
+      <div className={classes.notesView}>
+        {pinedNotesContent}
+        {unPinedNotesContent}
+      </div>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="responsive-dialog-title"
+      >
+        <Note
+          data={popUpNoteData}
+          isPopUp={true}
+          closePopUp={handleClose}
+          showCloseButton={true}
+          getAllNotes={props.getAllNotes}
+          isBin={props.isBin}
           labelDetails={props.labelDetails}
-        ></CreateNote>
-      )}
-      {loading ? (
-        <CircularProgress />
-      ) : (
-        <NotesView
-          pinedNotes={pinedNotes}
-          unPinedNotes={unPinedNotes}
-          getAllNotes={getAllNotes}
-          isBin={false}
-          showListView={showListView}
-          labelDetails={props.labelDetails}
-        ></NotesView>
-      )}
+        ></Note>
+      </Dialog>
     </>
   );
 }

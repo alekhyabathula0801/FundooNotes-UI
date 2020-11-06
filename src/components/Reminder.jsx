@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CreateNote from "../components/CreateNote";
-import NotesView from "../components/NotesView";
+import DisplayNotes from "./DisplayNotes";
 import NoteServices from "../services/NoteServices";
 import MiniCreateNote from "../components/MiniCreateNote";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -74,14 +74,14 @@ function Reminder(props) {
       {loading ? (
         <CircularProgress />
       ) : (
-        <NotesView
+        <DisplayNotes
           pinedNotes={[]}
           unPinedNotes={notes}
           getAllNotes={getAllNotes}
           isBin={false}
           showListView={showListView}
           labelDetails={props.labelDetails}
-        ></NotesView>
+        ></DisplayNotes>
       )}
     </>
   );

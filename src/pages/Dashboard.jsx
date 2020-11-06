@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../components/AppBar";
 import SideBar from "../components/Drawer";
-import DisplayNotes from "../components/DisplayNotes";
+import Notes from "../components/Notes";
 import { Route } from "react-router-dom";
 import Archive from "../components/Archive";
 import Bin from "../components/Bin";
@@ -146,7 +146,7 @@ class Dashboard extends React.Component {
                 exact
                 path="/dashboard/"
                 render={() => (
-                  <DisplayNotes
+                  <Notes
                     showListView={this.state.showListView}
                     searchValue={this.state.searchValue}
                     labelDetails={this.state.labelDetails}
