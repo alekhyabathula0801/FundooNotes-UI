@@ -153,6 +153,13 @@ function CreateNote(props) {
       fontSize: "1rem",
       opacity: "0",
     },
+    notesCollaboratorImage: {
+      backgroundColor: "#A0C3FF",
+      border: "0.05rem solid white",
+      width: "2rem",
+      height: "2rem",
+      boxShadow: "0.04rem 0.04rem 0.1rem grey",
+    },
   }));
 
   const classes = useStyles();
@@ -296,7 +303,7 @@ function CreateNote(props) {
                 key={index}
               >
                 <ListItemAvatar>
-                  <Avatar alt={collaborator.firstName}>
+                  <Avatar className={classes.notesCollaboratorImage}>
                     {collaborator.firstName[0]}
                   </Avatar>
                 </ListItemAvatar>
