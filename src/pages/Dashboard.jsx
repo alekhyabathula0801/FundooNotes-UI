@@ -47,8 +47,7 @@ class Dashboard extends React.Component {
         userId: userId,
       };
       NoteServices.addLabel(data)
-        .then((response) => {
-          console.log(response.data);
+        .then(() => {
           this.setLabels();
         })
         .catch((error) => console.log(error));
@@ -132,6 +131,7 @@ class Dashboard extends React.Component {
             setListView={this.setListView}
             showListView={this.state.showListView}
             setSearchValue={this.setSearchValue}
+            heading={this.state.heading}
           ></Header>
           <main>
             <SideBar

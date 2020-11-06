@@ -173,12 +173,20 @@ function Header(props) {
             <MenuIcon />
           </IconButton>
         </Tooltip>
-        <IconButton className={classes.appBarLogo}>
-          <img src={logo} alt="logo" width="35rem" />
-        </IconButton>
-        <Typography variant="h6" className={classes.appBarHeading}>
-          Fundoo
-        </Typography>
+        {props.heading === "Notes" ? (
+          <>
+            <IconButton className={classes.appBarLogo}>
+              <img src={logo} alt="logo" width="35rem" />
+            </IconButton>
+            <Typography variant="h6" className={classes.appBarHeading}>
+              Fundoo
+            </Typography>
+          </>
+        ) : (
+          <Typography variant="h6" className={classes.appBarHeading}>
+            {props.heading}
+          </Typography>
+        )}
       </div>
       <div className={classes.appBarMiddle}>
         <Tooltip title="Search" placement="bottom">
