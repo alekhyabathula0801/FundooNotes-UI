@@ -1,11 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import {
-  Paper,
-  InputBase,
-  Button,
-  Avatar,
-  ListItemAvatar,
-} from "@material-ui/core";
+import { Paper, InputBase, Button, Avatar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import NoteServices from "../services/NoteServices";
 import ColorPalletIcon from "./ColorPalletIcon";
@@ -410,11 +404,13 @@ function Note(props) {
       opacity: "0",
     },
     notesCollaboratorImage: {
-      backgroundColor: "#A0C3FF",
+      backgroundColor: "rgba(0,0,0,0.09)",
       border: "0.05rem solid white",
       width: "2rem",
       height: "2rem",
       boxShadow: "0.04rem 0.04rem 0.1rem grey",
+      margin: "0.05rem",
+      color: "black",
     },
   }));
 
@@ -573,11 +569,9 @@ function Note(props) {
         {noteCollaborators.map((collaborator, index) => {
           return (
             <Tooltip title={collaborator.email} placement="bottom" key={index}>
-              <ListItemAvatar>
-                <Avatar className={classes.notesCollaboratorImage}>
-                  {collaborator.firstName[0]}
-                </Avatar>
-              </ListItemAvatar>
+              <Avatar className={classes.notesCollaboratorImage}>
+                {collaborator.firstName[0]}
+              </Avatar>
             </Tooltip>
           );
         })}
