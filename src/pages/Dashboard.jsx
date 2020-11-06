@@ -33,6 +33,7 @@ class Dashboard extends React.Component {
     this.addLabel = this.addLabel.bind(this);
     this.updateLabel = this.updateLabel.bind(this);
     this.deleteLabel = this.deleteLabel.bind(this);
+    this.notesRef = React.createRef();
   }
 
   addLabel(newLabel) {
@@ -63,6 +64,7 @@ class Dashboard extends React.Component {
       NoteServices.updateLabel(data, labelId)
         .then(() => {
           this.setLabels();
+          this.notesRef.current.getAllNotes();
         })
         .catch((error) => {
           console.log(error);
@@ -72,9 +74,9 @@ class Dashboard extends React.Component {
 
   deleteLabel(labelId) {
     NoteServices.deleteLabel(labelId)
-      .then((response) => {
-        console.log(response);
+      .then(() => {
         this.setLabels();
+        this.notesRef.current.getAllNotes();
       })
       .catch((error) => console.log(error));
   }
@@ -152,6 +154,7 @@ class Dashboard extends React.Component {
                     showListView={this.state.showListView}
                     searchValue={this.state.searchValue}
                     labelDetails={this.state.labelDetails}
+                    ref={this.notesRef}
                   />
                 )}
               />
@@ -181,9 +184,10 @@ class Dashboard extends React.Component {
                 path={`/dashboard/Bin`}
                 render={() => <Bin showListView={this.state.showListView} />}
               />
-              {this.state.labelDetails.map((label) => {
+              {this.state.labelDetails.map((label, index) => {
                 return (
                   <Route
+                    key={index}
                     exact
                     path={`/dashboard/label/` + label.label}
                     render={() => (

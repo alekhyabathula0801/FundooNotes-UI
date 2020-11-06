@@ -1,16 +1,46 @@
-import React, { useState, useEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import CreateNote from "./CreateNote";
 import DisplayNotes from "./DisplayNotes";
 import NoteServices from "../services/NoteServices";
 import MiniCreateNote from "./MiniCreateNote";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-function Notes(props) {
+const Notes = forwardRef((props, ref) => {
   const [showMiniCreateNote, setShowMiniCreateNote] = useState(true);
   const [notesData, setNotesData] = useState([]);
   const [showListView, setShowListView] = useState(props.showListView);
   const [loading, setLoading] = useState(false);
   const [searchValue, setSearchValue] = useState(props.searchValue);
+
+  useImperativeHandle(ref, () => ({
+    getAllNotes() {
+      setLoading(true);
+      if (props.label !== "") {
+        NoteServices.getNotesByLabel(props.label)
+          .then((response) => {
+            setNotesData(response.data.data.data);
+            setLoading(false);
+          })
+          .catch(() => {
+            setLoading(false);
+          });
+      } else {
+        NoteServices.getAllNotes()
+          .then((response) => {
+            setNotesData(response.data.data.data);
+            setLoading(false);
+          })
+          .catch(() => {
+            setLoading(false);
+          });
+      }
+    },
+  }));
 
   useEffect(() => {
     setSearchValue(props.searchValue);
@@ -109,6 +139,6 @@ function Notes(props) {
       )}
     </>
   );
-}
+});
 
 export default Notes;
