@@ -57,6 +57,13 @@ function Reminder(props) {
       !notes.isDeleted && !notes.isArchived && notes.reminder.length > 0
   );
 
+  let notesDetails = [
+    {
+      blockName: "Reminder",
+      notesList: notes,
+    },
+  ];
+
   return (
     <>
       {showMiniCreateNote ? (
@@ -75,8 +82,7 @@ function Reminder(props) {
         <CircularProgress />
       ) : (
         <DisplayNotes
-          pinedNotes={[]}
-          unPinedNotes={notes}
+          notesDetails={notesDetails}
           getAllNotes={getAllNotes}
           isBin={false}
           showListView={showListView}

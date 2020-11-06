@@ -27,8 +27,7 @@ function Notes(props) {
         setNotesData(response.data.data.data);
         setLoading(false);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
         setLoading(false);
       });
   };
@@ -60,6 +59,17 @@ function Notes(props) {
     (notes) => !notes.isPined && !notes.isDeleted && !notes.isArchived
   );
 
+  let notesDetails = [
+    {
+      blockName: "PINNED",
+      notesList: pinedNotes,
+    },
+    {
+      blockName: "OTHERS",
+      notesList: unPinedNotes,
+    },
+  ];
+
   return (
     <>
       {showMiniCreateNote ? (
@@ -79,8 +89,7 @@ function Notes(props) {
         <CircularProgress />
       ) : (
         <DisplayNotes
-          pinedNotes={pinedNotes}
-          unPinedNotes={unPinedNotes}
+          notesDetails={notesDetails}
           getAllNotes={getAllNotes}
           isBin={false}
           showListView={showListView}

@@ -19,9 +19,8 @@ function Archive(props) {
         setLoading(false);
         setNotesData(response.data.data.data);
       })
-      .catch((err) => {
+      .catch(() => {
         setLoading(false);
-        console.log(err);
       });
   };
 
@@ -29,9 +28,16 @@ function Archive(props) {
     getAllArchiveNotes();
   }, []);
 
-  const unPinedNotes = notesData.filter(
+  const notes = notesData.filter(
     (notes) => !notes.isPined && !notes.isDeleted && notes.isArchived
   );
+
+  let notesDetails = [
+    {
+      blockName: "Reminder",
+      notesList: notes,
+    },
+  ];
 
   return (
     <>
@@ -39,8 +45,7 @@ function Archive(props) {
         <CircularProgress />
       ) : (
         <DisplayNotes
-          pinedNotes={[]}
-          unPinedNotes={unPinedNotes}
+          notesDetails={notesDetails}
           getAllNotes={getAllArchiveNotes}
           showListView={showListView}
           labelDetails={props.labelDetails}

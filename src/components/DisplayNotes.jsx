@@ -5,6 +5,9 @@ import Dialog from "@material-ui/core/Dialog";
 
 function DisplayNotes(props) {
   const [showListView, setShowListView] = useState(props.showListView);
+  const [open, setOpen] = React.useState(false);
+  const [popUpNoteData, setPopUpNoteData] = useState([]);
+  const [displayBlocksName, setDisplayBlocksName] = useState(true);
 
   const useStyles = makeStyles(() => ({
     notesView: {
@@ -21,30 +24,31 @@ function DisplayNotes(props) {
       alignItems: "flex-start",
       justifyContent: !showListView ? "center" : null,
     },
-    notesViewPinned: {
+    notesFirstBlockName: {
       textAlign: !showListView ? "center" : "left",
       fontWeight: "500",
       color: "black",
       opacity: "0.69",
       padding: "0.5rem 0 0.5rem 0.8rem",
       fontSize: "1.1rem",
+      display: displayBlocksName ? "block" : "none",
     },
-    notesViewUnPinned: {
+    notesSecondBlockName: {
       textAlign: !showListView ? "center" : "left",
       fontWeight: "500",
       color: "grey",
       opacity: "0.97",
       padding: "0.5rem 0 0.5rem 0.8rem",
       fontSize: "1.1rem",
+      display: displayBlocksName ? "block" : "none",
     },
   }));
 
   const classes = useStyles();
 
-  const [open, setOpen] = React.useState(false);
-  const [pinedNotes, setPinedNotes] = useState(props.pinedNotes);
-  const [unPinedNotes, setUnPinedNotes] = useState(props.unPinedNotes);
-  const [popUpNoteData, setPopUpNoteData] = useState([]);
+  useEffect(() => {
+    findNonEmptyList();
+  }, [props.notesDetails]);
 
   useEffect(() => {
     setShowListView(props.showListView);
@@ -62,71 +66,54 @@ function DisplayNotes(props) {
     setPopUpNoteData(data);
   };
 
-  useEffect(() => {
-    setPinedNotes(props.pinedNotes);
-  }, [props.pinedNotes]);
+  let findNonEmptyList = () => {
+    let nonEmptyList = 0;
+    props.notesDetails.forEach((notes) => {
+      if (notes.notesList.length > 0) nonEmptyList++;
+    });
+    if (nonEmptyList === 1) setDisplayBlocksName(false);
+  };
 
-  useEffect(() => {
-    setUnPinedNotes(props.unPinedNotes);
-  }, [props.unPinedNotes]);
-
-  const pinedNotesContent = (
-    <>
-      {pinedNotes.length > 0 ? (
-        <div className={classes.notesViewPinned}>PINNED</div>
-      ) : null}
-      <div className={classes.notesViewList}>
-        {Object.values(pinedNotes)
-          .reverse()
-          .map((notesData, index) => (
-            <Note
-              key={index}
-              data={notesData}
-              showCloseButton={false}
-              getNotesData={getPopUpNotesData}
-              handleClickOpen={handleClickOpen}
-              isPopUp={false}
-              getAllNotes={props.getAllNotes}
-              isBin={props.isBin}
-              showListView={showListView}
-              labelDetails={props.labelDetails}
-            ></Note>
-          ))}
-      </div>
-    </>
-  );
-
-  const unPinedNotesContent = (
-    <>
-      {pinedNotes.length > 0 && unPinedNotes.length > 0 ? (
-        <div className={classes.notesViewUnPinned}>OTHERS</div>
-      ) : null}
-      <div className={classes.notesViewList}>
-        {Object.values(unPinedNotes)
-          .reverse()
-          .map((notesData, index) => (
-            <Note
-              key={index + pinedNotes.length}
-              data={notesData}
-              showCloseButton={false}
-              getNotesData={getPopUpNotesData}
-              handleClickOpen={handleClickOpen}
-              isPopUp={false}
-              getAllNotes={props.getAllNotes}
-              isBin={props.isBin}
-              showListView={showListView}
-              labelDetails={props.labelDetails}
-            ></Note>
-          ))}
-      </div>
-    </>
-  );
+  let getNotes = (notesList) => {
+    return Object.values(notesList)
+      .reverse()
+      .map((notesData, index) => (
+        <Note
+          key={index}
+          data={notesData}
+          showCloseButton={false}
+          getNotesData={getPopUpNotesData}
+          handleClickOpen={handleClickOpen}
+          isPopUp={false}
+          getAllNotes={props.getAllNotes}
+          isBin={props.isBin}
+          showListView={showListView}
+          labelDetails={props.labelDetails}
+        ></Note>
+      ));
+  };
 
   return (
     <>
       <div className={classes.notesView}>
-        {pinedNotesContent}
-        {unPinedNotesContent}
+        {props.notesDetails.map((notesData, index) => {
+          return (
+            <div key={index}>
+              <div
+                className={
+                  index === 0
+                    ? classes.notesFirstBlockName
+                    : classes.notesSecondBlockName
+                }
+              >
+                {notesData.notesList.length > 0 ? notesData.blockName : null}
+              </div>
+              <div className={classes.notesViewList}>
+                {getNotes(notesData.notesList)}
+              </div>
+            </div>
+          );
+        })}
       </div>
       <Dialog
         open={open}

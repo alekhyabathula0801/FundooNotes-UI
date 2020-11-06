@@ -29,18 +29,24 @@ function Bin(props) {
     getAllDeletedNotes();
   }, []);
 
+  let notesDetails = [
+    {
+      blockName: "Bin",
+      notesList: notesData,
+    },
+  ];
+
   return (
     <>
       {loading ? (
         <CircularProgress />
       ) : (
         <DisplayNotes
-          pinedNotes={[]}
-          unPinedNotes={notesData}
+          notesDetails={notesDetails}
           getAllNotes={getAllDeletedNotes}
           isBin={true}
           showListView={showListView}
-        ></DisplayNotes>
+        />
       )}
     </>
   );
