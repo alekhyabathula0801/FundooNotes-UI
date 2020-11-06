@@ -125,6 +125,10 @@ function Header(props) {
       },
     },
 
+    profileImage: {
+      backgroundColor: "#512DA8",
+    },
+
     profileMenuList: {
       display: "flex",
       alignItems: "center",
@@ -137,8 +141,10 @@ function Header(props) {
     },
 
     profileMenuImage: {
-      width: "4.5rem",
-      height: "4.5rem",
+      width: "4rem",
+      height: "4rem",
+      backgroundColor: "#512DA8",
+      fontSize: "1.7rem",
     },
   }));
 
@@ -202,9 +208,12 @@ function Header(props) {
           aria-describedby={id}
         >
           <Avatar
+            className={classes.profileImage}
             alt={userDetails.firstName}
             src={userDetails.imageUrl !== "" ? userDetails.imageUrl : null}
-          ></Avatar>
+          >
+            {userDetails.imageUrl === "" ? userDetails.firstName[0] : null}
+          </Avatar>
         </IconButton>
         <Popover
           id={id}
@@ -225,7 +234,9 @@ function Header(props) {
               className={classes.profileMenuImage}
               alt={userDetails.firstName}
               src={userDetails.imageUrl}
-            ></Avatar>
+            >
+              {userDetails.imageUrl === "" ? userDetails.firstName[0] : null}
+            </Avatar>
             <ListItemText
               className={classes.profileMenuUserDetails}
               primary={`${userDetails.firstName} ${userDetails.lastName}`}
