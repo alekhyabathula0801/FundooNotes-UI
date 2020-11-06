@@ -98,6 +98,7 @@ class Dashboard extends React.Component {
   componentDidMount() {
     let path = window.location.pathname.split("/dashboard/")[1];
     if (path === undefined) this.setHeading("Notes");
+    else if (path.includes("label/")) this.setHeading(path.split("label/")[1]);
     else this.setHeading(path);
     this.setLabels();
   }

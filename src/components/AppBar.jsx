@@ -87,6 +87,8 @@ function Header(props) {
     },
 
     appBarLogo: {
+      padding: "0.1rem",
+      marginRight: "0.4rem",
       [theme.breakpoints.down(700)]: {
         display: "none",
       },
