@@ -2,13 +2,14 @@ import React from "react";
 import Header from "../components/AppBar";
 import SideBar from "../components/Drawer";
 import Notes from "../components/Notes";
-import { Route } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import Archive from "../components/Archive";
 import Bin from "../components/Bin";
 import Reminder from "../components/Reminder";
 import NoteServices from "../services/NoteServices";
 import "../css/dashboard.css";
 import EditLabelsPopup from "../components/EditLabelsPopup";
+import PrivateRoute from "../components/PrivateRouter";
 
 class Dashboard extends React.Component {
   constructor() {
@@ -145,10 +146,8 @@ class Dashboard extends React.Component {
               labels={this.state.labels}
             ></SideBar>
             <main>
-              <Route
-                exact
-                path="/dashboard/"
-                render={() => (
+              <Switch>
+                <PrivateRoute exact path="/dashboard/">
                   <Notes
                     label={""}
                     showListView={this.state.showListView}
@@ -156,51 +155,44 @@ class Dashboard extends React.Component {
                     labelDetails={this.state.labelDetails}
                     ref={this.notesRef}
                   />
-                )}
-              />
-              <Route
-                exact
-                path="/dashboard/Reminders"
-                render={() => (
+                </PrivateRoute>
+                <PrivateRoute exact path="/dashboard/Reminders">
                   <Reminder
                     showListView={this.state.showListView}
                     searchValue={this.state.searchValue}
                     labelDetails={this.state.labelDetails}
                   />
-                )}
-              />
-              <Route
-                exact
-                path={`/dashboard/Archive`}
-                render={() => (
+                </PrivateRoute>
+                <PrivateRoute exact path={`/dashboard/Archive`}>
                   <Archive
                     showListView={this.state.showListView}
                     labelDetails={this.state.labelDetails}
                   />
-                )}
-              />
-              <Route
-                exact
-                path={`/dashboard/Bin`}
-                render={() => <Bin showListView={this.state.showListView} />}
-              />
-              {this.state.labelDetails.map((label, index) => {
-                return (
-                  <Route
-                    key={index}
-                    exact
-                    path={`/dashboard/label/` + label.label}
-                    render={() => (
+                </PrivateRoute>
+                <PrivateRoute exact path={`/dashboard/Bin`}>
+                  <Bin showListView={this.state.showListView} />
+                </PrivateRoute>
+                {this.state.labelDetails.map((label, index) => {
+                  return (
+                    <PrivateRoute
+                      key={index}
+                      exact
+                      path={`/dashboard/label/` + label.label}
+                    >
                       <Notes
                         label={label.label}
                         searchValue={this.state.searchValue}
                         labelDetails={this.state.labelDetails}
                         showListView={this.state.showListView}
                       />
-                    )}
-                  />
-                );
-              })}
+                    </PrivateRoute>
+                  );
+                })}
+                <Route
+                  path="/dashboard/*"
+                  render={() => <Redirect to="/*" />}
+                />
+              </Switch>
             </main>
           </main>
         </div>

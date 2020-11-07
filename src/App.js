@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { MessageProvider } from "./components/MessageContext";
 import SnackBar from "./components/SnackBar";
 import PrivateRoute from "./components/PrivateRouter";
+import PageNotFound from "./components/PageNotFound";
 
 function App() {
   const messagesList = {
@@ -56,6 +57,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={Login} />
             <PrivateRoute path="/dashboard" component={Dashboard} />
+            <Route path="*" component={PageNotFound} />
           </Switch>
         </Router>
       </div>
