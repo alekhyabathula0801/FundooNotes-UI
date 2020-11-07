@@ -18,11 +18,12 @@ function DisplayNotes(props) {
       justifyContent: "center",
     },
     notesViewList: {
-      width: "100%",
+      width: "auto",
       display: "flex",
       flexWrap: "wrap",
       alignItems: "flex-start",
       justifyContent: !showListView ? "center" : null,
+      margin: "0 -5px",
     },
     notesFirstBlockName: {
       textAlign: !showListView ? "center" : "left",

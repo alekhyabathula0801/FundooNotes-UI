@@ -279,7 +279,7 @@ function Note(props) {
           ? "30rem"
           : "14rem",
       background: color,
-      padding: "0.3rem 0.5rem",
+      padding: "0 5px",
       margin: props.isPopUp ? "0" : "0.8rem",
       boxShadow:
         props.isPopUp || !displayListIcons ? "none" : "1px 1px 4px grey",
@@ -294,17 +294,20 @@ function Note(props) {
             ? "30rem"
             : "14rem",
       },
-      [theme.breakpoints.down(600)]: {
+      [theme.breakpoints.down(650)]: {
         padding: "0.3rem",
         width:
           !showListView && !props.isPopUp
-            ? "85%"
+            ? "90%"
             : props.isPopUp
             ? "400px"
-            : "14rem",
+            : "85%",
       },
       [theme.breakpoints.down(500)]: {
-        width: props.isPopUp ? "90%" : "20rem",
+        width: props.isPopUp ? "350px" : "90%",
+      },
+      [theme.breakpoints.down(420)]: {
+        width: props.isPopUp ? "96%" : "90%",
       },
     },
     noteTitle: {
