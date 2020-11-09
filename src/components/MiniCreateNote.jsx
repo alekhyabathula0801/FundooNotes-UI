@@ -35,12 +35,11 @@ const useStyles = makeStyles((theme) => ({
 function MiniCreateNote(props) {
   const classes = useStyles();
   return (
-    <Paper className={classes.miniCreateNote}>
-      <InputBase
-        placeholder=" Take a note..."
-        fullWidth
-        onClick={() => props.setShowMiniCreateNote()}
-      />
+    <Paper
+      className={classes.miniCreateNote}
+      onClick={() => props.setShowMiniCreateNote()}
+    >
+      <InputBase placeholder=" Take a note..." fullWidth />
       <Tooltip title="New list" placement="bottom">
         <IconButton className={classes.miniCreateNoteIconButton}>
           <CheckBoxOutlinedIcon />
