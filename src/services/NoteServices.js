@@ -1,10 +1,19 @@
 import HttpServices from "./HttpServices";
 import * as noteApiConstants from "../apiConstants/noteApiConstants";
 let baseUrl = process.env.REACT_APP_API_URL;
-let token = "";
-if (localStorage.getItem("token") !== null) {
-  token = localStorage.getItem("token");
-}
+
+let getToken = (() => {
+  let token = "";
+  return () => {
+    if (localStorage.getItem("token") !== null) {
+      token = localStorage.getItem("token");
+    }
+    return token;
+  };
+})();
+
+const token = getToken();
+
 class NoteService {
   addNote(data) {
     return HttpServices.postApiRequest(
