@@ -18,27 +18,8 @@ const Notes = forwardRef((props, ref) => {
   const [searchValue, setSearchValue] = useState(props.searchValue);
 
   useImperativeHandle(ref, () => ({
-    getAllNotes() {
-      setLoading(true);
-      if (props.label !== "") {
-        NoteServices.getNotesByLabel(props.label)
-          .then((response) => {
-            setNotesData(response.data.data.data);
-            setLoading(false);
-          })
-          .catch(() => {
-            setLoading(false);
-          });
-      } else {
-        NoteServices.getAllNotes()
-          .then((response) => {
-            setNotesData(response.data.data.data);
-            setLoading(false);
-          })
-          .catch(() => {
-            setLoading(false);
-          });
-      }
+    getAllNote() {
+      getAllNotes();
     },
   }));
 

@@ -65,7 +65,7 @@ class Dashboard extends React.Component {
       NoteServices.updateLabel(data, labelId)
         .then(() => {
           this.setLabels();
-          this.notesRef.current.getAllNotes();
+          this.notesRef.current.getAllNote();
         })
         .catch((error) => {
           console.log(error);
@@ -77,7 +77,7 @@ class Dashboard extends React.Component {
     NoteServices.deleteLabel(labelId)
       .then(() => {
         this.setLabels();
-        this.notesRef.current.getAllNotes();
+        this.notesRef.current.getAllNote();
       })
       .catch((error) => console.log(error));
   }
