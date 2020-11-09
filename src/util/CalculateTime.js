@@ -34,10 +34,8 @@ const CalculateTime = (date, isCreated) => {
   }
   let timeSection = reminderDate.getHours() + ":" + min;
   const isToday = today.toDateString() === reminderDate.toDateString();
-
   const wasYesterday = yesterday.toDateString() === reminderDate.toDateString();
   const isTomorrow = tomorrow.toDateString() === reminderDate.toDateString();
-
   const timeGotOver = reminderDate < today;
   if (isToday) {
     dateSection = "Today";
@@ -56,4 +54,5 @@ const CalculateTime = (date, isCreated) => {
 
   return [dateSection, timeSection, timeGotOver];
 };
+
 export default CalculateTime;

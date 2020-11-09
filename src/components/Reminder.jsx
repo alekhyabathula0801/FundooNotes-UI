@@ -4,6 +4,7 @@ import DisplayNotes from "./DisplayNotes";
 import NoteServices from "../services/NoteServices";
 import MiniCreateNote from "../components/MiniCreateNote";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import CalculateTime from "../util/CalculateTime";
 
 function Reminder(props) {
   const [showMiniCreateNote, setShowMiniCreateNote] = useState(true);
@@ -52,15 +53,29 @@ function Reminder(props) {
     searchData = notesData;
   }
 
-  const notes = searchData.filter(
-    (notes) =>
-      !notes.isDeleted && !notes.isArchived && notes.reminder.length > 0
-  );
+  let isExpired = (reminderDate) => {
+    const [, , over] = CalculateTime(reminderDate, false);
+    return over;
+  };
+
+  let getReminderNotes = (expired) => {
+    return searchData.filter(
+      (notes) =>
+        !notes.isDeleted &&
+        !notes.isArchived &&
+        notes.reminder.length > 0 &&
+        isExpired(notes.reminder[0]) === expired
+    );
+  };
 
   let notesDetails = [
     {
-      blockName: "Reminder",
-      notesList: notes,
+      blockName: "FIRED",
+      notesList: getReminderNotes(true),
+    },
+    {
+      blockName: "UPCOMING",
+      notesList: getReminderNotes(false),
     },
   ];
 
@@ -76,6 +91,7 @@ function Reminder(props) {
           setShowMiniCreateNote={toogleShowMiniCreateNote}
           showMiniCreateNote={showMiniCreateNote}
           getAllNotes={getAllNotes}
+          labelDetails={props.labelDetails}
         ></CreateNote>
       )}
       {loading ? (
