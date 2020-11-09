@@ -1,0 +1,179 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders Login component 1`] = `
+<DocumentFragment>
+  <div
+    class="fundoo--login"
+  >
+    <h4
+      class="MuiTypography-root logo MuiTypography-h4 MuiTypography-gutterBottom"
+    >
+      <span
+        class="logo__f"
+      >
+        F
+      </span>
+      <span
+        class="logo__u"
+      >
+        u
+      </span>
+      <span
+        class="logo__n"
+      >
+        n
+      </span>
+      <span
+        class="logo__d"
+      >
+        d
+      </span>
+      <span
+        class="logo__o1"
+      >
+        o
+      </span>
+      <span
+        class="logo__o2"
+      >
+        o
+      </span>
+    </h4>
+    <h5
+      class="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom"
+      data-testid="login-sign-in"
+    >
+      Sign in
+    </h5>
+    <h6
+      class="MuiTypography-root MuiTypography-h6 MuiTypography-gutterBottom"
+    >
+      Use your Fundoo Account
+    </h6>
+    <div>
+      <div
+        class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+      >
+        <label
+          class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
+          data-shrink="false"
+          for="outlined-basic"
+          id="outlined-basic-label"
+        >
+          Email
+        </label>
+        <div
+          class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-fullWidth MuiInputBase-formControl"
+        >
+          <input
+            aria-invalid="false"
+            autocomplete="off"
+            class="MuiInputBase-input MuiOutlinedInput-input"
+            id="outlined-basic"
+            name="emailId"
+            type="text"
+            value=""
+          />
+          <fieldset
+            aria-hidden="true"
+            class="PrivateNotchedOutline-root-1 MuiOutlinedInput-notchedOutline"
+          >
+            <legend
+              class="PrivateNotchedOutline-legendLabelled-3"
+            >
+              <span>
+                Email
+              </span>
+            </legend>
+          </fieldset>
+        </div>
+      </div>
+      <div
+        class="MuiFormControl-root MuiFormControl-fullWidth"
+      >
+        <label
+          class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
+          data-shrink="false"
+          for="outlined-adornment-password"
+        >
+          Password
+        </label>
+        <div
+          class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd MuiOutlinedInput-adornedEnd"
+        >
+          <input
+            aria-invalid="false"
+            autocomplete="off"
+            class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
+            id="outlined-adornment-password"
+            name="password"
+            type="password"
+            value=""
+          />
+          <div
+            class="MuiInputAdornment-root MuiInputAdornment-positionEnd"
+          >
+            <button
+              aria-label="toggle password visibility"
+              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-edgeEnd"
+              tabindex="0"
+              type="button"
+            >
+              <span
+                class="MuiIconButton-label"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z"
+                  />
+                </svg>
+              </span>
+              <span
+                class="MuiTouchRipple-root"
+              />
+            </button>
+          </div>
+          <fieldset
+            aria-hidden="true"
+            class="PrivateNotchedOutline-root-1 MuiOutlinedInput-notchedOutline"
+          >
+            <legend
+              class="PrivateNotchedOutline-legendLabelled-3"
+            >
+              <span>
+                Password
+              </span>
+            </legend>
+          </fieldset>
+        </div>
+      </div>
+      <div>
+        <a
+          href="http://fundoonotes.incubation.bridgelabz.com"
+        >
+          Create account
+        </a>
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-contained button-block MuiButton-containedPrimary"
+          tabindex="0"
+          type="submit"
+        >
+          <span
+            class="MuiButton-label"
+          >
+            Login
+          </span>
+          <span
+            class="MuiTouchRipple-root"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

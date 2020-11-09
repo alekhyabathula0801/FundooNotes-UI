@@ -83,7 +83,7 @@ function Login() {
         <span className="logo__o1">o</span>
         <span className="logo__o2">o</span>
       </Typography>
-      <Typography variant="h5" gutterBottom>
+      <Typography variant="h5" gutterBottom data-testid="login-sign-in">
         Sign in
       </Typography>
       <Typography variant="h6" gutterBottom>
