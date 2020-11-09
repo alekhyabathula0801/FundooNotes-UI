@@ -286,6 +286,7 @@ function Note(props) {
       flexDirection: "column",
       border: "1px solid #e0e0e0",
       borderRadius: "0.5rem",
+      transition: " transform 4s",
       [theme.breakpoints.down(960)]: {
         width:
           !showListView && !props.isPopUp
@@ -308,6 +309,9 @@ function Note(props) {
       },
       [theme.breakpoints.down(420)]: {
         width: props.isPopUp ? "96%" : "90%",
+      },
+      "&:hover": {
+        transform: "scale(1.06)",
       },
     },
     noteTitle: {
