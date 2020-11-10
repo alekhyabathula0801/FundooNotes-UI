@@ -73,6 +73,7 @@ function DisplayNotes(props) {
       if (notes.notesList.length > 0) nonEmptyList++;
     });
     if (nonEmptyList === 1) setDisplayBlocksName(false);
+    else setDisplayBlocksName(true);
   };
 
   let getNotes = (notesList) => {
