@@ -18,6 +18,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import AppsOutlinedIcon from "@material-ui/icons/AppsOutlined";
 import { useHistory } from "react-router-dom";
 import MessageContext from "../components/MessageContext";
+import CloseOutlinedIcon from "@material-ui/icons/CloseOutlined";
 
 function Header(props) {
   const message = useContext(MessageContext);
@@ -109,6 +110,17 @@ function Header(props) {
       borderRadius: "0.7rem",
       border: "1px solid #f1f3f4",
       padding: "0 0.2rem",
+      "&:focus-within": {
+        backgroundColor: "#ffffff",
+        boxShadow: "1px 1px 2px grey",
+      },
+      "&:focus-within $searchClose": {
+        display: "block",
+      },
+    },
+
+    searchClose: {
+      display: "none",
     },
 
     appBarRight: {
@@ -199,8 +211,19 @@ function Header(props) {
         <InputBase
           placeholder="Search"
           fullWidth
+          value={props.searchValue}
           onChange={(e) => props.setSearchValue(e.currentTarget.value)}
         />
+        {props.searchValue !== "" ? (
+          <Tooltip title="Clear search" placement="bottom">
+            <IconButton
+              className={classes.searchClose}
+              onClick={() => props.setSearchValue("")}
+            >
+              <CloseOutlinedIcon />
+            </IconButton>
+          </Tooltip>
+        ) : null}
       </div>
       <div className={classes.appBarRight}>
         {props.showListView ? (

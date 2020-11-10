@@ -136,6 +136,7 @@ class Dashboard extends React.Component {
             showListView={this.state.showListView}
             setSearchValue={this.setSearchValue}
             heading={this.state.heading}
+            searchValue={this.state.searchValue}
           ></Header>
           <main>
             <SideBar
