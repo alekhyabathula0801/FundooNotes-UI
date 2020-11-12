@@ -33,6 +33,8 @@ function App() {
     "Note label added Sucessfully": "success",
     "Note Collaborator added Sucessfully": "success",
     "Note Collaborator removed Sucessfully": "success",
+    "Label already exists": "error",
+    "Label cannot be empty": "error",
   };
 
   const [message, setMessage] = useState("");

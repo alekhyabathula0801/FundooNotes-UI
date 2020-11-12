@@ -53,7 +53,6 @@ class Dashboard extends React.PureComponent {
           this.setLabels();
         })
         .catch((error) => console.log(error));
-      console.log(data);
     }
   }
 
@@ -204,6 +203,7 @@ class Dashboard extends React.PureComponent {
           updateLabel={this.updateLabel}
           deleteLabel={this.deleteLabel}
           labelDetails={this.state.labelDetails}
+          labels={this.state.labels}
         />
       </>
     );
