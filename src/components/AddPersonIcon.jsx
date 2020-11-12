@@ -9,7 +9,6 @@ function AddPersonIcon(props) {
 
   let closeCollaboratorPopup = () => {
     setCollaboratorPopup(false);
-    props.getAllNotes();
   };
 
   let openCollaboratorPopup = () => {
@@ -32,6 +31,7 @@ function AddPersonIcon(props) {
         addCollaborator={props.addCollaborator}
         noteCollaborators={props.noteCollaborators}
         removeCollaborator={props.removeCollaborator}
+        getAllNotes={props.getAllNotes}
       />
     </>
   );

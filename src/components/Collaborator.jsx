@@ -165,7 +165,15 @@ function Collaborator(props) {
         </ListItem>
       </List>
       <DialogActions>
-        <Button onClick={() => props.closeCollaboratorPopup()}>Save</Button>
+        <Button onClick={() => props.closeCollaboratorPopup()}>Close</Button>
+        <Button
+          onClick={() => {
+            props.closeCollaboratorPopup();
+            props.getAllNotes();
+          }}
+        >
+          Save
+        </Button>
       </DialogActions>
     </Dialog>
   );
