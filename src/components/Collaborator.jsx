@@ -43,9 +43,6 @@ function Collaborator(props) {
   };
 
   let getSearchListData = (value) => {
-    if (searchWord.length === 0 || value.length === 0) {
-      setSearchWord(value);
-    }
     if (value !== "") {
       NoteServices.searchUserList({ searchWord: value })
         .then((response) => {
@@ -82,6 +79,7 @@ function Collaborator(props) {
                 onClick={() => {
                   props.addCollaborator(user);
                   handleClose();
+                  setSearchWord("");
                 }}
                 key={index}
               >
@@ -156,8 +154,12 @@ function Collaborator(props) {
             placeholder="Search Collaborator"
             margin="normal"
             fullWidth
-            onChange={(e) => getSearchListData(e.currentTarget.value)}
+            onChange={(e) => {
+              setSearchWord(e.currentTarget.value);
+              getSearchListData(e.currentTarget.value);
+            }}
             onClick={searchWord.length > 0 ? handleClick : null}
+            value={searchWord}
           />
           {searchList}
         </ListItem>
