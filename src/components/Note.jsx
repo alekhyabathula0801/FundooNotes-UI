@@ -311,7 +311,7 @@ function Note(props) {
         width: props.isPopUp ? "96%" : "90%",
       },
       "&:hover": {
-        transform: "scale(1.06)",
+        transform: !props.isPopUp ? "scale(1.06)" : null,
       },
     },
     noteTitle: {

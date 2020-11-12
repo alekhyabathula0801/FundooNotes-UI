@@ -200,6 +200,7 @@ function CreateNote(props) {
     const data = new FormData();
     data.append("title", title);
     data.append("description", description);
+    data.append("isPined", isPined);
     data.append("reminder", reminder);
     data.append("isArchived", isArchived);
     data.append("color", color);
