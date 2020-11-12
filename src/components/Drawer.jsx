@@ -96,8 +96,10 @@ function SideBar(props) {
               }
               key={index}
               to={
-                index === 0 || index === sideBarLabels.length - 3
+                index === 0
                   ? "/dashboard"
+                  : index === sideBarLabels.length - 3
+                  ? `${window.location.pathname}`
                   : index > sideBarLabels.length - 3 || index === 1
                   ? `/dashboard/${text}`
                   : `/dashboard/label/${text}`
