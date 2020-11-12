@@ -56,6 +56,14 @@ function MoreIcon(props) {
       keepMounted
       open={Boolean(anchorEl)}
       onClose={handleClose}
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "right",
+      }}
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "left",
+      }}
     >
       {displayLabel ? (
         <MenuList>

@@ -56,6 +56,14 @@ function ColorPalletIcon(props) {
       keepMounted
       open={Boolean(anchorEl)}
       onClose={handleClose}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "left",
+      }}
+      transformOrigin={{
+        vertical: "center",
+        horizontal: "left",
+      }}
     >
       <MenuItem className={classes.colorBox}>
         {colors.map((color, index) => {
