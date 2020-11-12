@@ -11,7 +11,7 @@ import "../css/dashboard.css";
 import EditLabelsPopup from "../components/EditLabelsPopup";
 import PrivateRoute from "../components/PrivateRouter";
 
-class Dashboard extends React.Component {
+class Dashboard extends React.PureComponent {
   constructor() {
     super();
     this.state = {
