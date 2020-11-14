@@ -7,9 +7,14 @@ function DisplayNotes(props) {
   const [showListView, setShowListView] = useState(props.showListView);
   const [open, setOpen] = React.useState(false);
   const [popUpNoteData, setPopUpNoteData] = useState([]);
-  const [displayBlocksName, setDisplayBlocksName] = useState(true);
+  const [numberOfBlocks, setNumberOfBlocks] = useState(1);
 
   const useStyles = makeStyles(() => ({
+    noNotesMessage: {
+      display: numberOfBlocks === 0 ? "block" : "none",
+      fontSize: "1.5rem",
+      opacity: "0.65",
+    },
     notesView: {
       display: "inline-flex",
       width: "100%",
@@ -32,7 +37,7 @@ function DisplayNotes(props) {
       opacity: "0.69",
       padding: "0.5rem 0 0.5rem 0.8rem",
       fontSize: "1.1rem",
-      display: displayBlocksName ? "block" : "none",
+      display: numberOfBlocks > 1 ? "block" : "none",
     },
     notesSecondBlockName: {
       textAlign: !showListView ? "center" : "left",
@@ -41,7 +46,7 @@ function DisplayNotes(props) {
       opacity: "0.97",
       padding: "0.5rem 0 0.5rem 0.8rem",
       fontSize: "1.1rem",
-      display: displayBlocksName ? "block" : "none",
+      display: numberOfBlocks ? "block" : "none",
     },
   }));
 
@@ -72,8 +77,7 @@ function DisplayNotes(props) {
     props.notesDetails.forEach((notes) => {
       if (notes.notesList.length > 0) nonEmptyList++;
     });
-    if (nonEmptyList === 1) setDisplayBlocksName(false);
-    else setDisplayBlocksName(true);
+    setNumberOfBlocks(nonEmptyList);
   };
 
   let getNotes = (notesList) => {
@@ -97,6 +101,7 @@ function DisplayNotes(props) {
 
   return (
     <>
+      <div className={classes.noNotesMessage}>No notes available</div>
       <div className={classes.notesView}>
         {props.notesDetails.map((notesData, index) => {
           return (

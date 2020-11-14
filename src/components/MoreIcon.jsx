@@ -11,10 +11,21 @@ import {
 } from "@material-ui/core";
 import MoreVertOutlinedIcon from "@material-ui/icons/MoreVertOutlined";
 import Tooltip from "@material-ui/core/Tooltip";
+import { makeStyles } from "@material-ui/core/styles";
 
 function MoreIcon(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [displayLabel, setDisplayLabel] = useState(false);
+
+  const useStyles = makeStyles(() => ({
+    moreMenuList: {
+      "&:focus": {
+        outline: "none",
+      },
+    },
+  }));
+
+  const classes = useStyles();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -53,20 +64,20 @@ function MoreIcon(props) {
     <Menu
       id="simple-menu"
       anchorEl={anchorEl}
-      keepMounted
       open={Boolean(anchorEl)}
       onClose={handleClose}
       anchorOrigin={{
-        vertical: "bottom",
+        vertical: "top",
         horizontal: "right",
       }}
       transformOrigin={{
         vertical: "top",
         horizontal: "left",
       }}
+      getContentAnchorEl={null}
     >
       {displayLabel ? (
-        <MenuList>
+        <MenuList className={classes.moreMenuList}>
           {labelsList}
           <MenuItem
             onClick={() => {
@@ -77,7 +88,7 @@ function MoreIcon(props) {
           </MenuItem>
         </MenuList>
       ) : (
-        <MenuList>
+        <MenuList className={classes.moreMenuList}>
           <MenuItem onClick={() => props.deleteNote(true)}>
             Delete note
           </MenuItem>

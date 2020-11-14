@@ -152,7 +152,6 @@ function Collaborator(props) {
           </ListItemAvatar>
           <InputBase
             placeholder="Search Collaborator"
-            margin="normal"
             fullWidth
             onChange={(e) => {
               setSearchWord(e.currentTarget.value);

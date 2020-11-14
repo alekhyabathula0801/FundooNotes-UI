@@ -265,12 +265,13 @@ function Header(props) {
           onClose={handleClose}
           anchorOrigin={{
             vertical: "bottom",
-            horizontal: "center",
+            horizontal: "right",
           }}
           transformOrigin={{
-            vertical: "bottom",
-            horizontal: "center",
+            vertical: "top",
+            horizontal: "right",
           }}
+          getContentAnchorEl={null}
         >
           <List className={classes.profileMenuList}>
             <Avatar

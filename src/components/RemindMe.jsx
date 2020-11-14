@@ -19,9 +19,17 @@ function RemindMeIcon(props) {
     <Menu
       id="simple-menu"
       anchorEl={anchorEl}
-      keepMounted
       open={Boolean(anchorEl)}
       onClose={handleClose}
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "left",
+      }}
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "left",
+      }}
+      getContentAnchorEl={null}
     >
       <MenuItem>
         <DateAndTimePicker

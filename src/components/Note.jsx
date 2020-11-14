@@ -352,7 +352,7 @@ function Note(props) {
       opacity: props.isPopUp ? "0.71" : displayListIcons ? "0.71" : "0",
     },
     notesListIconButtons: {
-      padding: "0.35rem",
+      padding: props.isPopUp ? "0.6rem" : "0.35rem",
     },
     notesTitleInput: {
       fontWeight: "500",
@@ -398,7 +398,7 @@ function Note(props) {
       padding: "0.2rem",
     },
     notesLabelElement: {
-      padding: "0.2rem 0 0.2rem 0.75rem",
+      padding: props.isBin ? "0.2rem 0.75rem" : "0.2rem 0.05rem 0.2rem 0.75rem",
       borderRadius: "1.5rem",
       backgroundColor: "rgba(0,0,0,0.09)",
       margin: "0.2rem",
