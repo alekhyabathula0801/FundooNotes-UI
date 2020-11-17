@@ -104,6 +104,23 @@ function SideBar(props) {
       action: "bin",
     },
   ];
+
+  const getListIcon = (icon) => {
+    switch (icon) {
+      case "notes":
+        return <EmojiObjectsOutlined />;
+      case "reminders":
+        return <NotificationsOutlined />;
+      case "editLabels":
+        return <CreateOutlined />;
+      case "archive":
+        return <ArchiveOutlined />;
+      case "bin":
+        return <DeleteOutlined />;
+      default:
+        return <LabelOutlinedIcon />;
+    }
+  };
   return (
     <div className={classes.sideBar}>
       <div>
@@ -114,7 +131,7 @@ function SideBar(props) {
               onClick={
                 sideBarLabel.action === "editLabels"
                   ? () => props.openEditLabelPopup()
-                  : () => props.setHeading(sideBarLabel.title)
+                  : () => props.setHeading(sideBarLabel)
               }
               key={index}
               to={
@@ -131,26 +148,15 @@ function SideBar(props) {
                 button
                 key={index}
                 className={
-                  props.heading === sideBarLabel.title
+                  props.heading.title === sideBarLabel.title &&
+                  props.heading.action === sideBarLabel.action
                     ? classes.sideBarLabelSelected
                     : classes.sideBarLabel
                 }
               >
                 <Tooltip title={sideBarLabel.title} placement="bottom-end">
                   <ListItemIcon className={classes.sideBarIcon}>
-                    {sideBarLabel.action === "notes" ? (
-                      <EmojiObjectsOutlined />
-                    ) : sideBarLabel.action === "reminders" ? (
-                      <NotificationsOutlined />
-                    ) : sideBarLabel.action === "editLabels" ? (
-                      <CreateOutlined />
-                    ) : sideBarLabel.action === "archive" ? (
-                      <ArchiveOutlined />
-                    ) : sideBarLabel.action === "bin" ? (
-                      <DeleteOutlined />
-                    ) : (
-                      <LabelOutlinedIcon />
-                    )}
+                    {getListIcon(sideBarLabel.action)}
                   </ListItemIcon>
                 </Tooltip>
                 <ListItem className={classes.sideBarLabelText}>

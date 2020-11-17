@@ -187,7 +187,7 @@ function Header(props) {
             <MenuIcon />
           </IconButton>
         </Tooltip>
-        {props.heading === "Notes" ? (
+        {props.heading.title === "Notes" && props.heading.action === "notes" ? (
           <>
             <IconButton className={classes.appBarLogo}>
               <img src={logo} alt="logo" width="35rem" />
@@ -198,7 +198,7 @@ function Header(props) {
           </>
         ) : (
           <Typography variant="h6" className={classes.appBarHeading}>
-            {props.heading}
+            {props.heading.title}
           </Typography>
         )}
       </div>
