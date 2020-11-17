@@ -74,69 +74,88 @@ function SideBar(props) {
     },
   }));
   const classes = useStyles();
+  let labels = [];
+  props.labels.forEach((label, index) => {
+    labels[index] = {
+      title: label,
+      action: "label",
+    };
+  });
   const sideBarLabels = [
-    "Notes",
-    "Reminders",
-    ...props.labels,
-    "Edit labels",
-    "Archive",
-    "Bin",
+    {
+      title: "Notes",
+      action: "notes",
+    },
+    {
+      title: "Reminders",
+      action: "reminders",
+    },
+    ...labels,
+    {
+      title: "Edit labels",
+      action: "editLabels",
+    },
+    {
+      title: "Archive",
+      action: "archive",
+    },
+    {
+      title: "Bin",
+      action: "bin",
+    },
   ];
   return (
     <div className={classes.sideBar}>
       <div>
         <List>
-          {sideBarLabels.map((text, index) => (
+          {sideBarLabels.map((sideBarLabel, index) => (
             <Link
               className={classes.sideBarLink}
               onClick={
-                index === sideBarLabels.length - 3
+                sideBarLabel.action === "editLabels"
                   ? () => props.openEditLabelPopup()
-                  : null
+                  : () => props.setHeading(sideBarLabel.title)
               }
               key={index}
               to={
-                index === 0
+                sideBarLabel.action === "notes"
                   ? "/dashboard"
-                  : index === sideBarLabels.length - 3
+                  : sideBarLabel.action === "editLabels"
                   ? `${window.location.pathname}`
-                  : index > sideBarLabels.length - 3 || index === 1
-                  ? `/dashboard/${text}`
-                  : `/dashboard/label/${text}`
+                  : sideBarLabel.action !== "label"
+                  ? `/dashboard/${sideBarLabel.title}`
+                  : `/dashboard/label/${sideBarLabel.title}`
               }
             >
               <ListItem
                 button
                 key={index}
-                onClick={
-                  index !== sideBarLabels.length - 3
-                    ? () => props.setHeading(text)
-                    : null
-                }
                 className={
-                  props.heading === text
+                  props.heading === sideBarLabel.title
                     ? classes.sideBarLabelSelected
                     : classes.sideBarLabel
                 }
               >
-                <Tooltip title={text} placement="bottom-end">
+                <Tooltip title={sideBarLabel.title} placement="bottom-end">
                   <ListItemIcon className={classes.sideBarIcon}>
-                    {index === 0 ? (
+                    {sideBarLabel.action === "notes" ? (
                       <EmojiObjectsOutlined />
-                    ) : index === 1 ? (
+                    ) : sideBarLabel.action === "reminders" ? (
                       <NotificationsOutlined />
-                    ) : index === sideBarLabels.length - 3 ? (
+                    ) : sideBarLabel.action === "editLabels" ? (
                       <CreateOutlined />
-                    ) : index === sideBarLabels.length - 2 ? (
+                    ) : sideBarLabel.action === "archive" ? (
                       <ArchiveOutlined />
-                    ) : index === sideBarLabels.length - 1 ? (
+                    ) : sideBarLabel.action === "bin" ? (
                       <DeleteOutlined />
                     ) : (
                       <LabelOutlinedIcon />
                     )}
                   </ListItemIcon>
                 </Tooltip>
-                <ListItem className={classes.sideBarLabelText}>{text}</ListItem>
+                <ListItem className={classes.sideBarLabelText}>
+                  {sideBarLabel.title}
+                </ListItem>
               </ListItem>
             </Link>
           ))}
