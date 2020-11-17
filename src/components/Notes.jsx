@@ -3,14 +3,17 @@ import React, {
   useEffect,
   forwardRef,
   useImperativeHandle,
+  useContext,
 } from "react";
 import CreateNote from "./CreateNote";
 import DisplayNotes from "./DisplayNotes";
 import NoteServices from "../services/NoteServices";
 import MiniCreateNote from "./MiniCreateNote";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import MessageContext from "./MessageContext";
 
 const Notes = forwardRef((props, ref) => {
+  const message = useContext(MessageContext);
   const [showMiniCreateNote, setShowMiniCreateNote] = useState(true);
   const [notesData, setNotesData] = useState([]);
   const [showListView, setShowListView] = useState(props.showListView);
@@ -32,24 +35,30 @@ const Notes = forwardRef((props, ref) => {
   }, [props.showListView]);
 
   let getAllNotes = (load = false) => {
-    setLoading(load);
+    if (load) setLoading(load);
     if (props.label !== "") {
       NoteServices.getNotesByLabel(props.label)
         .then((response) => {
           setNotesData(response.data.data.data);
-          setLoading(false);
         })
         .catch(() => {
-          setLoading(false);
+          message.setMessage("Some Error Occured while processing request");
+          message.setSnackBar(true);
+        })
+        .finally(() => {
+          if (load) setLoading(false);
         });
     } else {
       NoteServices.getAllNotes()
         .then((response) => {
           setNotesData(response.data.data.data);
-          setLoading(false);
         })
         .catch(() => {
-          setLoading(false);
+          message.setMessage("Some Error Occured while processing request");
+          message.setSnackBar(true);
+        })
+        .finally(() => {
+          if (load) setLoading(false);
         });
     }
   };

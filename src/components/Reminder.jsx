@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import CreateNote from "../components/CreateNote";
 import DisplayNotes from "./DisplayNotes";
 import NoteServices from "../services/NoteServices";
 import MiniCreateNote from "../components/MiniCreateNote";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import CalculateTime from "../util/CalculateTime";
+import MessageContext from "./MessageContext";
 
 function Reminder(props) {
+  const message = useContext(MessageContext);
   const [showMiniCreateNote, setShowMiniCreateNote] = useState(true);
   const [notesData, setNotesData] = useState([]);
   const [showListView, setShowListView] = useState(props.showListView);
@@ -22,15 +24,17 @@ function Reminder(props) {
   }, [props.showListView]);
 
   let getAllNotes = (load = false) => {
-    setLoading(load);
+    if (load) setLoading(load);
     NoteServices.getAllNotes()
       .then((response) => {
         setNotesData(response.data.data.data);
-        setLoading(false);
       })
-      .catch((err) => {
-        console.log(err);
-        setLoading(false);
+      .catch(() => {
+        message.setMessage("Some Error Occured while processing request");
+        message.setSnackBar(true);
+      })
+      .finally(() => {
+        if (load) setLoading(false);
       });
   };
 

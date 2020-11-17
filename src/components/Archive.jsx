@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import DisplayNotes from "./DisplayNotes";
 import NoteServices from "../services/NoteServices";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import MessageContext from "./MessageContext";
 
 function Archive(props) {
+  const message = useContext(MessageContext);
   const [notesData, setNotesData] = useState([]);
   const [showListView, setShowListView] = useState(props.showListView);
   const [loading, setLoading] = useState(false);
@@ -13,14 +15,17 @@ function Archive(props) {
   }, [props.showListView]);
 
   let getAllArchiveNotes = (load = false) => {
-    setLoading(load);
+    if (load) setLoading(load);
     NoteServices.getAllArchiveNotes()
       .then((response) => {
-        setLoading(false);
         setNotesData(response.data.data.data);
       })
       .catch(() => {
-        setLoading(false);
+        message.setMessage("Some Error Occured while processing request");
+        message.setSnackBar(true);
+      })
+      .finally(() => {
+        if (load) setLoading(false);
       });
   };
 
