@@ -34,15 +34,11 @@ function CreateNote(props) {
   const [noteLabels, setNoteLabels] = useState([]);
   const [noteCollaborators, setNoteCollaborators] = useState([]);
 
-  let dateSection = "";
-  let timeSection = "";
   let timeGotOver = "";
   let reminderTime = "";
 
   if (reminder !== "") {
     const [date, time, over] = CalculateTime(reminder, true);
-    dateSection = date;
-    timeSection = time;
     timeGotOver = over;
     reminderTime = date + ", " + time;
   }

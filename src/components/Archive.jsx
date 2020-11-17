@@ -31,7 +31,7 @@ function Archive(props) {
 
   useEffect(() => {
     getAllArchiveNotes(true);
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const notes = notesData.filter(
     (notes) => !notes.isPined && !notes.isDeleted && notes.isArchived

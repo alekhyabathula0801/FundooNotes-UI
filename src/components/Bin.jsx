@@ -31,7 +31,7 @@ function Bin(props) {
 
   useEffect(() => {
     getAllDeletedNotes(true);
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   let notesDetails = [
     {

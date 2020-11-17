@@ -36,26 +36,24 @@ function Note(props) {
     props.data.collaborators
   );
 
-  let dateSection = "";
-  let timeSection = "";
   let timeGotOver = "";
   let reminderTime = "";
 
   if (reminder.length > 0) {
     const [date, time, over] = CalculateTime(reminder[0], false);
-    dateSection = date;
-    timeSection = time;
     timeGotOver = over;
     reminderTime = date + ", " + time;
   }
 
-  useEffect(() => {
+  let removeDeletedLabels = () => {
     props.data.noteLabels
       .filter((label) => label.isDeleted)
       .forEach((element) => {
         removeLabelFromNote(element.id);
       });
-  }, [props.data.noteLabels]);
+  };
+
+  useEffect(removeDeletedLabels, [props.data.noteLabels]);
 
   useEffect(() => {
     setShowListView(props.showListView);
@@ -181,7 +179,6 @@ function Note(props) {
     NoteServices.removeLabelFromNote(labelId, noteId)
       .then(() => {
         setNoteLabels(noteLabels.filter((label) => label.id !== labelId));
-        props.getAllNotes();
       })
       .catch(() => {
         message.setMessage("Some Error Occured while processing request");
@@ -198,7 +195,6 @@ function Note(props) {
           ...noteLabels,
           props.labelDetails.find((label) => label.id === labelId),
         ]);
-        props.getAllNotes();
       })
       .catch(() => {
         message.setMessage("Some Error Occured while processing request");

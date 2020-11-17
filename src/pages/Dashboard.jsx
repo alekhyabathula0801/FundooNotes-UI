@@ -9,7 +9,6 @@ import Reminder from "../components/Reminder";
 import NoteServices from "../services/NoteServices";
 import "../css/dashboard.css";
 import EditLabelsPopup from "../components/EditLabelsPopup";
-import PrivateRoute from "../components/PrivateRouter";
 
 class Dashboard extends React.PureComponent {
   constructor() {
@@ -162,45 +161,60 @@ class Dashboard extends React.PureComponent {
             ></SideBar>
             <main>
               <Switch>
-                <PrivateRoute exact path="/dashboard/">
-                  <Notes
-                    label={""}
-                    showListView={this.state.showListView}
-                    searchValue={this.state.searchValue}
-                    labelDetails={this.state.labelDetails}
-                    ref={this.notesRef}
-                  />
-                </PrivateRoute>
-                <PrivateRoute exact path="/dashboard/Reminders">
-                  <Reminder
-                    showListView={this.state.showListView}
-                    searchValue={this.state.searchValue}
-                    labelDetails={this.state.labelDetails}
-                  />
-                </PrivateRoute>
-                <PrivateRoute exact path={`/dashboard/Archive`}>
-                  <Archive
-                    showListView={this.state.showListView}
-                    labelDetails={this.state.labelDetails}
-                  />
-                </PrivateRoute>
-                <PrivateRoute exact path={`/dashboard/Bin`}>
-                  <Bin showListView={this.state.showListView} />
-                </PrivateRoute>
+                <Route
+                  exact
+                  path="/dashboard/"
+                  render={() => (
+                    <Notes
+                      label={""}
+                      showListView={this.state.showListView}
+                      searchValue={this.state.searchValue}
+                      labelDetails={this.state.labelDetails}
+                      ref={this.notesRef}
+                    />
+                  )}
+                />
+                <Route
+                  exact
+                  path="/dashboard/Reminders"
+                  render={() => (
+                    <Reminder
+                      showListView={this.state.showListView}
+                      searchValue={this.state.searchValue}
+                      labelDetails={this.state.labelDetails}
+                    />
+                  )}
+                />
+                <Route
+                  exact
+                  path="/dashboard/Archive"
+                  render={() => (
+                    <Archive
+                      showListView={this.state.showListView}
+                      labelDetails={this.state.labelDetails}
+                    />
+                  )}
+                />
+                <Route
+                  exact
+                  path="/dashboard/Bin"
+                  render={() => <Bin showListView={this.state.showListView} />}
+                />
                 {this.state.labelDetails.map((label, index) => {
                   return (
-                    <PrivateRoute
+                    <Route
                       key={index}
                       exact
                       path={`/dashboard/label/` + label.label}
-                    >
-                      <Notes
-                        label={label.label}
-                        searchValue={this.state.searchValue}
-                        labelDetails={this.state.labelDetails}
-                        showListView={this.state.showListView}
-                      />
-                    </PrivateRoute>
+                      render={() => (
+                        <Notes
+                          label={label.label}
+                          searchValue={this.state.searchValue}
+                          labelDetails={this.state.labelDetails}
+                          showListView={this.state.showListView}
+                        />
+                      )}
+                    />
                   );
                 })}
                 <Route

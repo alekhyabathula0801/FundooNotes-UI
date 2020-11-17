@@ -53,10 +53,6 @@ function DisplayNotes(props) {
   const classes = useStyles();
 
   useEffect(() => {
-    findNonEmptyList();
-  }, [props.notesDetails]);
-
-  useEffect(() => {
     setShowListView(props.showListView);
   }, [props.showListView]);
 
@@ -79,6 +75,8 @@ function DisplayNotes(props) {
     });
     setNumberOfBlocks(nonEmptyList);
   };
+
+  useEffect(findNonEmptyList, [props.notesDetails]);
 
   let getNotes = (notesList) => {
     return Object.values(notesList)

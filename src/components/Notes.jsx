@@ -69,7 +69,7 @@ const Notes = forwardRef((props, ref) => {
 
   useEffect(() => {
     getAllNotes(true);
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   let searchData = [];
   if ((searchValue !== "") & (searchValue !== null)) {
