@@ -31,8 +31,8 @@ const Notes = forwardRef((props, ref) => {
     setShowListView(props.showListView);
   }, [props.showListView]);
 
-  let getAllNotes = () => {
-    setLoading(true);
+  let getAllNotes = (load = false) => {
+    setLoading(load);
     if (props.label !== "") {
       NoteServices.getNotesByLabel(props.label)
         .then((response) => {
@@ -59,7 +59,7 @@ const Notes = forwardRef((props, ref) => {
   };
 
   useEffect(() => {
-    getAllNotes();
+    getAllNotes(true);
   }, []);
 
   let searchData = [];

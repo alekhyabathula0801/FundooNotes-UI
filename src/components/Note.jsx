@@ -181,6 +181,7 @@ function Note(props) {
     NoteServices.removeLabelFromNote(labelId, noteId)
       .then(() => {
         setNoteLabels(noteLabels.filter((label) => label.id !== labelId));
+        props.getAllNotes();
       })
       .catch(() => {
         message.setMessage("Some Error Occured while processing request");
@@ -197,6 +198,7 @@ function Note(props) {
           ...noteLabels,
           props.labelDetails.find((label) => label.id === labelId),
         ]);
+        props.getAllNotes();
       })
       .catch(() => {
         message.setMessage("Some Error Occured while processing request");

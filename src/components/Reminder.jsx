@@ -21,8 +21,8 @@ function Reminder(props) {
     setShowListView(props.showListView);
   }, [props.showListView]);
 
-  let getAllNotes = () => {
-    setLoading(true);
+  let getAllNotes = (load = false) => {
+    setLoading(load);
     NoteServices.getAllNotes()
       .then((response) => {
         setNotesData(response.data.data.data);
@@ -39,7 +39,7 @@ function Reminder(props) {
   };
 
   useEffect(() => {
-    getAllNotes();
+    getAllNotes(true);
   }, []);
 
   let searchData = [];

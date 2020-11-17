@@ -77,16 +77,7 @@ function MoreIcon(props) {
       getContentAnchorEl={null}
     >
       {displayLabel ? (
-        <MenuList className={classes.moreMenuList}>
-          {labelsList}
-          <MenuItem
-            onClick={() => {
-              props.getAllNotes();
-            }}
-          >
-            Save
-          </MenuItem>
-        </MenuList>
+        <MenuList className={classes.moreMenuList}>{labelsList}</MenuList>
       ) : (
         <MenuList className={classes.moreMenuList}>
           <MenuItem onClick={() => props.deleteNote(true)}>

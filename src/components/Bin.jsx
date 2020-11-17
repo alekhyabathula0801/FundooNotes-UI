@@ -12,8 +12,8 @@ function Bin(props) {
     setShowListView(props.showListView);
   }, [props.showListView]);
 
-  let getAllDeletedNotes = () => {
-    setLoading(true);
+  let getAllDeletedNotes = (load = false) => {
+    setLoading(load);
     NoteServices.getAllDeletedNotes()
       .then((response) => {
         setLoading(false);
@@ -26,7 +26,7 @@ function Bin(props) {
   };
 
   useEffect(() => {
-    getAllDeletedNotes();
+    getAllDeletedNotes(true);
   }, []);
 
   let notesDetails = [

@@ -12,8 +12,8 @@ function Archive(props) {
     setShowListView(props.showListView);
   }, [props.showListView]);
 
-  let getAllArchiveNotes = () => {
-    setLoading(true);
+  let getAllArchiveNotes = (load = false) => {
+    setLoading(load);
     NoteServices.getAllArchiveNotes()
       .then((response) => {
         setLoading(false);
@@ -25,7 +25,7 @@ function Archive(props) {
   };
 
   useEffect(() => {
-    getAllArchiveNotes();
+    getAllArchiveNotes(true);
   }, []);
 
   const notes = notesData.filter(
